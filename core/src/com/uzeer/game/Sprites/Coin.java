@@ -18,7 +18,7 @@ import com.uzeer.game.Screens.PlayScreen;
 
 public class Coin extends InteractiveTileObject{
 
-    public Coin(PlayScreen screen, Rectangle bounds, int value) {
+    public Coin(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
         fixture.setUserData(this);
         setCategoryFilter(FunGame.COIN_BIT);
@@ -31,6 +31,6 @@ public class Coin extends InteractiveTileObject{
         setCategoryFilter(FunGame.DESTROYED_BIT);
         getCell().setTile(null);
         Hud.addScore(500);
-        FunGame.manager.get("sounds/coin.wav", Sound.class).play();
+       // FunGame.manager.get("sounds/coin.wav", Sound.class).play();
     }
 }

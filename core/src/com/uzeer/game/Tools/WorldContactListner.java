@@ -35,7 +35,7 @@ public class WorldContactListner implements ContactListener {
                 ((InteractiveTileObject) object.getUserData()).bodyHit();
             }
         }
-
+                //hahaha
         switch (cDef){
             case FunGame.ENEMY_HEAD_BIT | FunGame.PLAYER_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_HEAD_BIT)
@@ -67,9 +67,11 @@ public class WorldContactListner implements ContactListener {
                 break;
             case FunGame.PLAYER_BIT | FunGame.OBJECT_HEAD_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    ((InteractiveTileObject)fixA.getUserData()).bodyHit();
+                    Gdx.app.log("Boxes Man", "Finally");
+                    //((InteractiveTileObject)fixA.getUserData()).bodyHit();
                 else
-                    ((InteractiveTileObject)fixB.getUserData()).bodyHit();
+                    Gdx.app.log("Boxes Man", "Finally");
+                   // ((InteractiveTileObject)fixB.getUserData()).bodyHit();
                 break;
         }
     }

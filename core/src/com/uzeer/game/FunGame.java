@@ -48,6 +48,7 @@ public class FunGame extends Game {
 		manager.load("sounds/what are you buying.mp3", Sound.class);
 		manager.load("sounds/what are you selling.mp3", Sound.class);
 		manager.load("sounds/coin.wav", Sound.class);
+		manager.load("sounds/is that all stranger.mp3", Sound.class);
 		manager.finishLoading();
 
         setScreen(new PlayScreen(this));

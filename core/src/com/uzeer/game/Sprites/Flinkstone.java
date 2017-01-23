@@ -1,5 +1,6 @@
 package com.uzeer.game.Sprites;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -156,5 +157,6 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
+        FunGame.manager.get("sounds/fire.mp3", Sound.class).play();
     }
 }

@@ -29,7 +29,7 @@ public class Fire extends InteractiveTileObject {
     public Array<StaticTiledMapTile> staticTiledMapTile;
     private static TiledMapTileSet tileSet;
 
-    public Fire(PlayScreen screen, Rectangle bounds, int value) {
+    public Fire(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
 
         fixture.setUserData(this);
@@ -70,7 +70,7 @@ public class Fire extends InteractiveTileObject {
         Gdx.app.log("Fire Touch", "Die Ha Ha!");
         int touch = 0;
         touch++;
-        FunGame.manager.get("sounds/fire.mp3", Sound.class).play();
+        FunGame.manager.get("sounds/is that all stranger.mp3", Sound.class).play();
         //setCategoryFilter(FunGame.DESTROYED_BIT);
         //getCell().setTile(null);
         Hud.addScore(-1000);

@@ -52,7 +52,7 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Coin(screen, rect, 1);
+            new Coin(screen, rect, "Coins");
         }
 
         //This is for Breaking Boxes Layer # 4
@@ -67,13 +67,13 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
             fdef.shape = shape;
             body.createFixture(fdef); */
-            new Boxes(screen, rect, 2);
+            new Boxes(screen, rect, "Boxes");
         }
         //This is for Fire Layer # 5
         for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            new Fire(screen, rect, 3);
+            new Fire(screen, rect, "Fire");
 
         }
         //This is for Power Up's Layer # 6

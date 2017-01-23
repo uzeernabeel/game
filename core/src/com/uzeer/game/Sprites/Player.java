@@ -196,5 +196,12 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData("head");  */
     }
 
+    public boolean IsPlayerOnGround(){
+        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
+            return false;
+        else
+            return true;
+    }
+
 
 }

@@ -41,7 +41,7 @@ public abstract class InteractiveTileObject {
     protected FixtureDef fixtureDef;
     protected Segment line;
 
-    public InteractiveTileObject(PlayScreen screen, Rectangle bounds, int value){
+    public InteractiveTileObject(PlayScreen screen, Rectangle bounds, String value){
         this.world = screen.getWorld();
         this.map = screen.getMap();
         this.bounds = bounds;
@@ -58,17 +58,18 @@ public abstract class InteractiveTileObject {
         shape.setAsBox(bounds.getWidth() / 2 / FunGame.PPM, bounds.getHeight() / 2 / FunGame.PPM);
         fdef.shape = shape;
 
-        if(value == 2) {
+        if(value == "Boxes") {
             fdef.filter.categoryBits = FunGame.OBJECT_BIT;
             fixtureDef = new FixtureDef();
             head = new EdgeShape();
            // line = new Segment(body.getPosition().x - 22 / FunGame.PPM, body.getPosition().x + 22 / FunGame.PPM, 0,
               //      body.getPosition().x + 22 / FunGame.PPM, body.getPosition().x + 22 / FunGame.PPM, 0);
-            head.set(new Vector2(-11 / FunGame.PPM,  11 / FunGame.PPM),
-                    new Vector2(11/ FunGame.PPM,  11 / FunGame.PPM));
+            head.set(new Vector2(-11 / FunGame.PPM,  12 / FunGame.PPM),
+                    new Vector2(11/ FunGame.PPM,  12 / FunGame.PPM));
 
             fixtureDef.shape = head;
             fixtureDef.filter.categoryBits = FunGame.OBJECT_HEAD_BIT;
+            fixtureDef.restitution = 0.4f;
             fixtureDef.isSensor = true;
 
             body.createFixture(fixtureDef).setUserData(this);
@@ -77,12 +78,13 @@ public abstract class InteractiveTileObject {
 
         }
 
-        else if (value == 1)
+        else if (value == "Coins")
             fdef.isSensor = true;
 
-        else if(value == 3) {
-
+        else if(value == "Fire") {
+            fdef.restitution = 0.8f;
         }
+
         fixture = body.createFixture(fdef);
     }
 

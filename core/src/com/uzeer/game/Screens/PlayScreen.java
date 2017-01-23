@@ -54,6 +54,7 @@ public class PlayScreen implements Screen {
     private B2WorldCreator creator;
 
     private Music music;
+    private boolean playerIsTouchingTheGround;
 
     public PlayScreen(FunGame game) {
        //atlas = new TextureAtlas("sprite sheet.pack");
@@ -74,12 +75,11 @@ public class PlayScreen implements Screen {
 
         player = new Player(this);
 
-
         creator = new B2WorldCreator(this);
 
         world.setContactListener(new WorldContactListner());
 
-        FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+       // FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/game background2.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
@@ -112,11 +112,15 @@ public class PlayScreen implements Screen {
 
         gamecam.update();
         renderer.setView(gamecam);
+
+
     }
 
     private void handleInput(float dt) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
-           player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+       // if ((player.IsPlayerOnGround())) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+       // }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
             player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)

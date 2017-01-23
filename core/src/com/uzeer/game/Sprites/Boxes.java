@@ -16,7 +16,7 @@ public class Boxes extends InteractiveTileObject {
 
     private Player player;
 
-    public Boxes(PlayScreen screen, Rectangle bounds, int value) {
+    public Boxes(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
     }
 
@@ -30,7 +30,4 @@ public class Boxes extends InteractiveTileObject {
         player.b2body.applyLinearImpulse(new Vector2(0, 2f), player.b2body.getWorldCenter(), true);
     }
 
-    public void littleJump(){
-
-    }
 }
