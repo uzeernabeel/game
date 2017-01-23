@@ -28,6 +28,8 @@ import java.util.Iterator;
  * Created by Uzeer on 12/26/2016.
  */
 
+//successfully shared the project on the github to work from work ha!
+
 public abstract class InteractiveTileObject {
     protected World world;
     protected TiledMap map;
