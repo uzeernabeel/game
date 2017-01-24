@@ -3,6 +3,7 @@ package com.uzeer.game.Sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -25,7 +27,7 @@ import com.uzeer.game.Screens.PlayScreen;
 public class Player extends Sprite {
 
 
-    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING };
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD };
     public State currentState;
     public State previousState;
     public World world;
@@ -33,6 +35,7 @@ public class Player extends Sprite {
     private TextureRegion playerStand;
     private TextureRegion playerFalling;
     private TextureRegion playerDuck;
+    private TextureRegion playerIsDead;
     private Animation playerRun;
     private Animation playerJump;
     private Animation playerKick;
@@ -40,6 +43,7 @@ public class Player extends Sprite {
     private boolean runningRight;
     protected Fixture fixture;
     private boolean timeToRedefinePlayer;
+    private boolean playerDead;
 
     public Player(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
@@ -50,6 +54,7 @@ public class Player extends Sprite {
         runningRight = true;
 
         timeToRedefinePlayer = false;
+        playerDead = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -93,6 +98,9 @@ public class Player extends Sprite {
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
+
+        playerIsDead = new TextureRegion(getTexture(), 189, 684, 35, 40);
+
         playerFalling = new TextureRegion(getTexture(), 329, 306, 38, 68);
 
         definePlayer();
@@ -102,10 +110,8 @@ public class Player extends Sprite {
     }
 
     public void update(float dt){
-        setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
-        setRegion(getFrame(dt));
-        if(timeToRedefinePlayer)
-            timeToRedefinePlayer();
+            setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
+            setRegion(getFrame(dt));
     }
 
 
@@ -122,6 +128,9 @@ public class Player extends Sprite {
                 break;
             case FALLING:
                 region = playerFalling;
+                break;
+            case DEAD:
+                region = playerIsDead;
                 break;
             case STANDING:
             default:
@@ -145,7 +154,9 @@ public class Player extends Sprite {
 
 
     private State getState() {
-        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
+        if(playerDead)
+            return State.DEAD;
+        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
             return State.JUMPING;
         else if(b2body.getLinearVelocity().y < 0)
             return State.FALLING;
@@ -184,6 +195,8 @@ public class Player extends Sprite {
         b2body.createFixture(fdef).setUserData(this);
 
 
+
+
        // b2body.createFixture(fdef).setUserData(this);
 
        /* PolygonShape body = new PolygonShape();
@@ -207,13 +220,43 @@ public class Player extends Sprite {
             return true;
     }
 
+    int num = 0;
+
     public void hit() {
-        timeToRedefinePlayer = true;
-        Gdx.app.log("hit by Enemy", "ha!");
+        num++;
+        if(num == 1) {
+            Gdx.app.log("hit by Enemy: ", "1");
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+        }
+        if(num == 2) {
+            Gdx.app.log("hit by Enemy: ", "2");
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+        }
+        if(num == 3) {
+            Gdx.app.log("hit by Enemy: ", "3");
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+        }
+        if(num > 3) {
+            playerDead = true;
+            Gdx.app.log("hit by Enemy: ", "Dead!");
+            Filter filter = new Filter();
+            filter.maskBits = FunGame.NOTHING_BIT;
+            for(Fixture fixture: b2body.getFixtureList())
+                fixture.setFilterData(filter);
+            b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+        }
     }
 
     private void timeToRedefinePlayer() {
         //Gdx.app.log("hit by Enemy", "ha!");
+    }
+
+    public boolean isDead(){
+        return playerDead;
+    }
+
+    public float getStateTimer(){
+        return stateTimer;
     }
 
 
