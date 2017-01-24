@@ -59,20 +59,29 @@ public abstract class InteractiveTileObject {
         fdef.shape = shape;
 
         if(value == "Boxes") {
-            fdef.filter.categoryBits = FunGame.OBJECT_BIT;
+           /* fdef.filter.categoryBits = FunGame.OBJECT_BIT;
             fixtureDef = new FixtureDef();
-            head = new EdgeShape();
+
            // line = new Segment(body.getPosition().x - 22 / FunGame.PPM, body.getPosition().x + 22 / FunGame.PPM, 0,
               //      body.getPosition().x + 22 / FunGame.PPM, body.getPosition().x + 22 / FunGame.PPM, 0);
-            head.set(new Vector2(-11 / FunGame.PPM,  12 / FunGame.PPM),
-                    new Vector2(11/ FunGame.PPM,  12 / FunGame.PPM));
 
-            fixtureDef.shape = head;
+              */
+            head = new EdgeShape();
+            head.set(new Vector2(-10 / FunGame.PPM,  11 / FunGame.PPM),
+                    new Vector2(10/ FunGame.PPM,  11 / FunGame.PPM));
+
+            fdef.shape = head;
+            fdef.restitution = 0.7f;
+            fdef.filter.categoryBits = FunGame.OBJECT_BIT;
+
+            /*fixtureDef.shape = head;
             fixtureDef.filter.categoryBits = FunGame.OBJECT_HEAD_BIT;
             fixtureDef.restitution = 0.4f;
-            fixtureDef.isSensor = true;
+            fixtureDef.isSensor = true;*/
 
-            body.createFixture(fixtureDef).setUserData(this);
+
+
+           //body.createFixture(fixtureDef).setUserData(this);
             //PolygonShape objectHead = new PolygonShape();  // Start editing here to get a bounce when player hit the head of box.
             //objectHead.setAsBox(2, 0);
 

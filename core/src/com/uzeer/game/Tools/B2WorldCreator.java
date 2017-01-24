@@ -59,7 +59,7 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-           /* bdef.type = BodyDef.BodyType.StaticBody;
+           /*bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / FunGame.PPM, (rect.getY() + rect.getHeight() / 2) / FunGame.PPM);
 
             body = world.createBody(bdef);

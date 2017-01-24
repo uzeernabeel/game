@@ -11,9 +11,6 @@ import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.InteractiveTileObject;
 import com.uzeer.game.Sprites.Player;
 
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
-
 /**
  * Created by Uzeer on 12/27/2016.
  */
@@ -65,14 +62,25 @@ public class WorldContactListner implements ContactListener {
                 else
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
-            case FunGame.PLAYER_BIT | FunGame.OBJECT_HEAD_BIT:
+            case FunGame.PLAYER_BIT | FunGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
                     Gdx.app.log("Boxes Man", "Finally");
-                    //((InteractiveTileObject)fixA.getUserData()).bodyHit();
                 else
                     Gdx.app.log("Boxes Man", "Finally");
-                   // ((InteractiveTileObject)fixB.getUserData()).bodyHit();
                 break;
+            case FunGame.PLAYER_BIT | FunGame.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                    ((Player)fixA.getUserData()).hit();
+                else
+                    ((Player)fixB.getUserData()).hit();
+                break;
+            case FunGame.PLAYER_BIT | FunGame.COIN_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixB.getUserData()).bodyHit();
+                else
+                    ((InteractiveTileObject) fixA.getUserData()).bodyHit();
+                break;
+
         }
     }
 

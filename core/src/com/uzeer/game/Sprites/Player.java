@@ -49,6 +49,7 @@ public class Player extends Sprite {
         stateTimer = 0f;
         runningRight = true;
 
+        timeToRedefinePlayer = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -103,6 +104,8 @@ public class Player extends Sprite {
     public void update(float dt){
         setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
         setRegion(getFrame(dt));
+        if(timeToRedefinePlayer)
+            timeToRedefinePlayer();
     }
 
 
@@ -177,7 +180,8 @@ public class Player extends Sprite {
 
         fdef.shape = shape;
 
-        b2body.createFixture(fdef).setUserData("player");
+       // b2body.createFixture(fdef).setUserData("player");
+        b2body.createFixture(fdef).setUserData(this);
 
 
        // b2body.createFixture(fdef).setUserData(this);
@@ -201,6 +205,15 @@ public class Player extends Sprite {
             return false;
         else
             return true;
+    }
+
+    public void hit() {
+        timeToRedefinePlayer = true;
+        Gdx.app.log("hit by Enemy", "ha!");
+    }
+
+    private void timeToRedefinePlayer() {
+        //Gdx.app.log("hit by Enemy", "ha!");
     }
 
 

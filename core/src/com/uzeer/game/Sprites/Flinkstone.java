@@ -1,5 +1,6 @@
 package com.uzeer.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -77,8 +78,9 @@ public class Flinkstone extends Enemy {
             world.destroyBody(b2body);
             destroyed = true;
             setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
+            //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
-            //fdef.filter.maskBits = (0);
+            fdef.filter.maskBits = FunGame.DESTROYED_BIT;
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
@@ -120,10 +122,10 @@ public class Flinkstone extends Enemy {
         //creat the head here
         PolygonShape head = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-7, 27).scl(1 / FunGame.PPM);
-        vertice[1] = new Vector2(7, 27).scl(1 / FunGame.PPM);
-        vertice[2] = new Vector2(-8, 12).scl(1 / FunGame.PPM);
-        vertice[3] = new Vector2(8, 12).scl(1 / FunGame.PPM);
+        vertice[0] = new Vector2(-6, 27).scl(1 / FunGame.PPM);
+        vertice[1] = new Vector2(6, 27).scl(1 / FunGame.PPM);
+        vertice[2] = new Vector2(-3, 21).scl(1 / FunGame.PPM);
+        vertice[3] = new Vector2(3, 21).scl(1 / FunGame.PPM);
         head.set(vertice);
 
         fdef.shape = head;
@@ -134,8 +136,8 @@ public class Flinkstone extends Enemy {
     }
 
     public void draw(Batch batch){
-        if(!destroyed || stateTime < 1)
-            super.draw(batch);
+       if(!destroyed || stateTime < 0.7f)
+           super.draw(batch);
     }
 
     public TextureRegion getFrame(float dt) {
@@ -159,4 +161,15 @@ public class Flinkstone extends Enemy {
         setToDestroy = true;
         FunGame.manager.get("sounds/fire.mp3", Sound.class).play();
     }
+
+    int hit = 0;
+
+    @Override
+    public void hitByEnemy(Player userData) {
+        hit++;
+        if(hit > 3){
+            Gdx.app.log("Game", "End");
+        }
+    }
+
 }

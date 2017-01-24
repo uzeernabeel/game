@@ -14,7 +14,6 @@ import com.uzeer.game.Screens.PlayScreen;
 
 public class Boxes extends InteractiveTileObject {
 
-    private Player player;
 
     public Boxes(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
@@ -22,12 +21,7 @@ public class Boxes extends InteractiveTileObject {
 
     @Override
     public void bodyHit() {
-        applyimpluse(player);
         Gdx.app.log("box", "hit");
-    }
-
-    private void applyimpluse(Player player) {
-        player.b2body.applyLinearImpulse(new Vector2(0, 2f), player.b2body.getWorldCenter(), true);
     }
 
 }
