@@ -80,6 +80,12 @@ public class WorldContactListner implements ContactListener {
                 else
                     ((InteractiveTileObject) fixA.getUserData()).bodyHit();
                 break;
+            case FunGame.PLAYER_BIT | FunGame.FIRE_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixB.getUserData()).bodyHit();
+                else
+                    ((InteractiveTileObject) fixA.getUserData()).bodyHit();
+                break;
 
         }
     }

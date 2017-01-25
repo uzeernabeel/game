@@ -40,16 +40,17 @@ public class FunGame extends Game {
 
 		manager = new AssetManager();
 		manager.load("sounds/game background1.mp3", Music.class);
-		manager.load("sounds/game background2.mp3", Music.class);
+		manager.load("sounds/background.mp3", Music.class);
 		manager.load("sounds/is that all stranger.mp3", Sound.class);
-		manager.load("sounds/fire.mp3", Sound.class);
+		manager.load("sounds/enemyHit.wav", Sound.class);
 		manager.load("sounds/stranger stranger.mp3", Sound.class);
 		manager.load("sounds/thank you.mp3", Sound.class);
 		manager.load("sounds/welcome.mp3", Sound.class);
 		manager.load("sounds/what are you buying.mp3", Sound.class);
 		manager.load("sounds/what are you selling.mp3", Sound.class);
 		manager.load("sounds/coin.wav", Sound.class);
-		manager.load("sounds/is that all stranger.mp3", Sound.class);
+		manager.load("sounds/Decline.wav", Sound.class);
+		manager.load("sounds/enemy hit.wav", Sound.class);
 		manager.finishLoading();
 
         setScreen(new PlayScreen(this));

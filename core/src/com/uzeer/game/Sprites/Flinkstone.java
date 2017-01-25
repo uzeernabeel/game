@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
 
 /**
@@ -159,14 +160,15 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        FunGame.manager.get("sounds/fire.mp3", Sound.class).play();
+        FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
     }
 
-    int hit = 0;
+    public static int hit = 0;
 
     @Override
     public void hitByEnemy(Player userData) {
         hit++;
+        Hud.addScore(-1000);
         if(hit > 3){
             Gdx.app.log("Game", "End");
         }

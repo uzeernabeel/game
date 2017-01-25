@@ -80,7 +80,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListner());
 
        // FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
-        music = FunGame.manager.get("sounds/game background2.mp3", Music.class);
+        music = FunGame.manager.get("sounds/background.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
         music.play();

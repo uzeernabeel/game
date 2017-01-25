@@ -1,6 +1,7 @@
 package com.uzeer.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
 
 /**
@@ -43,7 +45,8 @@ public class Player extends Sprite {
     private boolean runningRight;
     protected Fixture fixture;
     private boolean timeToRedefinePlayer;
-    private boolean playerDead;
+    public static boolean playerDead;
+    private BodyDef bdef;
 
     public Player(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
@@ -112,6 +115,9 @@ public class Player extends Sprite {
     public void update(float dt){
             setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
             setRegion(getFrame(dt));
+        if(b2body.getPosition().y < -1f)
+            playerDead = true;
+
     }
 
 
@@ -168,7 +174,7 @@ public class Player extends Sprite {
 
 
     public void definePlayer() {
-        BodyDef bdef = new BodyDef();
+        bdef = new BodyDef();
         bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
@@ -220,9 +226,11 @@ public class Player extends Sprite {
             return true;
     }
 
-    int num = 0;
+    public static int num = 0;
 
     public void hit() {
+        Hud.addScore(-1000);
+        FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
