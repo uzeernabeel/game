@@ -141,6 +141,7 @@ public class Flinkstone extends Enemy {
            super.draw(batch);
     }
 
+
     public TextureRegion getFrame(float dt) {
         TextureRegion region;
         region = walkAnimation.getKeyFrame(stateTime, true);
@@ -160,7 +161,7 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
+       // FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
     }
 
     public static int hit = 0;

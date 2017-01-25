@@ -230,7 +230,7 @@ public class Player extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-        FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");

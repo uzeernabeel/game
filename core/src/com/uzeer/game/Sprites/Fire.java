@@ -68,7 +68,7 @@ public class Fire extends InteractiveTileObject {
     @Override
     public void bodyHit() {
         Gdx.app.log("Fire Touch", "Die Ha Ha!");
-        FunGame.manager.get("sounds/Decline.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/Decline.wav", Sound.class).play();
         Player.num++;
         if(Player.num > 3)
         Player.playerDead = true;

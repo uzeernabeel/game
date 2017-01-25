@@ -22,18 +22,23 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Sprites.Bullets;
+import com.uzeer.game.Sprites.Bullets2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Tools.B2WorldCreator;
 import com.uzeer.game.Tools.WorldContactListner;
+
+import java.util.ArrayList;
 
 public class PlayScreen implements Screen {
     private FunGame game;
@@ -56,8 +61,12 @@ public class PlayScreen implements Screen {
     private Music music;
     private boolean playerIsTouchingTheGround;
 
+    private ArrayList<Bullets> bullets;
+
+    private Bullets2 bullets2;
+
     public PlayScreen(FunGame game) {
-       //atlas = new TextureAtlas("sprite sheet.pack");
+        //atlas = new TextureAtlas("sprite sheet.pack");
         atlas = new TextureAtlas("sprite sheet.pack");
         this.game = game;
 
@@ -75,15 +84,21 @@ public class PlayScreen implements Screen {
 
         player = new Player(this);
 
+        bullets2 = new Bullets2(this, 1, 1);
+
         creator = new B2WorldCreator(this);
+
+        bullets = new ArrayList<Bullets>();
 
         world.setContactListener(new WorldContactListner());
 
-       // FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
-        music = FunGame.manager.get("sounds/background.mp3", Music.class);
+        // FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+        /*music = FunGame.manager.get("sounds/background.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
-        music.play();
+        music.play(); */
+
+        //update bullets
     }
 
     public TextureAtlas getAtlas(){
@@ -95,6 +110,8 @@ public class PlayScreen implements Screen {
 
     }
 
+
+
     public void update(float dt){
         handleInput(dt);
 
@@ -105,7 +122,10 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);
 
+        bullets2.update(dt);
+
         hud.update(dt);
+
 
         if(player.currentState != Player.State.DEAD)
         gamecam.position.x = player.b2body.getPosition().x;
@@ -127,6 +147,8 @@ public class PlayScreen implements Screen {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                 player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
+                bullets2 = new Bullets2(this, player.b2body.getPosition().x + 1f, player.b2body.getPosition().y + 2f);
         }
 
     }
@@ -148,10 +170,14 @@ public class PlayScreen implements Screen {
         player.draw(game.batch);
         for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
+
+        //bullets2.draw(game.batch);
+
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
