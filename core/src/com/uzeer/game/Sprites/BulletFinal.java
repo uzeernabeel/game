@@ -1,30 +1,44 @@
 package com.uzeer.game.Sprites;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Screens.PlayScreen;
 
 /**
- * Created by uzeer on 1/25/2017.
+ * Created by uzeer on 1/26/2017.
  */
-public class Bullets2 extends Enemy {
+public class BulletFinal extends Sprite {
     private TextureRegion apple;
     float stateTimer;
     private boolean rightSide;
     private boolean leftSide;
+    protected PlayScreen screen;
+    protected World world;
+    public Body b2body;
+    public Vector2 velocity2;
+    public Vector2 NegVelocity2;
 
-    public Bullets2(PlayScreen screen, float x, float y) {
-        super(screen, x, y);
-        apple = new TextureRegion(screen.getAtlas().findRegion("player"), 213, 203, 9, 12);
+
+    public BulletFinal(PlayScreen screen, float x, float y) {
+        super(screen.getAtlas().findRegion("player"));
+        this.world = screen.getWorld();
+        this.screen = screen;
+        setPosition(x, y);
+        defineEnemy();
+        velocity2 = new Vector2(1.5f, 0f);
+        NegVelocity2 = new Vector2(-1.5f, 0f);
+        apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 2 / FunGame.PPM, 2 / FunGame.PPM);
     }
 
-    @Override
     protected void defineEnemy() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
@@ -43,20 +57,16 @@ public class Bullets2 extends Enemy {
         fdef.isSensor = true;
 
         b2body.createFixture(fdef).setUserData(this);
-        setRegion(apple);
+        //setRegion(apple);
 
     }
 
     public void draw(Batch batch){
-            super.draw(batch);
+        super.draw(batch);
     }
 
-    @Override
-    public void hitOnHead() {
 
-    }
 
-    @Override
     public void update(float dt) {
         stateTimer += dt;
         if(leftSide)
@@ -66,11 +76,6 @@ public class Bullets2 extends Enemy {
 
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
         setRegion(apple);
-
-    }
-
-    @Override
-    public void hitByEnemy(Player userData) {
 
     }
 

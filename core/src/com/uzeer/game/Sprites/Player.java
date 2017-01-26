@@ -1,6 +1,7 @@
 package com.uzeer.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,7 +30,7 @@ import com.uzeer.game.Screens.PlayScreen;
 public class Player extends Sprite {
 
 
-    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD };
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING };
     public State currentState;
     public State previousState;
     public World world;
@@ -41,11 +42,13 @@ public class Player extends Sprite {
     private Animation playerRun;
     private Animation playerJump;
     private Animation playerKick;
+    private Animation playerThrow;
     private float stateTimer;
     private boolean runningRight;
     protected Fixture fixture;
     private boolean timeToRedefinePlayer;
     public static boolean playerDead;
+   public static boolean spacePressed;
     private BodyDef bdef;
 
     public Player(PlayScreen screen){
@@ -58,6 +61,7 @@ public class Player extends Sprite {
 
         timeToRedefinePlayer = false;
         playerDead = false;
+        spacePressed = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -82,6 +86,18 @@ public class Player extends Sprite {
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
+        for(int i = 1; i < 5; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(getTexture(), 6, 193, 33, 59));
+            if(i == 2)
+                frames.add(new TextureRegion(getTexture(),49, 193, 35, 59));
+            if(i == 3)
+                frames.add(new TextureRegion(getTexture(), 89, 193, 49, 59));
+            if(i == 4)
+                frames.add(new TextureRegion(getTexture(), 143, 193, 49, 59));
+        }
+        playerThrow = new Animation(0.1f, frames);
+        frames.clear();
 
         for(int i = 1; i < 15; i++) {
             if(i == 1)
@@ -113,8 +129,9 @@ public class Player extends Sprite {
     }
 
     public void update(float dt){
-            setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
-            setRegion(getFrame(dt));
+        setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
+        setRegion(getFrame(dt));
+
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
@@ -127,7 +144,7 @@ public class Player extends Sprite {
         TextureRegion region;
         switch (currentState) {
             case JUMPING:
-                region = playerJump.getKeyFrame(stateTimer, true);
+                region = playerJump.getKeyFrame(stateTimer, false);
                 break;
             case RUNNING:
                 region = playerRun.getKeyFrame(stateTimer, true);
@@ -137,6 +154,9 @@ public class Player extends Sprite {
                 break;
             case DEAD:
                 region = playerIsDead;
+                break;
+            case THROWING:
+                region = playerThrow.getKeyFrame(stateTimer, false);
                 break;
             case STANDING:
             default:
@@ -168,6 +188,8 @@ public class Player extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
+        else if(spacePressed)
+            return State.THROWING;
         else
             return State.STANDING;
     }

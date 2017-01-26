@@ -29,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Bullets;
 import com.uzeer.game.Sprites.Bullets2;
 import com.uzeer.game.Sprites.Enemy;
@@ -64,6 +65,7 @@ public class PlayScreen implements Screen {
     private ArrayList<Bullets> bullets;
 
     private Bullets2 bullets2;
+    private BulletFinal bulletFinal;
 
     public PlayScreen(FunGame game) {
         //atlas = new TextureAtlas("sprite sheet.pack");
@@ -84,11 +86,10 @@ public class PlayScreen implements Screen {
 
         player = new Player(this);
 
-        bullets2 = new Bullets2(this, 1, 1);
+        bulletFinal = new BulletFinal(this, 5, 70);
+        //bullets2 = new Bullets2(this, 5, 70);
 
         creator = new B2WorldCreator(this);
-
-        bullets = new ArrayList<Bullets>();
 
         world.setContactListener(new WorldContactListner());
 
@@ -122,7 +123,8 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);
 
-        bullets2.update(dt);
+       // bullets2.update(dt);
+        bulletFinal.update(dt);
 
         hud.update(dt);
 
@@ -147,8 +149,11 @@ public class PlayScreen implements Screen {
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                 player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE))
-                bullets2 = new Bullets2(this, player.b2body.getPosition().x + 1f, player.b2body.getPosition().y + 2f);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                Player.spacePressed = true;
+            }
         }
 
     }
@@ -172,7 +177,7 @@ public class PlayScreen implements Screen {
             enemy.draw(game.batch);
 
         //bullets2.draw(game.batch);
-
+        bulletFinal.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
