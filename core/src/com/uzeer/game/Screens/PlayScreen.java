@@ -129,6 +129,7 @@ public class PlayScreen implements Screen {
         hud.update(dt);
 
 
+
         if(player.currentState != Player.State.DEAD)
         gamecam.position.x = player.b2body.getPosition().x;
 

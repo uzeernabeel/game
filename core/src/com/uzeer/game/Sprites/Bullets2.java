@@ -21,7 +21,7 @@ public class Bullets2 extends Enemy {
     public Bullets2(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         apple = new TextureRegion(screen.getAtlas().findRegion("player"), 213, 203, 9, 12);
-        setBounds(getX(), getY(), 2 / FunGame.PPM, 2 / FunGame.PPM);
+        setBounds(getX(), getY(), 20 / FunGame.PPM, 20 / FunGame.PPM);
     }
 
     @Override
@@ -64,7 +64,8 @@ public class Bullets2 extends Enemy {
         if(rightSide)
             b2body.setLinearVelocity(velocity2);
 
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
+       // setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
+        setPosition(b2body.getPosition().x, b2body.getPosition().y);
         setRegion(apple);
 
     }

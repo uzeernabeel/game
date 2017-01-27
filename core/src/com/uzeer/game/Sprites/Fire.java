@@ -27,7 +27,7 @@ public class Fire extends InteractiveTileObject {
 
     public AnimatedTiledMapTile animatedTiledMapTile;
     public Array<StaticTiledMapTile> staticTiledMapTile;
-    private static TiledMapTileSet tileSet;
+    public static TiledMapTileSet tileSet;
 
     public Fire(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
