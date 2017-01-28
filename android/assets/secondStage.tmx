@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="30" height="800" tilewidth="22" tileheight="22" nextobjectid="34">
+ <tileset firstgid="1" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
+  <image source="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
+ </tileset>
+ <imagelayer name="background">
+  <image source="background Ha.png" width="660" height="17600"/>
+ </imagelayer>
+ <layer name="stage" width="30" height="800">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEOwiAQBVC8g1tP4hHc6/1vYoxx0QqltB2qzXsJqSlkPqRATAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4l0LbdyXG5sb05JbepfLyI1JqT17amyudqmvVkvu8Hfue/bInfMs9bXmTq0z6hwBAEPnU71/bmvN3bIeHNGvnY+IuyBibvS3157YI3ePM7DX2Wv5D7B0bhE1x/WJdTt9t0t6t+jM2jzGY7bIXTq/NZlbr+PjPpG3NrP0PUq1o9ZYy+mVewSv/TJ3bzw2ymw9z2vvgB73SC0rOjfKP8+doTl780jtCVLHQXc=
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="1" x="0" y="17556" width="660" height="44"/>
+  <object id="2" x="110" y="17468" width="88" height="22"/>
+  <object id="3" x="0" y="17402" width="110" height="22"/>
+  <object id="4" x="286" y="17424" width="198" height="22"/>
+  <object id="5" x="352" y="17402" width="132" height="22"/>
+  <object id="6" x="396" y="17380" width="88" height="22"/>
+  <object id="7" x="440" y="17358" width="44" height="22"/>
+  <object id="8" x="484" y="17270" width="176" height="22"/>
+  <object id="9" x="374" y="17226" width="44" height="22"/>
+  <object id="10" x="264" y="17204" width="132" height="22"/>
+  <object id="11" x="176" y="17182" width="154" height="22"/>
+  <object id="12" x="154" y="17204" width="44" height="22"/>
+  <object id="13" x="132" y="17248" width="44" height="22"/>
+  <object id="14" x="154" y="17226" width="22" height="22"/>
+  <object id="15" x="88" y="17270" width="66" height="22"/>
+  <object id="16" x="88" y="17292" width="22" height="44"/>
+  <object id="17" x="0" y="17314" width="22" height="22"/>
+  <object id="18" x="0" y="17094" width="198" height="22"/>
+  <object id="19" x="198" y="17116" width="22" height="22"/>
+  <object id="20" x="330" y="17094" width="330" height="22"/>
+  <object id="21" x="440" y="17072" width="220" height="22"/>
+  <object id="22" x="440" y="17050" width="220" height="22"/>
+  <object id="23" x="462" y="17028" width="198" height="22"/>
+  <object id="24" x="484" y="16984" width="176" height="44"/>
+  <object id="25" x="22" y="16874" width="154" height="22"/>
+  <object id="27" x="154" y="16896" width="220" height="22"/>
+  <object id="28" x="352" y="16918" width="66" height="22"/>
+  <object id="30" x="198" y="16720" width="198" height="22"/>
+  <object id="31" x="374" y="16698" width="242" height="22"/>
+  <object id="32" x="198" y="16698" width="22" height="22"/>
+ </objectgroup>
+ <imagelayer name="building" opacity="0.9" offsetx="322.88" offsety="16334.6">
+  <image source="bul.png" width="426" height="440"/>
+ </imagelayer>
+</map>
