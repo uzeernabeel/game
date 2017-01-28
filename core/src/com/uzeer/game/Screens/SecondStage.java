@@ -57,8 +57,8 @@ public class SecondStage implements Screen {
     private Bullets2 bullets2;
     private BulletFinal bulletFinal;
 
-    private float previousPosition;
-    private float currentPosition;
+    private float maxPosition;
+    private float minPosition;
 
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -69,11 +69,11 @@ public class SecondStage implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("secondStage.tmx");
+        map = mapLoader.load("FinalSecond.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
-       gamecam.position.x = (gamePort.getScreenWidth() / 2) + 3f;
+       gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4f;
 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
@@ -87,8 +87,8 @@ public class SecondStage implements Screen {
 
         world.setContactListener(new WorldContactListner());
 
-        previousPosition = 0;
-        currentPosition = 0;
+        maxPosition = 0;
+        minPosition = 0;
     }
 
     public TextureAtlas getAtlas(){
@@ -107,12 +107,9 @@ public class SecondStage implements Screen {
 
         hud.update(dt);
 
-        currentPosition = player.b2body.getPosition().y;
-
         if (player.currentState != Player.State.DEAD) {
-            gamecam.position.y = player.b2body.getPosition().y;
-        }
-
+                gamecam.position.y = player.b2body.getPosition().y;
+            }
         gamecam.update();
         renderer.setView(gamecam);
 
