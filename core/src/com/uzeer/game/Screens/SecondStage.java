@@ -80,7 +80,7 @@ public class SecondStage implements Screen {
 
         player = new Player(this);
 
-        //bulletFinal = new BulletFinal(this, 5, 70);
+        bulletFinal = new BulletFinal(this, 5, 70);
         //bullets2 = new Bullets2(this, 5, 70);
 
         creator = new B2WorldCreator(this);
@@ -106,7 +106,7 @@ public class SecondStage implements Screen {
             enemy.update(dt);
 
         // bullets2.update(dt);
-        //bulletFinal.update(dt);
+        bulletFinal.update(dt);
 
         hud.update(dt);
 
@@ -170,7 +170,7 @@ public class SecondStage implements Screen {
             enemy.draw(game.batch);
 
         //bullets2.draw(game.batch);
-        //bulletFinal.draw(game.batch);
+        bulletFinal.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
