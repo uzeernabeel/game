@@ -61,7 +61,7 @@ public class SecondStage implements Screen {
     private float minPosition;
 
     public SecondStage(FunGame game){
-        atlas = new TextureAtlas("sprite sheet.pack");
+        atlas = new TextureAtlas("sprite sheet2.pack");
         this.game = game;
 
         gamecam = new OrthographicCamera();
@@ -102,14 +102,24 @@ public class SecondStage implements Screen {
 
         player.update(dt);
 
+        for(Enemy enemy : creator.getFlinkstone())
+            enemy.update(dt);
+
         // bullets2.update(dt);
         //bulletFinal.update(dt);
 
         hud.update(dt);
 
+        minPosition = player.b2body.getPosition().y;
+
         if (player.currentState != Player.State.DEAD) {
+            if(minPosition >= maxPosition) {
                 gamecam.position.y = player.b2body.getPosition().y;
+                maxPosition = player.b2body.getPosition().y;
             }
+            if(minPosition < maxPosition + 3f)
+                gamecam.position.y = player.b2body.getPosition().y;
+        }
         gamecam.update();
         renderer.setView(gamecam);
 
@@ -155,6 +165,9 @@ public class SecondStage implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
+
+        for(Enemy enemy : creator.getFlinkstone())
+            enemy.draw(game.batch);
 
         //bullets2.draw(game.batch);
         //bulletFinal.draw(game.batch);

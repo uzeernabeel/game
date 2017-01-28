@@ -107,7 +107,7 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        //This is for Ground Layer # 2
+        //This is for Ground Layer # 3
         for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -120,6 +120,20 @@ public class B2WorldCreator {
             fdef.shape = shape;
             fdef.filter.categoryBits = FunGame.GROUND_BIT;
             body.createFixture(fdef);
+        }
+
+        //This is for Coin Layer # 4
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Coin(screen, rect, "Coins");
+        }
+
+        //creat flinkstone Layer # 5
+        flinkstone = new Array<Flinkstone>();
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
 
     }

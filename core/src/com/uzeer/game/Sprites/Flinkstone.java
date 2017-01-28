@@ -122,7 +122,7 @@ public class Flinkstone extends Enemy {
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
+            setRegion(new TextureRegion(screen1.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
             //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
