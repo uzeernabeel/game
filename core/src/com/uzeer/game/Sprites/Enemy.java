@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 
 /**
  * Created by Uzeer on 1/5/2017.
@@ -13,6 +14,7 @@ import com.uzeer.game.Screens.PlayScreen;
 public abstract class Enemy extends Sprite {
 
     protected PlayScreen screen;
+    protected SecondStage screen1;
     protected World world;
     public Body b2body;
     public Vector2 velocity;
@@ -23,6 +25,16 @@ public abstract class Enemy extends Sprite {
     public Enemy(PlayScreen screen, float x, float y){
         this.world = screen.getWorld();
         this.screen = screen;
+        setPosition(x, y);
+        defineEnemy();
+        velocity = new Vector2(1f, 0f);
+        velocity2 = new Vector2(1.5f, 0f);
+        NegVelocity2 = new Vector2(-1.5f, 0f);
+    }
+
+    public Enemy(SecondStage screen, float x, float y){
+        this.world = screen.getWorld();
+        this.screen1 = screen;
         setPosition(x, y);
         defineEnemy();
         velocity = new Vector2(1f, 0f);

@@ -9,11 +9,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 
 public class FunGame extends Game {
-    public static final int V_WIDTH = 750;
-    public static final int V_HEIGHT = 330;
+	public static final int V_WIDTH = 920;
+	public static final int V_HEIGHT = 480;
+    //public static final int V_WIDTH = 750;
+    //public static final int V_HEIGHT = 330;
 	public static final float PPM = 100;
 
 	public static final short NOTHING_BIT = 0;
@@ -51,9 +55,12 @@ public class FunGame extends Game {
 		manager.load("sounds/coin.wav", Sound.class);
 		//manager.load("sounds/Decline.wav", Sound.class);
 		//manager.load("sounds/enemy hit.wav", Sound.class);
+		//manager.load("687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67", Image.class);
 		manager.finishLoading();
 
-        setScreen(new PlayScreen(this));
+        //setScreen(new PlayScreen(this));
+
+		setScreen(new SecondStage(this));
 	}
 
 	@Override

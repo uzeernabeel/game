@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Sprites.Boxes;
 import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Fire;
@@ -96,6 +97,31 @@ public class B2WorldCreator {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
+    }
+
+    public B2WorldCreator(SecondStage screen) {
+        World world = screen.getWorld();
+        TiledMap map = screen.getMap();
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+        //This is for Ground Layer # 2
+        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / FunGame.PPM, (rect.getY() + rect.getHeight() / 2) / FunGame.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = FunGame.GROUND_BIT;
+            body.createFixture(fdef);
+        }
+
     }
 
     public Array<Flinkstone> getFlinkstone() {

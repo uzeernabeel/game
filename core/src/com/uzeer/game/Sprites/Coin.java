@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 
 /**
  * Created by Uzeer on 12/26/2016.
@@ -19,6 +20,13 @@ import com.uzeer.game.Screens.PlayScreen;
 public class Coin extends InteractiveTileObject{
 
     public Coin(PlayScreen screen, Rectangle bounds, String value) {
+        super(screen, bounds, value);
+        fixture.setUserData(this);
+        setCategoryFilter(FunGame.COIN_BIT);
+
+    }
+
+    public Coin(SecondStage screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
         fixture.setUserData(this);
         setCategoryFilter(FunGame.COIN_BIT);

@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 
 /**
  * Created by uzeer on 1/26/2017.
@@ -21,6 +22,7 @@ public class BulletFinal extends Sprite {
     private boolean rightSide;
     private boolean leftSide;
     protected PlayScreen screen;
+    protected SecondStage screen1;
     protected World world;
     public Body b2body;
     public Vector2 velocity2;
@@ -32,14 +34,26 @@ public class BulletFinal extends Sprite {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
-        defineEnemy();
+        defineBullet();
         velocity2 = new Vector2(1.5f, 0f);
         NegVelocity2 = new Vector2(-1.5f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 2 / FunGame.PPM, 2 / FunGame.PPM);
     }
 
-    protected void defineEnemy() {
+    public BulletFinal(SecondStage screen, float x, float y) {
+        super(screen.getAtlas().findRegion("player"));
+        this.world = screen.getWorld();
+        this.screen1 = screen;
+        setPosition(x, y);
+        defineBullet();
+        velocity2 = new Vector2(1.5f, 0f);
+        NegVelocity2 = new Vector2(-1.5f, 0f);
+        apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
+        setBounds(getX(), getY(), 2 / FunGame.PPM, 2 / FunGame.PPM);
+    }
+
+    protected void defineBullet() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.KinematicBody;

@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
+import com.uzeer.game.Screens.SecondStage;
 
 /**
  * Created by Uzeer on 12/26/2016.
@@ -30,6 +31,31 @@ public class Fire extends InteractiveTileObject {
     public static TiledMapTileSet tileSet;
 
     public Fire(PlayScreen screen, Rectangle bounds, String value) {
+        super(screen, bounds, value);
+
+        fixture.setUserData(this);
+
+        setCategoryFilter(FunGame.FIRE_BIT);
+
+        tileSet  = map.getTileSets().getTileSet("687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67");
+
+        staticTiledMapTile = new Array<StaticTiledMapTile>();
+
+        staticTiledMapTile.add((StaticTiledMapTile) tileSet.getTile(39));
+        staticTiledMapTile.add((StaticTiledMapTile) tileSet.getTile(40));
+        staticTiledMapTile.add((StaticTiledMapTile) tileSet.getTile(41));
+        staticTiledMapTile.add((StaticTiledMapTile) tileSet.getTile(42));
+
+        animatedTiledMapTile = new AnimatedTiledMapTile(.2f, staticTiledMapTile);
+
+        TiledMapTileLayer.Cell fire = new TiledMapTileLayer.Cell();
+        fire.setTile(animatedTiledMapTile);
+
+
+
+    }
+
+    public Fire(SecondStage screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
 
         fixture.setUserData(this);
