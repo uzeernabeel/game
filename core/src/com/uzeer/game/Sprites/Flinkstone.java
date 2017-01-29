@@ -158,6 +158,7 @@ public class Flinkstone extends Enemy {
                 FunGame.ENEMY_BIT |
                 FunGame.OBJECT_BIT|
                 FunGame.GROUND_BIT |
+                FunGame.BULLET_BIT |
                 FunGame.PLAYER_BIT;
 
         fdef.shape = shape;
@@ -205,7 +206,7 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-       // FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
+        FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
     }
 
     public static int hit = 0;

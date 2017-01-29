@@ -1,5 +1,6 @@
 package com.uzeer.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,6 +18,9 @@ import com.uzeer.game.Screens.SecondStage;
  * Created by uzeer on 1/26/2017.
  */
 public class BulletFinal extends Sprite {
+    private float currentPosition;
+    private float previousPosition;
+
     private TextureRegion apple;
     float stateTimer;
     private boolean rightSide;
@@ -71,12 +75,26 @@ public class BulletFinal extends Sprite {
 
         fdef.shape = shape;
         fdef.isSensor = true;
+        fdef.filter.categoryBits = FunGame.BULLET_BIT;
+
+        fdef.filter.maskBits = //FunGame.DEFAULT_BIT |
+                FunGame.COIN_BIT |
+                FunGame.FIRE_BIT |
+                FunGame.ENEMY_BIT |
+                FunGame.OBJECT_BIT|
+                FunGame.GROUND_BIT |
+                FunGame.PLAYER_BIT;
 
         b2body.createFixture(fdef).setUserData(this);
-       // setRegion(apple);
+
+        //setRegion(apple);
 
         setToDestroy = false;
         destroyed = false;
+        currentPosition = 0;
+        previousPosition = 0;
+
+        previousPosition = b2body.getPosition().x;
 
     }
 
@@ -87,7 +105,9 @@ public class BulletFinal extends Sprite {
 
 
 
+
     public void update(float dt) {
+        currentPosition = b2body.getPosition().x;
         if(setToDestroy && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
@@ -95,17 +115,24 @@ public class BulletFinal extends Sprite {
             stateTimer += dt;
             setTexture(null);
         }
-        if(leftSide)
+        if(leftSide) {
             b2body.setLinearVelocity(NegVelocity2);
-        if(rightSide)
+            if (currentPosition <= previousPosition - 200 / FunGame.PPM)
+                setToDestroy = true;
+        }
+        if(rightSide) {
             b2body.setLinearVelocity(velocity2);
+            if (currentPosition >= previousPosition + 200 / FunGame.PPM)
+                setToDestroy = true;
+        }
 
         setPosition(b2body.getPosition().x + getWidth() / 2 - 8 / FunGame.PPM , b2body.getPosition().y + getHeight() / 2 - 7 / FunGame.PPM);
         setRegion(apple);
 
-        if(b2body.getPosition().x > 138 / FunGame.PPM)
-            setToDestroy = true;
-
     }
 
+    public void destroyBullet() {
+        setToDestroy = true;
+        Gdx.app.log("touch ", "ground");
+    }
 }

@@ -166,13 +166,13 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 5; i++){
             if(i == 1)
-                frames.add(new TextureRegion(getTexture(), 6, 193, 33, 59));
+                frames.add(new TextureRegion(getTexture(), 6, 193, 38, 59));
             if(i == 2)
-                frames.add(new TextureRegion(getTexture(),49, 193, 35, 59));
+                frames.add(new TextureRegion(getTexture(),49, 193, 38, 59));
             if(i == 3)
-                frames.add(new TextureRegion(getTexture(), 89, 193, 49, 59));
+                frames.add(new TextureRegion(getTexture(), 89, 193, 45, 59));
             if(i == 4)
-                frames.add(new TextureRegion(getTexture(), 143, 193, 49, 59));
+                frames.add(new TextureRegion(getTexture(), 143, 193, 47, 59));
         }
         playerThrow = new Animation(0.1f, frames);
         frames.clear();
@@ -266,7 +266,7 @@ public class Player extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        else if(spacePressed)
+        else if(spacePressed && stateTimer > 0.3)
             return State.THROWING;
         else
             return State.STANDING;
@@ -330,7 +330,7 @@ public class Player extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-        //FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
+        FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
@@ -367,5 +367,7 @@ public class Player extends Sprite {
         return stateTimer;
     }
 
+    public void spacePressed(float deltaTime){
+    }
 
 }

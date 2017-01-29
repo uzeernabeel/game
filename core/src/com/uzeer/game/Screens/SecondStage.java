@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -80,7 +81,7 @@ public class SecondStage implements Screen {
 
         player = new Player(this);
 
-        bulletFinal = new BulletFinal(this, 5, 70);
+        bulletFinal = new BulletFinal(this, 6, 70);
         //bullets2 = new Bullets2(this, 5, 70);
 
         creator = new B2WorldCreator(this);
@@ -89,6 +90,12 @@ public class SecondStage implements Screen {
 
         maxPosition = 0;
         minPosition = 0;
+
+        FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+        music = FunGame.manager.get("sounds/background.mp3", Music.class);
+       // music.setVolume(.09f);
+        music.setLooping(true);
+        music.play();
     }
 
     public TextureAtlas getAtlas(){
@@ -127,20 +134,21 @@ public class SecondStage implements Screen {
 
     private void handleInput(float dt) {
         if(player.currentState != Player.State.DEAD){
-            // if ((player.IsPlayerOnGround())) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-            // }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
+            if ((player.IsPlayerOnGround())) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                    player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                 player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                Player.spacePressed = true;
+                bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                player.spacePressed(dt);
+
             }
         }
 

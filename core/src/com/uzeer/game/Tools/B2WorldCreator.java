@@ -46,6 +46,12 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
             fdef.shape = shape;
             fdef.filter.categoryBits = FunGame.GROUND_BIT;
+            fdef.filter.maskBits = FunGame.COIN_BIT |
+                    FunGame.FIRE_BIT |
+                    FunGame.ENEMY_BIT |
+                    FunGame.OBJECT_BIT|
+                    FunGame.BULLET_BIT |
+                    FunGame.PLAYER_BIT;
             body.createFixture(fdef);
         }
 
@@ -119,7 +125,13 @@ public class B2WorldCreator {
             shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
             fdef.shape = shape;
             fdef.filter.categoryBits = FunGame.GROUND_BIT;
-            body.createFixture(fdef);
+            fdef.filter.maskBits = FunGame.COIN_BIT |
+                    FunGame.FIRE_BIT |
+                    FunGame.ENEMY_BIT |
+                    FunGame.OBJECT_BIT|
+                    FunGame.BULLET_BIT |
+                    FunGame.PLAYER_BIT;
+            body.createFixture(fdef).setUserData(this);
         }
 
         //This is for Coin Layer # 4

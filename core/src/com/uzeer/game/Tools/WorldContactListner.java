@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.InteractiveTileObject;
 import com.uzeer.game.Sprites.Player;
@@ -24,14 +25,14 @@ public class WorldContactListner implements ContactListener {
 
         int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
 
-        if(fixA.getUserData() == "player" || fixB.getUserData() == "player"){
+       /* if(fixA.getUserData() == "player" || fixB.getUserData() == "player"){
             Fixture body = fixA.getUserData() == "player" ? fixA : fixB;
             Fixture object = body == fixA ? fixB : fixA;
 
             if(object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())){
                 ((InteractiveTileObject) object.getUserData()).bodyHit();
             }
-        }
+        }  */
                 //hahaha
         switch (cDef){
             case FunGame.ENEMY_HEAD_BIT | FunGame.PLAYER_BIT:
@@ -73,6 +74,18 @@ public class WorldContactListner implements ContactListener {
                     ((Player)fixA.getUserData()).hit();
                 else
                     ((Player)fixB.getUserData()).hit();
+                break;
+            case FunGame.BULLET_BIT | FunGame.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
+                    ((Enemy)fixA.getUserData()).hitOnHead();
+                else
+                    ((Enemy)fixB.getUserData()).hitOnHead();
+                break;
+            case FunGame.BULLET_BIT | FunGame.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
+                    ((BulletFinal)fixA.getUserData()).destroyBullet();
+                else
+                    ((BulletFinal)fixB.getUserData()).destroyBullet();
                 break;
             case FunGame.PLAYER_BIT | FunGame.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)

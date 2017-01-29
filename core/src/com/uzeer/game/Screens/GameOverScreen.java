@@ -26,6 +26,7 @@ public class GameOverScreen implements Screen {
     private Game game;
     BitmapFont fontHa;
 
+
     public GameOverScreen(Game game) {
         this.game = game;
         fontHa = new BitmapFont();
@@ -46,6 +47,8 @@ public class GameOverScreen implements Screen {
         table.add(playAgainLabel).expandX().padTop(10f);
 
         stage.addActor(table);
+
+        Player.num = 0;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((FunGame) game));
+            game.setScreen(new SecondStage((FunGame) game));
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
