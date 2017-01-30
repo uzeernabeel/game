@@ -31,7 +31,7 @@ import com.uzeer.game.Screens.SecondStage;
 public class Player extends Sprite {
 
 
-    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING };
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING }
     public State currentState;
     public State previousState;
     public World world;
