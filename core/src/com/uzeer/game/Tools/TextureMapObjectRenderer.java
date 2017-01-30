@@ -32,10 +32,15 @@ public class TextureMapObjectRenderer extends OrthogonalTiledMapRenderer {
 
     TextureMapObject textureObject;
 
-    @Override
+   // @Override
     public void renderObject(MapObject object) {
         if (object instanceof TextureMapObject) {
             textureObject = (TextureMapObject) object;
+            batch.draw(
+                    textureObject.getTextureRegion(),
+                    textureObject.getX(),
+                    textureObject.getY()
+            );
         }
     }
 

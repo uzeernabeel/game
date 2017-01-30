@@ -67,6 +67,7 @@ public class SecondStage implements Screen {
     private float minPosition;
 
     TextureMapObject textureMapObject;
+    TextureMapObject textureObject;
 
     SpriteBatch spriteBatch;
 
@@ -179,7 +180,7 @@ public class SecondStage implements Screen {
         renderer.render();
         //renderer.renderObjects(map.getLayers().get(0));
         //renderer.renderObjects(map.getLayers().get(1));
-        //textureMapObjectRenderer.renderObject(map.getLayers().get(1).getObjects());
+
 
         b2dr.render(world, gamecam.combined);
 
@@ -188,10 +189,23 @@ public class SecondStage implements Screen {
         game.batch.begin();
         player.draw(game.batch);
 
+        /*for (MapObject object : map.getLayers().get(1).getObjects()) {
+            //textureMapObjectRenderer.renderObject(object);
+
+            if (object instanceof TextureMapObject) {
+                textureObject = (TextureMapObject) object;
+                game.batch.draw(
+                        textureObject.getTextureRegion(),
+                        textureObject.getX(),
+                        textureObject.getY()
+                );
+            }
+        }
+    */
         for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
 
-        //textureMapObjectRenderer.draw(game.batch);
+       // textureMapObjectRenderer.draw(game.batch);
 
         //bullets2.draw(game.batch);
         bulletFinal.draw(game.batch);
