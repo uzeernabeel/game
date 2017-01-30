@@ -7,7 +7,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -24,6 +27,7 @@ import com.uzeer.game.Sprites.Bullets2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Tools.B2WorldCreator;
+import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
@@ -44,6 +48,7 @@ public class SecondStage implements Screen {
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
+    private TextureMapObjectRenderer textureMapObjectRenderer;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -61,6 +66,10 @@ public class SecondStage implements Screen {
     private float maxPosition;
     private float minPosition;
 
+    TextureMapObject textureMapObject;
+
+    SpriteBatch spriteBatch;
+
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
         this.game = game;
@@ -72,6 +81,7 @@ public class SecondStage implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("FinalSecond.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
+        textureMapObjectRenderer = new TextureMapObjectRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
        gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4f;
@@ -91,9 +101,9 @@ public class SecondStage implements Screen {
         maxPosition = 0;
         minPosition = 0;
 
-        FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+        //FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/background.mp3", Music.class);
-       // music.setVolume(.09f);
+        //music.setVolume(.09f);
         music.setLooping(true);
         music.play();
     }
@@ -129,6 +139,7 @@ public class SecondStage implements Screen {
         }
         gamecam.update();
         renderer.setView(gamecam);
+        textureMapObjectRenderer.setView(gamecam);
 
     }
 
@@ -166,6 +177,9 @@ public class SecondStage implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
+        //renderer.renderObjects(map.getLayers().get(0));
+        //renderer.renderObjects(map.getLayers().get(1));
+        //textureMapObjectRenderer.renderObject(map.getLayers().get(1).getObjects());
 
         b2dr.render(world, gamecam.combined);
 
@@ -176,6 +190,8 @@ public class SecondStage implements Screen {
 
         for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
+
+        //textureMapObjectRenderer.draw(game.batch);
 
         //bullets2.draw(game.batch);
         bulletFinal.draw(game.batch);

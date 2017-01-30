@@ -113,7 +113,9 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        //This is for Ground Layer # 3
+
+
+        //This is for Ground Layer # 2
         for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -135,7 +137,7 @@ public class B2WorldCreator {
         }
 
         //This is for Coin Layer # 4
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Coin(screen, rect, "Coins");
@@ -143,9 +145,29 @@ public class B2WorldCreator {
 
         //creat flinkstone Layer # 5
         flinkstone = new Array<Flinkstone>();
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
+        }
+
+        //This is for Ground Layer # 2
+        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            bdef.type = BodyDef.BodyType.StaticBody;
+            bdef.position.set((rect.getX() + rect.getWidth() / 2) / FunGame.PPM, (rect.getY() + rect.getHeight() / 2) / FunGame.PPM);
+
+            body = world.createBody(bdef);
+
+            shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
+            fdef.shape = shape;
+            fdef.filter.categoryBits = FunGame.ITEM_BIT;
+            fdef.filter.maskBits = FunGame.COIN_BIT |
+                    FunGame.FIRE_BIT |
+                    FunGame.OBJECT_BIT|
+                    FunGame.BULLET_BIT |
+                    FunGame.PLAYER_BIT;
+            body.createFixture(fdef).setUserData(this);
         }
 
     }

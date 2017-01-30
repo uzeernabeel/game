@@ -37,6 +37,7 @@ import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Tools.B2WorldCreator;
+import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public class PlayScreen implements Screen {
     private Bullets2 bullets2;
     private BulletFinal bulletFinal;
 
+    TextureMapObjectRenderer objectRenderer;
+
     public PlayScreen(FunGame game) {
         //atlas = new TextureAtlas("sprite sheet.pack");
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -79,6 +82,7 @@ public class PlayScreen implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("My Imagination.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
+        objectRenderer = new TextureMapObjectRenderer(map);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -10), true);
@@ -93,7 +97,7 @@ public class PlayScreen implements Screen {
 
         world.setContactListener(new WorldContactListner());
 
-        FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+        //FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/background.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
@@ -135,6 +139,7 @@ public class PlayScreen implements Screen {
 
         gamecam.update();
         renderer.setView(gamecam);
+        objectRenderer.setView(gamecam);
 
     }
 
@@ -167,6 +172,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
+        objectRenderer.renderObject(map.getLayers().get(0).getObjects().get(0));
 
         b2dr.render(world, gamecam.combined);
 

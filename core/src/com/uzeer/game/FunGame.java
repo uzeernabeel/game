@@ -31,7 +31,7 @@ public class FunGame extends Game {
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short GROUND_BIT = 256;
 	public static final short BULLET_BIT = 512;
-
+	public static final short ITEM_BIT = 1024;
 
 	public SpriteBatch batch;
 
