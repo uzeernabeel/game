@@ -115,7 +115,7 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -135,21 +135,21 @@ public class B2WorldCreator {
             body.createFixture(fdef).setUserData(this);
         }
 
-        //This is for Coin Layer # 4
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        //This is for Coin Layer
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Coin(screen, rect, "Coins");
         }
 
-        //creat flinkstone Layer # 5
+        //creat flinkstone Layer
         flinkstone = new Array<Flinkstone>();
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
 
-        //This is for Ground Layer # 2
+        /*This is for Ground Layer
         for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -167,7 +167,7 @@ public class B2WorldCreator {
                     FunGame.BULLET_BIT |
                     FunGame.PLAYER_BIT;
             body.createFixture(fdef).setUserData(this);
-        }
+        } */
 
     }
 

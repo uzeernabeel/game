@@ -21,7 +21,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="2256" name="items" tilewidth="1280" tileheight="17600" tilecount="19" columns="0">
+ <tileset firstgid="2256" name="items" tilewidth="1280" tileheight="1050" tilecount="18" columns="0">
   <tile id="0">
    <image width="176" height="83" source="car.png"/>
   </tile>
@@ -76,54 +76,116 @@
   <tile id="17">
    <image width="88" height="32" source="tire3.png"/>
   </tile>
+ </tileset>
+ <tileset firstgid="2275" name="images" tilewidth="789" tileheight="476" tilecount="34" columns="0">
+  <tile id="1">
+   <image width="107" height="121" source="assets/board.png"/>
+  </tile>
+  <tile id="2">
+   <image width="107" height="121" source="assets/board_inverse.png"/>
+  </tile>
+  <tile id="3">
+   <image width="176" height="83" source="assets/car.png"/>
+  </tile>
+  <tile id="4">
+   <image width="176" height="83" source="assets/car_inverse.png"/>
+  </tile>
+  <tile id="5">
+   <image width="273" height="252" source="assets/house1.png"/>
+  </tile>
+  <tile id="6">
+   <image width="273" height="252" source="assets/house1_inverse.png"/>
+  </tile>
+  <tile id="7">
+   <image width="203" height="186" source="assets/house1kjkjh.png"/>
+  </tile>
+  <tile id="8">
+   <image width="314" height="275" source="assets/house2.png"/>
+  </tile>
+  <tile id="9">
+   <image width="314" height="275" source="assets/house2_inverse.png"/>
+  </tile>
+  <tile id="10">
+   <image width="257" height="278" source="assets/house3.png"/>
+  </tile>
+  <tile id="11">
+   <image width="257" height="278" source="assets/house3_inverse.png"/>
+  </tile>
+  <tile id="12">
+   <image width="330" height="274" source="assets/house4.png"/>
+  </tile>
+  <tile id="13">
+   <image width="330" height="274" source="assets/house4_inverse.png"/>
+  </tile>
+  <tile id="14">
+   <image width="164" height="226" source="assets/house5.png"/>
+  </tile>
+  <tile id="15">
+   <image width="164" height="226" source="assets/house5_inverse.png"/>
+  </tile>
+  <tile id="16">
+   <image width="789" height="476" source="assets/palace.png"/>
+  </tile>
+  <tile id="17">
+   <image width="108" height="159" source="assets/pipe1.png"/>
+  </tile>
   <tile id="18">
-   <image width="836" height="17600" source="back.png"/>
+   <image width="108" height="159" source="assets/pipe1_inverse.png"/>
+  </tile>
+  <tile id="19">
+   <image width="73" height="186" source="assets/pipe2.png"/>
+  </tile>
+  <tile id="20">
+   <image width="73" height="186" source="assets/pipe2_inverse.png"/>
+  </tile>
+  <tile id="21">
+   <image width="73" height="222" source="assets/pipe3.png"/>
+  </tile>
+  <tile id="22">
+   <image width="73" height="222" source="assets/pipe3_inverse.png"/>
+  </tile>
+  <tile id="23">
+   <image width="68" height="145" source="assets/speed.png"/>
+  </tile>
+  <tile id="24">
+   <image width="68" height="145" source="assets/speed_inverse.png"/>
+  </tile>
+  <tile id="25">
+   <image width="83" height="44" source="assets/tire.png"/>
+  </tile>
+  <tile id="26">
+   <image width="83" height="44" source="assets/tire_inverse.png"/>
+  </tile>
+  <tile id="27">
+   <image width="88" height="32" source="assets/tire3.png"/>
+  </tile>
+  <tile id="28">
+   <image width="88" height="32" source="assets/tire3_inverse.png"/>
+  </tile>
+  <tile id="29">
+   <image width="450" height="352" source="assets/tree house.png"/>
+  </tile>
+  <tile id="30">
+   <image width="450" height="352" source="assets/tree house_inverse.png"/>
+  </tile>
+  <tile id="31">
+   <image width="42" height="74" source="assets/waterpipe1.png"/>
+  </tile>
+  <tile id="32">
+   <image width="42" height="74" source="assets/waterpipe1_inverse.png"/>
+  </tile>
+  <tile id="33">
+   <image width="42" height="74" source="assets/waterpipe2.png"/>
+  </tile>
+  <tile id="34">
+   <image width="42" height="74" source="assets/waterpipe2_inverse.png"/>
   </tile>
  </tileset>
- <objectgroup name="background">
-  <object id="1198" gid="2274" x="0" y="20988" width="836" height="17600"/>
- </objectgroup>
- <objectgroup name="items">
-  <object id="1146" gid="2264" x="396" y="17578" width="50.6396" height="154"/>
-  <object id="1147" gid="2263" x="242" y="17028" width="43.172" height="110"/>
-  <object id="1148" gid="2256" x="103" y="16807" width="88" height="41.5"/>
-  <object id="1149" gid="2269" x="792" y="17116" width="20" height="35.2381"/>
-  <object id="1152" gid="2265" x="528" y="17028" width="41.5" height="22"/>
-  <object id="1153" gid="2257" x="286" y="15576" width="252.896" height="242"/>
-  <object id="1154" gid="2261" x="638" y="14894" width="144" height="210.404"/>
-  <object id="1155" gid="2258" x="22" y="14498" width="300.215" height="264"/>
-  <object id="1156" gid="2263" x="44" y="14894" width="51.8065" height="132"/>
-  <object id="1157" gid="2256" x="418" y="16148" width="93.3012" height="44"/>
-  <object id="1158" gid="2269" x="550" y="16456" width="23.8378" height="42"/>
-  <object id="1159" gid="2259" x="242" y="12958" width="242" height="263.919"/>
-  <object id="1160" gid="2262" x="110" y="13794" width="107.043" height="154"/>
-  <object id="1161" gid="2147485908" x="462" y="11748" width="319.052" height="264"/>
-  <object id="1162" gid="2267" x="154" y="10714" width="427.093" height="352"/>
-  <object id="1163" gid="2263" x="242" y="9944" width="43.172" height="110"/>
-  <object id="1164" gid="2264" x="484" y="10340" width="43.4054" height="132"/>
-  <object id="1165" gid="2256" x="616" y="10340" width="93.3012" height="44"/>
-  <object id="1166" gid="2269" x="408" y="9524.25" width="22" height="38.7619"/>
-  <object id="1172" gid="2270" x="23" y="8292" width="789" height="493.125"/>
-  <object id="1173" gid="2271" x="338" y="17115" width="65.438" height="74"/>
-  <object id="1174" gid="2272" x="254" y="16809" width="39.8621" height="85"/>
-  <object id="1175" gid="2272" x="393" y="15817" width="44.5517" height="95"/>
-  <object id="1177" gid="2271" x="602" y="14345" width="74.281" height="84"/>
-  <object id="1178" gid="2273" x="426" y="14014.7" width="66" height="24"/>
-  <object id="1179" gid="2147485905" x="360.5" y="13904.5" width="186.014" height="178"/>
-  <object id="1180" gid="2147485904" x="554" y="17468" width="112.386" height="53"/>
-  <object id="1182" gid="2268" x="569.333" y="15575.7" width="20" height="35.2381"/>
-  <object id="1183" gid="2147485920" x="745" y="13574" width="39.3931" height="84"/>
-  <object id="1187" gid="2256" x="526.333" y="12628" width="112.386" height="53"/>
-  <object id="1189" gid="2271" x="173.667" y="12254.7" width="78.9972" height="89.3333"/>
-  <object id="1190" gid="2264" x="70" y="11177" width="42.4189" height="129"/>
-  <object id="1191" gid="2261" x="468" y="11243" width="171" height="249.855"/>
-  <object id="1192" gid="2265" x="107" y="9946" width="45.2727" height="24"/>
-  <object id="1193" gid="2273" x="274" y="9528" width="55" height="20"/>
-  <object id="1194" gid="2256" x="375" y="9086" width="118.747" height="56"/>
-  <object id="1195" gid="2263" x="523" y="9085" width="50.629" height="129"/>
-  <object id="1196" gid="2147485911" x="288" y="9086" width="50.629" height="129"/>
-  <object id="1197" gid="2147485912" x="67" y="16483" width="49.3243" height="150"/>
- </objectgroup>
+ <layer name="Items_real" width="38" height="800">
+  <data encoding="base64" compression="zlib">
+   eJzt3V1LwzAUANAwHdj//xfFDUVw+LUpUxmy4cOWtrZp0vYc2Hvp0iQ39yYJAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBSPN/kfgJo50ubBRL40LcAAACQ2PuZ2PMuEo++iVUBTrYJ+sSdfhaADi7lrRdVCCtjDETd+kYAYHIO4/u+Zoy35g0AwBTEcoyxGhAAAApV5X4AAABSUKNGTin2v1C218h/vtEeIBu5OwAY3rFeXFxOyZ60TxiEM54BAObpuCbg7CXGQG4fAPJ5qRmH1XwAALk1uS/70ZwFAODkb+2wXCEApDPUPQ+fxnOALOpy6UAI974TZuz7Qvu3rx8AGLOmsbA5D4zTg28XAIDCDVWLc+C+CgDgHOc3A0C/mpwVArmtW7bTZZXmOQBSUu81LtYnAIApc9Y9AJDCVfX7+6+dOQoAMHF1azLyU0Bp1B72r83ezb33T0cpapWu1W5SIDXFxIizytAldwA59RkTubuQOdjOpJ3/AM/XPMQ=
+  </data>
+ </layer>
  <objectgroup name="ground">
   <object id="1" x="0" y="17578" width="836" height="22"/>
   <object id="2" x="528" y="17468" width="308" height="22"/>
