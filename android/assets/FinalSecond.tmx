@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="38" height="800" tilewidth="22" tileheight="22" nextobjectid="1203">
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="38" height="800" tilewidth="22" tileheight="22" nextobjectid="1205">
  <tileset firstgid="1" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
   <image source="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
   <tile id="216">
@@ -77,7 +77,7 @@
    <image width="88" height="32" source="tire3.png"/>
   </tile>
  </tileset>
- <tileset firstgid="2275" name="images" tilewidth="789" tileheight="476" tilecount="34" columns="0">
+ <tileset firstgid="2274" name="images" tilewidth="789" tileheight="476" tilecount="34" columns="0">
   <tile id="1">
    <image width="107" height="121" source="assets/board.png"/>
   </tile>
@@ -183,7 +183,7 @@
  </tileset>
  <layer name="Items_real" width="38" height="800">
   <data encoding="base64" compression="zlib">
-   eJzt3V1LwzAUANAwHdj//xfFDUVw+LUpUxmy4cOWtrZp0vYc2Hvp0iQ39yYJAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBSPN/kfgJo50ubBRL40LcAAACQ2PuZ2PMuEo++iVUBTrYJ+sSdfhaADi7lrRdVCCtjDETd+kYAYHIO4/u+Zoy35g0AwBTEcoyxGhAAAApV5X4AAABSUKNGTin2v1C218h/vtEeIBu5OwAY3rFeXFxOyZ60TxiEM54BAObpuCbg7CXGQG4fAPJ5qRmH1XwAALk1uS/70ZwFAODkb+2wXCEApDPUPQ+fxnOALOpy6UAI974TZuz7Qvu3rx8AGLOmsbA5D4zTg28XAIDCDVWLc+C+CgDgHOc3A0C/mpwVArmtW7bTZZXmOQBSUu81LtYnAIApc9Y9AJDCVfX7+6+dOQoAMHF1azLyU0Bp1B72r83ezb33T0cpapWu1W5SIDXFxIizytAldwA59RkTubuQOdjOpJ3/AM/XPMQ=
+   eJzt3VtPwyAUAGC8PNj//xONGo2JxtummZcsZosPG21tKZR+X7L3pqPA4RwgBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABK8XSR+wmgn09tFkjgXd8CAABAYm8HYs+rSDz6KlYF2Fsl6BPX+lkABjiWtz5pQrg2xkDUpW8EAKqzHd83LWO8NW8AAGoQyzHGakAAACjTtzkcAECV1KiRU4r9L5TtJfKfP2oPkI3cHQBMb1cvLi6nZA/aJ0zCGc8AAMu0WxNw9hJzILcPAPk8t4zDaj4AgNy63Jd9b84CALD3t3ZYrhAA0pnqnocP4zlAFm25dCCEW98JC/Z1pP3b1w8AzFnXWNicB+bpzrcLAEDhpqrF2XJfBQBwiPObAWBcXc4KgdxuerbT8ybNcwCkpN5rXqxPAAA1c9Y9AJDCafP7+6+1OQoAULm2NRn5KaA0ag/H12fv5sb7Z6AUtUpnajcpkJpiYsRZZRiSO4CcxoyJ3F3IEqwW0s5/AB2KPX0=
   </data>
  </layer>
  <objectgroup name="ground">
@@ -610,6 +610,12 @@
   <object id="440" x="176" y="12870" width="44" height="22"/>
   <object id="1141" x="660" y="12540" width="22" height="22"/>
   <object id="1201" x="638" y="16038" width="44" height="22"/>
+  <object id="1203" x="330" y="8294" width="176" height="22">
+   <properties>
+    <property name="complete" value="yes he did it!"/>
+   </properties>
+  </object>
+  <object id="1204" x="639" y="14145" width="110" height="22"/>
  </objectgroup>
  <layer name="stams" width="38" height="800">
   <data encoding="base64" compression="zlib">

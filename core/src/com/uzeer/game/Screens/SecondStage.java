@@ -219,6 +219,11 @@ public class SecondStage implements Screen {
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
+
+        if(levelComplete()){
+            game.setScreen(new Level_complition(game));
+            dispose();
+        }
     }
 
     @Override
@@ -260,6 +265,13 @@ public class SecondStage implements Screen {
 
     public boolean gameOver(){
         if(player.currentState == Player.State.DEAD && player.getStateTimer() > 3)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean levelComplete(){
+        if(player.b2body.getPosition().y > 8294 / FunGame.PPM)
             return true;
         else
             return false;

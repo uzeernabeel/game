@@ -334,18 +334,22 @@ public class Player extends Sprite {
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
+            Hud.chances(3);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num == 2) {
             Gdx.app.log("hit by Enemy: ", "2");
+            Hud.chances(2);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num == 3) {
             Gdx.app.log("hit by Enemy: ", "3");
+            Hud.chances(1);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num > 3) {
             playerDead = true;
+            Hud.chances(0);
             Gdx.app.log("hit by Enemy: ", "Dead!");
             Filter filter = new Filter();
             filter.maskBits = FunGame.NOTHING_BIT;

@@ -25,6 +25,7 @@ public class Hud implements Disposable{
     private Integer worldTimer;
     private float timeCount;
     protected static Integer score;
+    public static Integer coins;
 
     Label countLabel;
     static Label scoreLabel;
@@ -32,11 +33,20 @@ public class Hud implements Disposable{
     Label levelLabel;
     Label worldLabel;
     Label GameLabel;
+    Label coin;
+    static Label coinLabel;
+
+    Label chances;
+    static Label chancesNumber;
+
+    static int chancesLeft;
 
     public Hud(SpriteBatch sb){
         worldTimer = 300;
         timeCount = 0;
         score = 500;
+        coins = 0;
+        chancesLeft = 4;
 
         viewport = new FitViewport(FunGame.V_WIDTH, FunGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -47,18 +57,26 @@ public class Hud implements Disposable{
 
         countLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%08d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        coinLabel = new Label(String.format("%03d", coins), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        chancesNumber = new Label(String.format("%01d", chancesLeft), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("World", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         GameLabel = new Label("Fun", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        chances = new Label("Chances Left", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        coin = new Label("Stars: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(GameLabel).expandX().padTop(1);
+        table.add(GameLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
+        table.add(chances).expandX().padTop(10);
+        table.add(coin).expandX().padTop(10);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(levelLabel).expandX();
         table.add(countLabel).expandX();
+        table.add(chancesNumber).expandX();
+        table.add(coinLabel).expandX();
 
         stage.addActor(table);
 
@@ -82,5 +100,15 @@ public class Hud implements Disposable{
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    public static void addCoin(int value){
+        coins += value;
+        coinLabel.setText(String.format("%03d", coins));
+    }
+
+    public static void chances(int i) {
+        chancesLeft = i;
+        chancesNumber.setText(String.format("%01d", chancesLeft));
     }
 }
