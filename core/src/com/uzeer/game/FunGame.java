@@ -55,7 +55,6 @@ public class FunGame extends Game {
 		manager.load("sounds/coin.wav", Sound.class);
 		manager.load("sounds/Decline.wav", Sound.class);
 		manager.load("sounds/enemy hit.wav", Sound.class);
-		//manager.load("687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67", Image.class);
 		manager.finishLoading();
 
         //setScreen(new PlayScreen(this));
@@ -68,6 +67,8 @@ public class FunGame extends Game {
 		super.dispose();
 		manager.dispose();
 		batch.dispose();
+		screen.dispose();
+		//manager.clear();
 	}
 
 	@Override

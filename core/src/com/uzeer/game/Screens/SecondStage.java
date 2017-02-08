@@ -48,7 +48,7 @@ public class SecondStage implements Screen {
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    private TextureMapObjectRenderer textureMapObjectRenderer;
+    //private TextureMapObjectRenderer textureMapObjectRenderer;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -82,10 +82,10 @@ public class SecondStage implements Screen {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("FinalSecond.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
-        textureMapObjectRenderer = new TextureMapObjectRenderer(map, 1 / FunGame.PPM);
+        //textureMapObjectRenderer = new TextureMapObjectRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
-       gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4f;
+        gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4f;
 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
@@ -139,8 +139,8 @@ public class SecondStage implements Screen {
                 gamecam.position.y = player.b2body.getPosition().y;
         }
         gamecam.update();
-        renderer.setView(gamecam);
-        textureMapObjectRenderer.setView(gamecam);
+        renderer.setView(gamecam );
+       // textureMapObjectRenderer.setView(gamecam);
 
     }
 
@@ -150,18 +150,19 @@ public class SecondStage implements Screen {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2)
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
                 player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2)
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)
                 player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                 player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                 bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
-                player.spacePressed(dt);
-
+                player.spacePressed = true;
             }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+                pause();
         }
 
     }
@@ -241,7 +242,7 @@ public class SecondStage implements Screen {
 
     @Override
     public void pause() {
-
+        Gdx.app.exit();
     }
 
     @Override
@@ -261,6 +262,8 @@ public class SecondStage implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
+        world.dispose();
+        //spriteBatch.dispose();
     }
 
     public boolean gameOver(){

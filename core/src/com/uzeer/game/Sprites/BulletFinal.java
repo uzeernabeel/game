@@ -41,10 +41,11 @@ public class BulletFinal extends Sprite {
         this.screen = screen;
         setPosition(x, y);
         defineBullet();
-        velocity2 = new Vector2(1.5f, 0f);
-        NegVelocity2 = new Vector2(-1.5f, 0f);
+        velocity2 = new Vector2(2f, 0f);
+        NegVelocity2 = new Vector2(2f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
+        setRegion(apple);
     }
 
     public BulletFinal(SecondStage screen, float x, float y) {
@@ -57,6 +58,7 @@ public class BulletFinal extends Sprite {
         NegVelocity2 = new Vector2(-3f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
+        setRegion(apple);
     }
 
     protected void defineBullet() {
@@ -74,7 +76,7 @@ public class BulletFinal extends Sprite {
         shape.setAsBox(5 / FunGame.PPM, 5/ FunGame.PPM, new Vector2(5 / FunGame.PPM, 5 / FunGame.PPM), 0);
 
         fdef.shape = shape;
-        fdef.isSensor = true;
+        //fdef.isSensor = true;
         fdef.filter.categoryBits = FunGame.BULLET_BIT;
 
         fdef.filter.maskBits = //FunGame.DEFAULT_BIT |
@@ -114,6 +116,7 @@ public class BulletFinal extends Sprite {
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
             stateTimer += dt;
             setTexture(null);
+            //getTexture().dispose();
         }
         if(leftSide) {
             b2body.setLinearVelocity(NegVelocity2);
@@ -133,6 +136,12 @@ public class BulletFinal extends Sprite {
 
     public void destroyBullet() {
         setToDestroy = true;
+        dispose();
         Gdx.app.log("touch ", "ground");
+    }
+
+    private void dispose() {
+        getTexture().dispose();
+
     }
 }

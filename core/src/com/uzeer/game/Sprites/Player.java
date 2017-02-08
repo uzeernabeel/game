@@ -49,7 +49,7 @@ public class Player extends Sprite {
     protected Fixture fixture;
     private boolean timeToRedefinePlayer;
     public static boolean playerDead;
-   public static boolean spacePressed;
+    public static boolean spacePressed;
     private BodyDef bdef;
 
     public Player(PlayScreen screen){
@@ -213,6 +213,9 @@ public class Player extends Sprite {
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
+        if(spacePressed && dt > 3)
+            spacePressed = false;
+
     }
 
 
@@ -266,7 +269,7 @@ public class Player extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        else if(spacePressed && stateTimer > 0.3)
+        else if(spacePressed && stateTimer < 3f)
             return State.THROWING;
         else
             return State.STANDING;
@@ -320,10 +323,7 @@ public class Player extends Sprite {
     }
 
     public boolean IsPlayerOnGround(){
-        if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
-            return false;
-        else
-            return true;
+        return !(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING));
     }
 
     public static int num = 0;
@@ -369,9 +369,6 @@ public class Player extends Sprite {
 
     public float getStateTimer(){
         return stateTimer;
-    }
-
-    public void spacePressed(float deltaTime){
     }
 
 }

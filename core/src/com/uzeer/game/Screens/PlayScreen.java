@@ -139,7 +139,7 @@ public class PlayScreen implements Screen {
 
         gamecam.update();
         renderer.setView(gamecam);
-        objectRenderer.setView(gamecam);
+       // objectRenderer.setView(gamecam);
 
     }
 
