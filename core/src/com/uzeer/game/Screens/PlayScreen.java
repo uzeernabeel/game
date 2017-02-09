@@ -158,7 +158,7 @@ public class PlayScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                 bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                Player.spacePressed = true;
+                //Player.spacePressed = true;
             }
         }
 

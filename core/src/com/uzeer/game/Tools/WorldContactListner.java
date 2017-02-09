@@ -11,6 +11,7 @@ import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.InteractiveTileObject;
 import com.uzeer.game.Sprites.Player;
+import com.uzeer.game.Sprites.Player2;
 
 /**
  * Created by Uzeer on 12/27/2016.
@@ -71,9 +72,9 @@ public class WorldContactListner implements ContactListener {
                 break;
             case FunGame.PLAYER_BIT | FunGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    ((Player)fixA.getUserData()).hit();
+                    ((Player2)fixA.getUserData()).hit();
                 else
-                    ((Player)fixB.getUserData()).hit();
+                    ((Player2)fixB.getUserData()).hit();
                 break;
             case FunGame.BULLET_BIT | FunGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)

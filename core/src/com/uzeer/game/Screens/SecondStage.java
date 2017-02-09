@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
@@ -21,11 +22,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Bullets;
 import com.uzeer.game.Sprites.Bullets2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Player;
+import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
 import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
@@ -53,23 +56,18 @@ public class SecondStage implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     public Player player;
+    public Player2 player2;
     private B2WorldCreator creator;
 
     private Music music;
     private boolean playerIsTouchingTheGround;
 
-    private ArrayList<Bullets> bullets;
-
-    private Bullets2 bullets2;
     private BulletFinal bulletFinal;
 
     private float maxPosition;
     private float minPosition;
 
-    TextureMapObject textureMapObject;
-    TextureMapObject textureObject;
 
-    SpriteBatch spriteBatch;
 
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
@@ -90,7 +88,8 @@ public class SecondStage implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        player = new Player(this);
+        //player = new Player(this);
+        player2 = new Player2(this);
 
         bulletFinal = new BulletFinal(this, 6, 70);
         //bullets2 = new Bullets2(this, 5, 70);
@@ -118,9 +117,13 @@ public class SecondStage implements Screen {
 
         world.step(1 / 60f, 6, 2);
 
-        player.update(dt);
+        //player.update(dt);
+        player2.update(dt);
 
         for(Enemy enemy : creator.getFlinkstone())
+            enemy.update(dt);
+
+        for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);
 
         // bullets2.update(dt);
@@ -128,7 +131,7 @@ public class SecondStage implements Screen {
 
         hud.update(dt);
 
-        minPosition = player.b2body.getPosition().y;
+       /* minPosition = player.b2body.getPosition().y;
 
         if (player.currentState != Player.State.DEAD) {
             if(minPosition >= maxPosition) {
@@ -137,7 +140,8 @@ public class SecondStage implements Screen {
             }
             if(minPosition < maxPosition + 3f)
                 gamecam.position.y = player.b2body.getPosition().y;
-        }
+        } */
+        gamecam.position.y = player2.b2body.getPosition().y;
         gamecam.update();
         renderer.setView(gamecam );
        // textureMapObjectRenderer.setView(gamecam);
@@ -145,7 +149,7 @@ public class SecondStage implements Screen {
     }
 
     private void handleInput(float dt) {
-        if(player.currentState != Player.State.DEAD){
+/*        if(player.currentState != Player.State.DEAD){
             if ((player.IsPlayerOnGround())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
@@ -160,6 +164,25 @@ public class SecondStage implements Screen {
                 //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                 bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
                 player.spacePressed = true;
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+                pause();
+        } */
+        if(player2.currentState != Player2.State.DEAD){
+            if ((player2.IsPlayerOnGround())) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
+                player2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player2.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -3)
+                player2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player2.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+                player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                //player2.spacePressed = true;
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
                 pause();
@@ -188,7 +211,8 @@ public class SecondStage implements Screen {
         game.batch.setProjectionMatrix(gamecam.combined);
 
         game.batch.begin();
-        player.draw(game.batch);
+        //player.draw(game.batch);
+        player2.draw(game.batch);
 
         /*for (MapObject object : map.getLayers().get(1).getObjects()) {
             //textureMapObjectRenderer.renderObject(object);
@@ -204,6 +228,9 @@ public class SecondStage implements Screen {
         }
     */
         for(Enemy enemy : creator.getFlinkstone())
+            enemy.draw(game.batch);
+
+        for(Enemy enemy : creator.getBadGuys())
             enemy.draw(game.batch);
 
        // textureMapObjectRenderer.draw(game.batch);
@@ -264,17 +291,18 @@ public class SecondStage implements Screen {
         hud.dispose();
         world.dispose();
         //spriteBatch.dispose();
+        player.getTexture().dispose();
     }
 
     public boolean gameOver(){
-        if(player.currentState == Player.State.DEAD && player.getStateTimer() > 3)
+        if(player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3)
             return true;
         else
             return false;
     }
 
     public boolean levelComplete(){
-        if(player.b2body.getPosition().y > 8294 / FunGame.PPM)
+        if(player2.b2body.getPosition().y > 8294 / FunGame.PPM)
             return true;
         else
             return false;

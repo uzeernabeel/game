@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ObjectFloatMap;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
+import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.Boxes;
 import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Fire;
@@ -26,6 +27,7 @@ import com.uzeer.game.Sprites.Flinkstone;
 public class B2WorldCreator {
 
     private Array<Flinkstone> flinkstone;
+    private Array<BadGuy> badGuys;
 
     public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
@@ -149,6 +151,13 @@ public class B2WorldCreator {
             flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
 
+        //creat badGuy Layer
+        badGuys = new Array<BadGuy>();
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            badGuys.add(new BadGuy(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
+        }
+
         /*This is for Ground Layer
         for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -173,5 +182,9 @@ public class B2WorldCreator {
 
     public Array<Flinkstone> getFlinkstone() {
         return flinkstone;
+    }
+
+    public Array<BadGuy> getBadGuys(){
+        return badGuys;
     }
 }

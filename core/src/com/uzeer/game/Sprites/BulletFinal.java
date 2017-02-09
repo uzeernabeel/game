@@ -41,8 +41,8 @@ public class BulletFinal extends Sprite {
         this.screen = screen;
         setPosition(x, y);
         defineBullet();
-        velocity2 = new Vector2(2f, 0f);
-        NegVelocity2 = new Vector2(2f, 0f);
+        velocity2 = new Vector2(4f, 0f);
+        NegVelocity2 = new Vector2(4f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
         setRegion(apple);
@@ -54,8 +54,8 @@ public class BulletFinal extends Sprite {
         this.screen1 = screen;
         setPosition(x, y);
         defineBullet();
-        velocity2 = new Vector2(3f, 0f);
-        NegVelocity2 = new Vector2(-3f, 0f);
+        velocity2 = new Vector2(5f, 0f);
+        NegVelocity2 = new Vector2(-5f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
         setRegion(apple);
@@ -66,7 +66,7 @@ public class BulletFinal extends Sprite {
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.KinematicBody;
         b2body = world.createBody(bdef);
-        if(screen1.player.isFlipX())
+        if(screen1.player2.isFlipX())
             leftSide = true;
         else
             rightSide = true;
