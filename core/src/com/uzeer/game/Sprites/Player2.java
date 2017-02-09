@@ -56,6 +56,7 @@ public class Player2 extends Sprite {
     private BodyDef bdef;
     private Texture texture;
 
+
     public Player2(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
         this.world = screen.getWorld();
@@ -131,7 +132,6 @@ public class Player2 extends Sprite {
             if(i > 5)
                 frames.add(new TextureRegion(getTexture(), 329, 306, 38, 68));
         }
-
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
@@ -210,7 +210,7 @@ public class Player2 extends Sprite {
         playerThrow = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 8; i++) {
+        for(int i = 1; i < 9; i++) {
             if(i == 1)
                 frames.add(new TextureRegion(texture, 65, 679, 57, 77));
             else if(i == 2)
@@ -225,8 +225,9 @@ public class Player2 extends Sprite {
                 frames.add(new TextureRegion(texture, 418, 679, 58, 77));
             else if(i == 7)
                 frames.add(new TextureRegion(texture, 491, 679, 58, 86));
+            else if(i == 8)
+                frames.add(new TextureRegion(texture, 564, 811, 58, 93));
         }
-
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
@@ -288,15 +289,17 @@ public class Player2 extends Sprite {
 
         playerIsDead = new TextureRegion(getTexture(), 189, 684, 35, 40);
 
-        playerFalling = new TextureRegion(new TextureRegion(texture, 491, 679, 58, 86));
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 491, 679, 58, 86));
+        playerFalling = new TextureRegion(new TextureRegion(texture, 389, 817, 50, 80));
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 564, 811, 58, 93));
 
-        playerStand1 = new TextureRegion(new TextureRegion(texture, 2, 1, 46, 57));
+        //playerStand1 = new TextureRegion(new TextureRegion(texture, 2, 1, 46, 57));
 
         definePlayer();
 
-        setBounds(0, 0, 28 / FunGame.PPM, 38 / FunGame.PPM);
+        setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
 
-        //setRegion(playerStand1);
+        //setRegion(playerStand);
     }
 
     public void update(float dt){
@@ -338,9 +341,9 @@ public class Player2 extends Sprite {
             case STANDING2:
                 region = playerStand2.getKeyFrame(stateTimer, true);
                 break;
-            case STANDING_STILL:
+            //case STANDING_STILL:
             default:
-                region = playerStand1;
+                region = playerStand.getKeyFrame(stateTimer, true);
                 break;
         }
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
@@ -370,9 +373,9 @@ public class Player2 extends Sprite {
             return State.RUNNING;
         else if(spacePressed && stateTimer > 3f)
             return State.THROWING;
-        else if(b2body.getLinearVelocity().x == 0 && stateTimer > 3f)
+        else if(b2body.getLinearVelocity().x == 0)
             return State.STANDING;
-        else if(b2body.getLinearVelocity().x == 0 && stateTimer > 10f)
+        else if(b2body.getLinearVelocity().x == 0 && stateTimer < 5f)
             return State.STANDING2;
         else
             return State.STANDING_STILL;
@@ -390,7 +393,7 @@ public class Player2 extends Sprite {
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(5 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |

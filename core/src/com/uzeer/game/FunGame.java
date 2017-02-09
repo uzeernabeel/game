@@ -44,7 +44,7 @@ public class FunGame extends Game {
 
 		manager = new AssetManager();
 		manager.load("sounds/game background1.mp3", Music.class);
-		manager.load("sounds/background.mp3", Music.class);
+		manager.load("sounds/FinalGameBackground.mp3", Music.class);
 		manager.load("sounds/is that all stranger.mp3", Sound.class);
 		manager.load("sounds/enemyHit.wav", Sound.class);
 		manager.load("sounds/stranger stranger.mp3", Sound.class);
@@ -68,7 +68,6 @@ public class FunGame extends Game {
 		manager.dispose();
 		batch.dispose();
 		screen.dispose();
-		//manager.clear();
 	}
 
 	@Override

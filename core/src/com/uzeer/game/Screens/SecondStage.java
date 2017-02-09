@@ -102,7 +102,7 @@ public class SecondStage implements Screen {
         minPosition = 0;
 
         //FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
-        music = FunGame.manager.get("sounds/background.mp3", Music.class);
+        music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
         //music.setVolume(.09f);
         music.setLooping(true);
         music.play();
