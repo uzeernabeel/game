@@ -217,4 +217,9 @@ public class BadGuy extends Enemy{
             Gdx.app.log("Game", "End");
         }
     }
+
+    public void dispose(){
+        frames.clear();
+        badGuyTexture.dispose();
+    }
 }

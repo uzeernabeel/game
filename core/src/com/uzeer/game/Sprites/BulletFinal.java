@@ -140,8 +140,10 @@ public class BulletFinal extends Sprite {
         Gdx.app.log("touch ", "ground");
     }
 
-    private void dispose() {
-        getTexture().dispose();
-
+    public void dispose() {
+        apple.getTexture().dispose();
+        world.dispose();
+        screen.dispose();
+        screen1.dispose();
     }
 }

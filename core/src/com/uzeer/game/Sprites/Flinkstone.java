@@ -223,4 +223,12 @@ public class Flinkstone extends Enemy {
 
     }
 
+    public void dispose(){
+        world.dispose();
+        screen.dispose();
+        screen1.dispose();
+        frames.clear();
+        region.getTexture().dispose();
+    }
+
 }

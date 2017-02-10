@@ -236,9 +236,6 @@ public class PlayScreen implements Screen {
     }
 
     public boolean gameOver(){
-        if(player.currentState == Player.State.DEAD && player.getStateTimer() > 3)
-            return true;
-        else
-            return false;
+        return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
     }
 }

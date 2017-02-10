@@ -60,7 +60,7 @@ public class Hud implements Disposable{
         coinLabel = new Label(String.format("%03d", coins), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         chancesNumber = new Label(String.format("%01d", chancesLeft), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        levelLabel = new Label(" - 2 - ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("World", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         GameLabel = new Label("Fun", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         chances = new Label("Chances Left", new Label.LabelStyle(new BitmapFont(), Color.WHITE));

@@ -291,20 +291,25 @@ public class SecondStage implements Screen {
         hud.dispose();
         world.dispose();
         //spriteBatch.dispose();
-        player.getTexture().dispose();
+        getAtlas().dispose();
+        getWorld().dispose();
+        getMap().dispose();
+        getScreen().dispose();
+        atlas.dispose();
+        player2.dispose();
+        bulletFinal.dispose();
+        player2.dispose();
     }
 
     public boolean gameOver(){
-        if(player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3)
-            return true;
-        else
-            return false;
+        return player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3;
     }
 
     public boolean levelComplete(){
-        if(player2.b2body.getPosition().y > 8294 / FunGame.PPM)
-            return true;
-        else
-            return false;
+        return player2.b2body.getPosition().y > 8294 / FunGame.PPM;
+    }
+
+    public SecondStage getScreen(){
+        return this;
     }
 }

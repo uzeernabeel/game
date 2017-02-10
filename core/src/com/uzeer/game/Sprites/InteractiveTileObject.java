@@ -59,7 +59,7 @@ public abstract class InteractiveTileObject {
         shape.setAsBox(bounds.getWidth() / 2 / FunGame.PPM, bounds.getHeight() / 2 / FunGame.PPM);
         fdef.shape = shape;
 
-        if(value == "Boxes") {
+        if(value.equals("Boxes")) {
            /* fdef.filter.categoryBits = FunGame.OBJECT_BIT;
             fixtureDef = new FixtureDef();
 
@@ -90,10 +90,10 @@ public abstract class InteractiveTileObject {
 
 
 
-        else if (value == "Coins")
+        else if (value.equals("Coins"))
             fdef.isSensor = true;
 
-        else if(value == "Fire") {
+        else if(value.equals("Fire")) {
             fdef.restitution = 0.8f;
         }
 
@@ -118,7 +118,7 @@ public abstract class InteractiveTileObject {
         shape.setAsBox(bounds.getWidth() / 2 / FunGame.PPM, bounds.getHeight() / 2 / FunGame.PPM);
         fdef.shape = shape;
 
-        if(value == "Boxes") {
+        if(value.equals("Boxes")) {
            /* fdef.filter.categoryBits = FunGame.OBJECT_BIT;
             fixtureDef = new FixtureDef();
 
@@ -149,10 +149,10 @@ public abstract class InteractiveTileObject {
 
 
 
-        else if (value == "Coins")
+        else if (value.equals("Coins"))
             fdef.isSensor = true;
 
-        else if(value == "Fire") {
+        else if(value.equals("Fire")) {
             fdef.restitution = 0.8f;
         }
 

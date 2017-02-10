@@ -55,6 +55,8 @@ public class Player2 extends Sprite {
     public static boolean spacePressed;
     private BodyDef bdef;
     private Texture texture;
+    FixtureDef fdef;
+    private boolean hitted;
 
 
     public Player2(PlayScreen screen){
@@ -152,6 +154,8 @@ public class Player2 extends Sprite {
         previousState = State.STANDING_STILL;
         stateTimer = 0f;
         runningRight = true;
+
+        hitted = false;
 
         texture = new Texture("player2.png");
 
@@ -388,12 +392,13 @@ public class Player2 extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
-        FixtureDef fdef = new FixtureDef();
+        fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
         shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        //fdef.isSensor = false;
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
@@ -405,6 +410,9 @@ public class Player2 extends Sprite {
                 FunGame.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;
+
+        if(hitted)
+            fdef.isSensor = true;
 
         // b2body.createFixture(fdef).setUserData("player");
         b2body.createFixture(fdef).setUserData(this);
@@ -436,6 +444,10 @@ public class Player2 extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
+        Gdx.app.log("Ha : ", " here");
+
+        hitted = true;
+
         FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
         num++;
         if(num == 1) {
@@ -475,6 +487,12 @@ public class Player2 extends Sprite {
 
     public float getStateTimer(){
         return stateTimer;
+    }
+
+    public void dispose(){
+        world.dispose();
+        texture.dispose();
+
     }
 
 }
