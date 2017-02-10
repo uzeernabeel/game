@@ -32,6 +32,8 @@ import com.uzeer.game.Screens.SecondStage;
 public class Player2 extends Sprite {
 
 
+    private boolean playerHitted;
+
     public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING, STANDING_STILL, STANDING2 }
     public State currentState;
     public State previousState;
@@ -155,7 +157,7 @@ public class Player2 extends Sprite {
         stateTimer = 0f;
         runningRight = true;
 
-        hitted = false;
+        playerHitted = false;
 
         texture = new Texture("player2.png");
 
@@ -216,22 +218,21 @@ public class Player2 extends Sprite {
 
         for(int i = 1; i < 9; i++) {
             if(i == 1)
-                frames.add(new TextureRegion(texture, 65, 679, 57, 77));
+                frames.add(new TextureRegion(texture, 65, 691, 57, 67));
             else if(i == 2)
-                frames.add(new TextureRegion(texture, 123, 679, 58, 77));
+                frames.add(new TextureRegion(texture, 123, 685, 58, 61));
             else if(i == 3)
-                frames.add(new TextureRegion(texture, 198, 679, 59, 77));
+                frames.add(new TextureRegion(texture, 198, 685, 59, 61));
             else if(i == 4)
-                frames.add(new TextureRegion(texture, 272, 679, 62, 77));
+                frames.add(new TextureRegion(texture, 272, 685, 62, 61));
             else if(i == 5)
-                frames.add(new TextureRegion(texture, 349, 679, 59, 77));
+                frames.add(new TextureRegion(texture, 349, 685, 59, 61));
             else if(i == 6)
-                frames.add(new TextureRegion(texture, 418, 679, 58, 77));
+                frames.add(new TextureRegion(texture, 418, 685, 58, 61));
             else if(i == 7)
-                frames.add(new TextureRegion(texture, 491, 679, 58, 86));
-            else if(i == 8)
-                frames.add(new TextureRegion(texture, 564, 811, 58, 93));
+                frames.add(new TextureRegion(texture, 389, 817, 55, 80));
         }
+        //setBounds(0, 0, 35 / FunGame.PPM, 48 / FunGame.PPM);
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
@@ -250,7 +251,7 @@ public class Player2 extends Sprite {
                 frames.add(new TextureRegion(texture, 302, 1, 46, 57));
         }
 
-        playerStand = new Animation(0.1f, frames);
+        playerStand = new Animation(0.20f, frames);
         frames.clear();
 
         for(int i = 1; i < 17; i++) {
@@ -291,7 +292,7 @@ public class Player2 extends Sprite {
         playerStand2 = new Animation(0.1f, frames);
         frames.clear();
 
-        playerIsDead = new TextureRegion(getTexture(), 189, 684, 35, 40);
+        playerIsDead = new TextureRegion(texture, 406, 2229, 47, 61);
 
         //playerFalling = new TextureRegion(new TextureRegion(texture, 491, 679, 58, 86));
         playerFalling = new TextureRegion(new TextureRegion(texture, 389, 817, 50, 80));
@@ -307,13 +308,14 @@ public class Player2 extends Sprite {
     }
 
     public void update(float dt){
+        //stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 11 / FunGame.PPM);
         setRegion(getFrame(dt));
 
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
-        if(spacePressed && dt > 3)
+        if(spacePressed && dt < .2f)
             spacePressed = false;
 
     }
@@ -369,20 +371,21 @@ public class Player2 extends Sprite {
     private State getState(float dt) {
         if(playerDead)
             return State.DEAD;
-        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
+        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) ) {
             return State.JUMPING;
+        }
         else if(b2body.getLinearVelocity().y < 0)
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
         else if(spacePressed && stateTimer > 3f)
             return State.THROWING;
-        else if(b2body.getLinearVelocity().x == 0)
-            return State.STANDING;
-        else if(b2body.getLinearVelocity().x == 0 && stateTimer < 5f)
+        else if(b2body.getLinearVelocity().x == 0 && stateTimer > 6)
             return State.STANDING2;
+        else if(b2body.getLinearVelocity().x == 0 && stateTimer < 6)
+            return State.STANDING;
         else
-            return State.STANDING_STILL;
+            return State.STANDING;
     }
 
 
@@ -410,9 +413,6 @@ public class Player2 extends Sprite {
                 FunGame.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;
-
-        if(hitted)
-            fdef.isSensor = true;
 
         // b2body.createFixture(fdef).setUserData("player");
         b2body.createFixture(fdef).setUserData(this);
@@ -444,9 +444,6 @@ public class Player2 extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-        Gdx.app.log("Ha : ", " here");
-
-        hitted = true;
 
         FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
         num++;
