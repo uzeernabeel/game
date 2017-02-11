@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="800" height="20" tilewidth="22" tileheight="22" nextobjectid="53">
+ <tileset firstgid="1" name="stageHa" tilewidth="22" tileheight="22" tilecount="168" columns="24">
+  <image source="sprite sheets/stageHa.png" width="540" height="154"/>
+ </tileset>
+ <tileset firstgid="169" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
+  <image source="sprite sheets/New folder/687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
+ </tileset>
+ <tileset firstgid="2424" name="stuff" tilewidth="789" tileheight="524" tilecount="42" columns="0">
+  <tile id="0">
+   <image width="107" height="121" source="assets/board.png"/>
+  </tile>
+  <tile id="1">
+   <image width="107" height="121" source="assets/board_inverse.png"/>
+  </tile>
+  <tile id="2">
+   <image width="176" height="83" source="assets/car.png"/>
+  </tile>
+  <tile id="3">
+   <image width="176" height="83" source="assets/car_inverse.png"/>
+  </tile>
+  <tile id="4">
+   <image width="148" height="53" source="assets/chi.png"/>
+  </tile>
+  <tile id="5">
+   <image width="474" height="254" source="assets/chi2.png"/>
+  </tile>
+  <tile id="6">
+   <image width="474" height="254" source="assets/chi3.png"/>
+  </tile>
+  <tile id="7">
+   <image width="410" height="262" source="assets/chi4.png"/>
+  </tile>
+  <tile id="8">
+   <image width="410" height="237" source="assets/chi5.png"/>
+  </tile>
+  <tile id="9">
+   <image width="411" height="353" source="assets/chi6.png"/>
+  </tile>
+  <tile id="10">
+   <image width="399" height="206" source="assets/chi7.png"/>
+  </tile>
+  <tile id="11">
+   <image width="273" height="252" source="assets/house1.png"/>
+  </tile>
+  <tile id="12">
+   <image width="273" height="252" source="assets/house1_inverse.png"/>
+  </tile>
+  <tile id="13">
+   <image width="203" height="186" source="assets/house1kjkjh.png"/>
+  </tile>
+  <tile id="14">
+   <image width="314" height="275" source="assets/house2.png"/>
+  </tile>
+  <tile id="15">
+   <image width="314" height="275" source="assets/house2_inverse.png"/>
+  </tile>
+  <tile id="16">
+   <image width="257" height="278" source="assets/house3.png"/>
+  </tile>
+  <tile id="17">
+   <image width="257" height="278" source="assets/house3_inverse.png"/>
+  </tile>
+  <tile id="18">
+   <image width="330" height="274" source="assets/house4.png"/>
+  </tile>
+  <tile id="19">
+   <image width="330" height="274" source="assets/house4_inverse.png"/>
+  </tile>
+  <tile id="20">
+   <image width="164" height="226" source="assets/house5.png"/>
+  </tile>
+  <tile id="21">
+   <image width="164" height="226" source="assets/house5_inverse.png"/>
+  </tile>
+  <tile id="22">
+   <image width="789" height="476" source="assets/palace.png"/>
+  </tile>
+  <tile id="23">
+   <image width="108" height="159" source="assets/pipe1.png"/>
+  </tile>
+  <tile id="24">
+   <image width="108" height="159" source="assets/pipe1_inverse.png"/>
+  </tile>
+  <tile id="25">
+   <image width="73" height="186" source="assets/pipe2.png"/>
+  </tile>
+  <tile id="26">
+   <image width="73" height="186" source="assets/pipe2_inverse.png"/>
+  </tile>
+  <tile id="27">
+   <image width="73" height="222" source="assets/pipe3.png"/>
+  </tile>
+  <tile id="28">
+   <image width="73" height="222" source="assets/pipe3_inverse.png"/>
+  </tile>
+  <tile id="29">
+   <image width="68" height="145" source="assets/speed.png"/>
+  </tile>
+  <tile id="30">
+   <image width="68" height="145" source="assets/speed_inverse.png"/>
+  </tile>
+  <tile id="31">
+   <image width="651" height="524" source="assets/stageHa.png"/>
+  </tile>
+  <tile id="32">
+   <image width="83" height="44" source="assets/tire.png"/>
+  </tile>
+  <tile id="33">
+   <image width="83" height="44" source="assets/tire_inverse.png"/>
+  </tile>
+  <tile id="34">
+   <image width="88" height="32" source="assets/tire3.png"/>
+  </tile>
+  <tile id="35">
+   <image width="88" height="32" source="assets/tire3_inverse.png"/>
+  </tile>
+  <tile id="36">
+   <image width="450" height="352" source="assets/tree house.png"/>
+  </tile>
+  <tile id="37">
+   <image width="450" height="352" source="assets/tree house_inverse.png"/>
+  </tile>
+  <tile id="38">
+   <image width="42" height="74" source="assets/waterpipe1.png"/>
+  </tile>
+  <tile id="39">
+   <image width="42" height="74" source="assets/waterpipe1_inverse.png"/>
+  </tile>
+  <tile id="40">
+   <image width="42" height="74" source="assets/waterpipe2.png"/>
+  </tile>
+  <tile id="41">
+   <image width="42" height="74" source="assets/waterpipe2_inverse.png"/>
+  </tile>
+ </tileset>
+ <layer name="background" width="800" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAMBKHzb/mXrhUBCaumqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqvoe/StLFA==
+  </data>
+ </layer>
+ <objectgroup name="Ground">
+  <object id="27" x="0" y="396" width="528" height="44"/>
+  <object id="28" x="616" y="396" width="528" height="44"/>
+  <object id="29" x="1210" y="396" width="528" height="44"/>
+  <object id="30" x="1826" y="396" width="528" height="44"/>
+  <object id="31" x="2398" y="352" width="132" height="22"/>
+  <object id="32" x="2552" y="286" width="132" height="22"/>
+  <object id="33" x="2706" y="220" width="132" height="22"/>
+  <object id="34" x="2860" y="396" width="1584" height="44"/>
+  <object id="35" x="5522" y="396" width="1056" height="44"/>
+  <object id="36" x="6666" y="396" width="528" height="44"/>
+  <object id="37" x="7282" y="396" width="528" height="44"/>
+  <object id="42" x="7898" y="396" width="3168" height="44"/>
+  <object id="43" x="11154" y="396" width="528" height="44"/>
+  <object id="44" x="11748" y="330" width="132" height="22"/>
+  <object id="45" x="11946" y="264" width="132" height="22"/>
+  <object id="46" x="12144" y="330" width="132" height="22"/>
+  <object id="47" x="12342" y="264" width="132" height="22"/>
+  <object id="48" x="12540" y="330" width="132" height="22"/>
+  <object id="49" x="12738" y="264" width="132" height="22"/>
+  <object id="50" x="12892" y="396" width="2640" height="44"/>
+  <object id="51" x="16236" y="396" width="1364" height="44"/>
+  <object id="52" x="15620" y="396" width="528" height="44"/>
+ </objectgroup>
+ <layer name="stuff" width="800" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt3D1vwjAQAFDW/mMGCqUwtAOoCEElPir1n1YdMoAExMk5JvDe7NhWfL5EuciDAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD00+9LWvtdYnsAAChp6P0VAAAAAACARHs1JoCb1kG5sm1dX84GiPMjpz6NlbUGAAAAAAACbNUcAE5E12Kj86z/AgCa28ihAAAAAABw0SHoO3rd8yM+arabN5jXd+GawGtPaxLHTPOeBPc7qtFf3fiqLHq6Zqmqc2ZK75HU9bmm1H6Ljutbxh2O955prGmmft8y3pumsTprMadc97/Sdew+kqh3pXOlc/K/rnPpZ8vxmuyxr4RrSjxbcsVXZXkHcQYAAAAAAPDI/gCy3htt
+  </data>
+ </layer>
+ <layer name="stuff2" width="800" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1jEOwjAMAMCu/LiUfoEBysQAX0UMlSrUoYCdBnr3gMR2bCtNAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMue3+656nNvCurmDcNbkE531PquN5o++T7ZBc1/1K7xbZL+NOWzor0buk/+HdHb1fXp2+OP+TfLPzmYp8j5Jx12DJDM79H7L34bumPTAkxxa5Z64r1LHE3zO6P8a5PFbWdwAAAAAAAFvwAHafEtc=
+  </data>
+ </layer>
+ <layer name="Ground" width="800" height="20" offsetx="0" offsety="110">
+  <data encoding="base64" compression="zlib">
+   eJzt2sdyg0AURUGcc8455/j/X+frrcvSAksWM3RXnZ3qgRhYSEzTAAAAAAAAAAAAAAAAAPDTfXpIj+kpPaeX9NrycwAA0CVLaTmtpNW0ltYnekYAAAAAAACUwp4pgMGm0nSaSbNpLs1XMAegj+yx6ie/dwAAAAAAgLa8ZwAYrmt7ouytAvg7e6wAAAAAAGC4Qe8lF9JiM/i/9o20mbbSdtpJu2kv7aeDdDjh49X83UZt3Ode+vwa1LYGjtft9TK/389LTUq/F8zv9rNS+vVrO/8oHaeTdJrO0nm6SJfpKl2nm3Sb7prhe+Df0nv6SJ+/XOf/PF7N323Uxn3upc+vQW1r4HjdXi/z+/281KT0e8H8bj8rpV+/tvMBAAAAAAAAAAAAAAAAAADg2xdto4B7
+  </data>
+ </layer>
+ <layer name="stuff" width="800" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1tB6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4A+gAAAQ==
+  </data>
+ </layer>
+</map>
