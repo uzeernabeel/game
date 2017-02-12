@@ -30,8 +30,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.BulletFinal;
-import com.uzeer.game.Sprites.Bullets;
-import com.uzeer.game.Sprites.Bullets2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
@@ -63,9 +61,6 @@ public class PlayScreen implements Screen {
     private Music music;
     private boolean playerIsTouchingTheGround;
 
-    private ArrayList<Bullets> bullets;
-
-    private Bullets2 bullets2;
     private BulletFinal bulletFinal;
 
     TextureMapObjectRenderer objectRenderer;
@@ -76,7 +71,7 @@ public class PlayScreen implements Screen {
         this.game = game;
 
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
+        //gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
@@ -91,7 +86,6 @@ public class PlayScreen implements Screen {
         player = new Player(this);
 
         bulletFinal = new BulletFinal(this, 5, 70);
-        //bullets2 = new Bullets2(this, 5, 70);
 
         creator = new B2WorldCreator(this);
 
@@ -103,7 +97,6 @@ public class PlayScreen implements Screen {
         music.setLooping(true);
         music.play();
 
-        //update bullets
     }
 
     public TextureAtlas getAtlas(){

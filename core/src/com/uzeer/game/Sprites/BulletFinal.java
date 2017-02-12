@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -27,6 +28,7 @@ public class BulletFinal extends Sprite {
     private boolean leftSide;
     protected PlayScreen screen;
     protected SecondStage screen1;
+    protected FinalStage screen2;
     protected World world;
     public Body b2body;
     public Vector2 velocity2;
@@ -61,12 +63,25 @@ public class BulletFinal extends Sprite {
         setRegion(apple);
     }
 
+    public BulletFinal(FinalStage screen, float x, float y) {
+        super(screen.getAtlas().findRegion("player"));
+        this.world = screen.getWorld();
+        this.screen2 = screen;
+        setPosition(x, y);
+        defineBullet();
+        velocity2 = new Vector2(5f, 0f);
+        NegVelocity2 = new Vector2(-5f, 0f);
+        apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
+        setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
+        setRegion(apple);
+    }
+
     protected void defineBullet() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.KinematicBody;
         b2body = world.createBody(bdef);
-        if(screen1.player2.isFlipX())
+        if(screen2.player2.isFlipX())
             leftSide = true;
         else
             rightSide = true;

@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -27,6 +28,13 @@ public class Coin extends InteractiveTileObject{
     }
 
     public Coin(SecondStage screen, Rectangle bounds, String value) {
+        super(screen, bounds, value);
+        fixture.setUserData(this);
+        setCategoryFilter(FunGame.COIN_BIT);
+
+    }
+
+    public Coin(FinalStage screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
         fixture.setUserData(this);
         setCategoryFilter(FunGame.COIN_BIT);

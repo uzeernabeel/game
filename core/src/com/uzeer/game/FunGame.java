@@ -10,12 +10,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.uzeer.game.Screens.FinalStage;
+import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
 public class FunGame extends Game {
-	public static final int V_WIDTH = 920;
-	public static final int V_HEIGHT = 480;
+	public static final int V_WIDTH1 = 920;
+	public static final int V_HEIGHT1 = 480;
     //public static final int V_WIDTH = 750;
     //public static final int V_HEIGHT = 330;
 	public static final float PPM = 100;
@@ -41,6 +43,8 @@ public class FunGame extends Game {
 	
 	@Override
 	public void create () {
+
+
 		batch = new SpriteBatch();
 
 		manager = new AssetManager();
@@ -59,8 +63,8 @@ public class FunGame extends Game {
 		manager.finishLoading();
 
         //setScreen(new PlayScreen(this));
-
-		setScreen(new SecondStage(this));
+		//setScreen(new SecondStage(this));
+		setScreen(new FinalStage(this));
 	}
 
 	@Override

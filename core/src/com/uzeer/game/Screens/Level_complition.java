@@ -27,7 +27,7 @@ public class Level_complition implements Screen {
     public Level_complition(Game game) {
         this.game = game;
         fontHa = new BitmapFont();
-        viewport = new FitViewport(FunGame.V_WIDTH, FunGame.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, ((FunGame)game).batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);

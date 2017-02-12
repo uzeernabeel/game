@@ -48,7 +48,7 @@ public class Hud implements Disposable{
         coins = 0;
         chancesLeft = 4;
 
-        viewport = new FitViewport(FunGame.V_WIDTH, FunGame.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();

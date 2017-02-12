@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -150,6 +151,164 @@ public class Player2 extends Sprite {
     }
 
     public Player2(SecondStage screen){
+        super(screen.getAtlas().findRegion("player"));
+        this.world = screen.getWorld();
+        currentState = State.STANDING_STILL;
+        previousState = State.STANDING_STILL;
+        stateTimer = 0f;
+        runningRight = true;
+
+        playerHitted = false;
+
+        texture = new Texture("player2.png");
+
+        timeToRedefinePlayer = false;
+        playerDead = false;
+        spacePressed = false;
+
+        Array<TextureRegion> frames = new Array<TextureRegion>();
+
+        for(int i = 1; i < 14; i++) {
+            if(i == 1)
+                frames.add(new TextureRegion(texture, 13, 1214, 52, 61));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 65, 1214, 53, 61));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 119, 1214, 53, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 170, 1214, 49, 61));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 219, 1214, 53, 61));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 278, 1214, 53, 61));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 333, 1214, 52, 61));
+            else if(i == 8)
+                frames.add(new TextureRegion(texture, 385, 1214, 53, 61));
+            else if(i == 9)
+                frames.add(new TextureRegion(texture, 439, 1214, 47, 61));
+            else if(i == 10)
+                frames.add(new TextureRegion(texture, 487, 1214, 53, 61));
+            else if(i == 11)
+                frames.add(new TextureRegion(texture, 546, 1214, 56, 61));
+            else if(i == 12)
+                frames.add(new TextureRegion(texture, 610, 1214, 56, 61));
+            else if(i == 13)
+                frames.add(new TextureRegion(texture, 678, 1214, 53, 61));
+        }
+
+        playerRun = new Animation(0.1f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 7; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(texture, 6, 230, 50, 61));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 56, 230, 52, 61));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 108, 230, 53, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 162, 230, 53, 61));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 220, 230, 47, 61));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 267, 230, 53, 61));
+        }
+        playerThrow = new Animation(0.1f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 9; i++) {
+            if(i == 1)
+                frames.add(new TextureRegion(texture, 65, 691, 57, 67));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 123, 685, 58, 61));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 198, 685, 59, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 272, 685, 62, 61));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 349, 685, 59, 61));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 418, 685, 58, 61));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 389, 817, 55, 80));
+        }
+        //setBounds(0, 0, 35 / FunGame.PPM, 48 / FunGame.PPM);
+        playerJump = new Animation(0.1f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 7; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(texture, 2, 1, 46, 57));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 46, 1, 46, 57));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 196, 1, 46, 57));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 249, 1, 46, 57));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 302, 1, 46, 57));
+        }
+
+        playerStand = new Animation(0.20f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 17; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(texture, 2, 138, 43, 80));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 45, 138, 43, 80));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 90, 138, 43, 80));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 187, 138, 43, 80));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 237, 138, 43, 80));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 287, 138, 43, 80));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 333, 138, 43, 80));
+            else if(i == 8)
+                frames.add(new TextureRegion(texture, 377, 138, 43, 80));
+            else if(i == 9)
+                frames.add(new TextureRegion(texture, 424, 138, 43, 80));
+            else if(i == 10)
+                frames.add(new TextureRegion(texture, 471, 138, 43, 80));
+            else if(i == 11)
+                frames.add(new TextureRegion(texture, 518, 138, 43, 80));
+            else if(i == 12)
+                frames.add(new TextureRegion(texture, 567, 138, 43, 80));
+            else if(i == 13)
+                frames.add(new TextureRegion(texture, 614, 138, 43, 80));
+            else if(i == 14)
+                frames.add(new TextureRegion(texture, 665, 138, 43, 80));
+            else if(i == 15)
+                frames.add(new TextureRegion(texture, 714, 138, 43, 80));
+            else if(i == 16)
+                frames.add(new TextureRegion(texture, 760, 138, 43, 80));
+        }
+
+        playerStand2 = new Animation(0.1f, frames);
+        frames.clear();
+
+        playerIsDead = new TextureRegion(texture, 406, 2229, 47, 61);
+
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 491, 679, 58, 86));
+        playerFalling = new TextureRegion(new TextureRegion(texture, 389, 817, 50, 80));
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 564, 811, 58, 93));
+
+        //playerStand1 = new TextureRegion(new TextureRegion(texture, 2, 1, 46, 57));
+
+        definePlayer();
+
+        setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
+
+        //setRegion(playerStand);
+    }
+
+    public Player2(FinalStage screen){
         super(screen.getAtlas().findRegion("player"));
         this.world = screen.getWorld();
         currentState = State.STANDING_STILL;

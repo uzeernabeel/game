@@ -4,14 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -22,22 +17,18 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
-import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
-import java.util.ArrayList;
-
 /**
- * Created by Uzeer on 1/27/2017.
+ * Created by Uzeer on 2/12/2017.
  */
 
-public class SecondStage implements Screen {
+public class FinalStage implements Screen {
     private FunGame game;
 
     private TextureAtlas atlas;
@@ -67,7 +58,7 @@ public class SecondStage implements Screen {
 
 
 
-    public SecondStage(FunGame game){
+    public FinalStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
         System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
         this.game = game;
@@ -78,7 +69,7 @@ public class SecondStage implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("FinalSecond.tmx");
+        map = mapLoader.load("FinalStage.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         //textureMapObjectRenderer = new TextureMapObjectRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
@@ -140,10 +131,10 @@ public class SecondStage implements Screen {
             if(minPosition < maxPosition + 3f)
                 gamecam.position.y = player.b2body.getPosition().y;
         } */
-        gamecam.position.y = player2.b2body.getPosition().y;
+        gamecam.position.x = player2.b2body.getPosition().x;
         gamecam.update();
-        renderer.setView(gamecam );
-       // textureMapObjectRenderer.setView(gamecam);
+        renderer.setView(gamecam);
+        // textureMapObjectRenderer.setView(gamecam);
 
     }
 
@@ -183,8 +174,6 @@ public class SecondStage implements Screen {
                 bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 //player2.spacePressed = true;
             }
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
-                pause();
         }
 
     }
@@ -232,7 +221,7 @@ public class SecondStage implements Screen {
         for(Enemy enemy : creator.getBadGuys())
             enemy.draw(game.batch);
 
-       // textureMapObjectRenderer.draw(game.batch);
+        // textureMapObjectRenderer.draw(game.batch);
 
         //bullets2.draw(game.batch);
         bulletFinal.draw(game.batch);
@@ -269,7 +258,7 @@ public class SecondStage implements Screen {
 
     @Override
     public void pause() {
-        Gdx.app.exit();
+        //Gdx.app.exit();
     }
 
     @Override
@@ -310,7 +299,8 @@ public class SecondStage implements Screen {
         return player2.b2body.getPosition().y > 9294 / FunGame.PPM;
     }
 
-    public SecondStage getScreen(){
+    public FinalStage getScreen(){
         return this;
     }
 }
+
