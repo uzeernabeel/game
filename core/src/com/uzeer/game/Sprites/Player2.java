@@ -463,7 +463,7 @@ public class Player2 extends Sprite {
 
         definePlayer();
 
-        setBounds(0, 0, 55 / FunGame.PPM, 88 / FunGame.PPM);
+        setBounds(0, 0, 60 / FunGame.PPM, 88 / FunGame.PPM);
 
         //setRegion(playerStand);
     }
@@ -562,7 +562,7 @@ public class Player2 extends Sprite {
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
         if(finalStage)
-            shape.setAsBox(57 / FunGame.PPM, 77 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 70 / FunGame.PPM), 0);
+            shape.setAsBox(25 / FunGame.PPM, 30 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 30 / FunGame.PPM), 0);
         else
             shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
         //fdef.isSensor = false;

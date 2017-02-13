@@ -162,14 +162,14 @@ public class FinalStage implements Screen {
         if(player2.currentState != Player2.State.DEAD){
             if ((player2.IsPlayerOnGround())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 15f), player2.b2body.getWorldCenter(), true);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
-                player2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player2.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -3)
-                player2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player2.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 5)
+                player2.b2body.applyLinearImpulse(new Vector2(0.3f, 0), player2.b2body.getWorldCenter(), true);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -5)
+                player2.b2body.applyLinearImpulse(new Vector2(-0.3f, 0), player2.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
-                player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
+                player2.b2body.applyLinearImpulse(new Vector2(0, -5f), player2.b2body.getWorldCenter(), true);
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                 bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
