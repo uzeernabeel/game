@@ -190,7 +190,7 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for (MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -211,13 +211,13 @@ public class B2WorldCreator {
         }
 
         //This is for Coin Layer
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Coin(screen, rect, "Coins");
         }
 
-        //creat flinkstone Layer
+       /* //creat flinkstone Layer
         flinkstone = new Array<Flinkstone>();
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();

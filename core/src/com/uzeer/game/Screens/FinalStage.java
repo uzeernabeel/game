@@ -60,16 +60,16 @@ public class FinalStage implements Screen {
 
     public FinalStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
-        System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
+        //System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
         this.game = game;
 
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(FunGame.V_WIDTH1 / FunGame.PPM, FunGame.V_HEIGHT1 / FunGame.PPM, gamecam);
+        gamePort = new FitViewport(FunGame.V_WIDTH2 / FunGame.PPM, FunGame.V_HEIGHT2 / FunGame.PPM, gamecam);
         //gamePort = new FitViewport(1980 / FunGame.PPM, 1080 / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("FinalStage.tmx");
+        map = mapLoader.load("FinalStage1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         //textureMapObjectRenderer = new TextureMapObjectRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
@@ -96,6 +96,7 @@ public class FinalStage implements Screen {
         //music.setVolume(.09f);
         music.setLooping(true);
         music.play();
+
     }
 
     public TextureAtlas getAtlas(){
@@ -110,11 +111,11 @@ public class FinalStage implements Screen {
         //player.update(dt);
         player2.update(dt);
 
-        for(Enemy enemy : creator.getFlinkstone())
-            enemy.update(dt);
+//        for(Enemy enemy : creator.getFlinkstone())
+           // enemy.update(dt);
 
-        for(Enemy enemy : creator.getBadGuys())
-            enemy.update(dt);
+       // for(Enemy enemy : creator.getBadGuys())
+        //    enemy.update(dt);
 
         // bullets2.update(dt);
         bulletFinal.update(dt);
@@ -215,11 +216,11 @@ public class FinalStage implements Screen {
             }
         }
     */
-        for(Enemy enemy : creator.getFlinkstone())
-            enemy.draw(game.batch);
+//        for(Enemy enemy : creator.getFlinkstone())
+          //  enemy.draw(game.batch);
 
-        for(Enemy enemy : creator.getBadGuys())
-            enemy.draw(game.batch);
+       // for(Enemy enemy : creator.getBadGuys())
+         //   enemy.draw(game.batch);
 
         // textureMapObjectRenderer.draw(game.batch);
 

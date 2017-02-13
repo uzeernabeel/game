@@ -60,7 +60,7 @@ public class Player2 extends Sprite {
     private Texture texture;
     FixtureDef fdef;
     private boolean hitted;
-
+    private boolean finalStage;
 
     public Player2(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
@@ -316,6 +316,8 @@ public class Player2 extends Sprite {
         stateTimer = 0f;
         runningRight = true;
 
+        finalStage = true;
+
         playerHitted = false;
 
         texture = new Texture("player2.png");
@@ -461,7 +463,7 @@ public class Player2 extends Sprite {
 
         definePlayer();
 
-        setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
+        setBounds(0, 0, 55 / FunGame.PPM, 88 / FunGame.PPM);
 
         //setRegion(playerStand);
     }
@@ -550,7 +552,7 @@ public class Player2 extends Sprite {
 
     public void definePlayer() {
         bdef = new BodyDef();
-        bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
+        bdef.position.set(32 / FunGame.PPM, 200 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -559,7 +561,10 @@ public class Player2 extends Sprite {
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        if(finalStage)
+            shape.setAsBox(57 / FunGame.PPM, 77 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 70 / FunGame.PPM), 0);
+        else
+            shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
         //fdef.isSensor = false;
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
