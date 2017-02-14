@@ -334,7 +334,7 @@ public class Player2 extends Sprite {
             else if(i == 2)
                 frames.add(new TextureRegion(texture, 65, 1214, 53, 61));
             else if(i == 3)
-                frames.add(new TextureRegion(texture, 119, 1214, 53, 61));
+                frames.add(new TextureRegion(texture, 119, 1214, 51, 61));
             else if(i == 4)
                 frames.add(new TextureRegion(texture, 170, 1214, 49, 61));
             else if(i == 5)
@@ -463,7 +463,7 @@ public class Player2 extends Sprite {
 
         definePlayer();
 
-        setBounds(0, 0, 60 / FunGame.PPM, 88 / FunGame.PPM);
+        setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
 
         //setRegion(playerStand);
     }
@@ -552,7 +552,7 @@ public class Player2 extends Sprite {
 
     public void definePlayer() {
         bdef = new BodyDef();
-        bdef.position.set(32 / FunGame.PPM, 200 / FunGame.PPM);
+        bdef.position.set(10692 / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -561,9 +561,7 @@ public class Player2 extends Sprite {
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
-        if(finalStage)
-            shape.setAsBox(25 / FunGame.PPM, 30 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 30 / FunGame.PPM), 0);
-        else
+
             shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
         //fdef.isSensor = false;
 

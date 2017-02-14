@@ -18,8 +18,8 @@ import com.uzeer.game.Screens.SecondStage;
 public class FunGame extends Game {
 	public static final int V_WIDTH1 = 920;
 	public static final int V_HEIGHT1 = 480;
-	public static final int V_WIDTH2 = 1024;
-	public static final int V_HEIGHT2 = 960;
+	public static final int V_WIDTH2 = 750;
+	public static final int V_HEIGHT2 = 390;
     //public static final int V_WIDTH = 750;
     //public static final int V_HEIGHT = 330;
 	public static final float PPM = 100;

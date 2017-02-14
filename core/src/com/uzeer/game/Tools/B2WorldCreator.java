@@ -190,7 +190,7 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -211,22 +211,30 @@ public class B2WorldCreator {
         }
 
         //This is for Coin Layer
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Coin(screen, rect, "Coins");
         }
 
-       /* //creat flinkstone Layer
+        //This is for Fire Layer # 5
+        for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new Fire(screen, rect, "Fire");
+
+        }
+
+        //creat flinkstone Layer
         flinkstone = new Array<Flinkstone>();
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
 
         //creat badGuy Layer
         badGuys = new Array<BadGuy>();
-        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(10).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             badGuys.add(new BadGuy(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
