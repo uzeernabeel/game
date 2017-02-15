@@ -62,6 +62,8 @@ public class Player2 extends Sprite {
     private boolean hitted;
     private boolean finalStage;
 
+    public static float checkPointX = 32;
+
     public Player2(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
         this.world = screen.getWorld();
@@ -75,6 +77,8 @@ public class Player2 extends Sprite {
         timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
+
+        checkPointX = 32;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -165,6 +169,8 @@ public class Player2 extends Sprite {
         timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
+
+        checkPointX = 32;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -326,6 +332,8 @@ public class Player2 extends Sprite {
         playerDead = false;
         spacePressed = false;
 
+        //checkPointX = 32;
+
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
         for(int i = 1; i < 14; i++) {
@@ -479,6 +487,24 @@ public class Player2 extends Sprite {
         if(spacePressed && dt < .2f)
             spacePressed = false;
 
+        if((bdef.position.x / FunGame.PPM) > 1000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 2000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 3000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 4000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 5000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 6000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 7000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+        if((bdef.position.x / FunGame.PPM) > 8000 / FunGame.PPM)
+            checkPointX = bdef.position.x;
+
+
     }
 
 
@@ -552,7 +578,7 @@ public class Player2 extends Sprite {
 
     public void definePlayer() {
         bdef = new BodyDef();
-        bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
+        bdef.position.set(checkPointX / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

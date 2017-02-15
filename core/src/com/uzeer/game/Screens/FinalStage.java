@@ -234,7 +234,7 @@ public class FinalStage implements Screen {
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
-            dispose();
+            //dispose();
         }
 
         if(levelComplete()){

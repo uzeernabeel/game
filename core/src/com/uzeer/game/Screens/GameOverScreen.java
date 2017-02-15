@@ -14,7 +14,9 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.Player;
+import com.uzeer.game.Sprites.Player2;
 
 /**
  * Created by uzeer on 1/24/2017.
@@ -59,7 +61,8 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new SecondStage((FunGame) game));
+            game.setScreen(new FinalStage((FunGame) game));
+            Player2.num = 0;
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);

@@ -157,7 +157,7 @@ public class BulletFinal extends Sprite {
 
     public void dispose() {
         apple.getTexture().dispose();
-        world.dispose();
+        //world.dispose();
         screen.dispose();
         screen1.dispose();
     }
