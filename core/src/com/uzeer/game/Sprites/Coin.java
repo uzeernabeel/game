@@ -43,7 +43,6 @@ public class Coin extends InteractiveTileObject{
 
     @Override
     public void bodyHit() {
-        Gdx.app.log("Coin Touch", "Ha Ha!");
         setCategoryFilter(FunGame.DESTROYED_BIT);
         getCell().setTile(null);
         Hud.addScore(500);

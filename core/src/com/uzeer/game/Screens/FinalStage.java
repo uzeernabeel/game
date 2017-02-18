@@ -255,10 +255,10 @@ public class FinalStage implements Screen {
             controller.draw();
 
 
-        if(gameOver()){
+        /*if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             //dispose();
-        }
+        }*/
 
         if(levelComplete()){
             //dispose();

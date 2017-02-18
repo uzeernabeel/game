@@ -124,10 +124,10 @@ public class PlayScreen implements Screen {
 
         world.step(1 / 60f, 6, 2);
 
-        if(!FunGame.player2Selected){
-            player.update(dt);
-        } else {
+        if(FunGame.player2Selected){
             player2.update(dt);
+        } else {
+            player.update(dt);
         }
         for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);

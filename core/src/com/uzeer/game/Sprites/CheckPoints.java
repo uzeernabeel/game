@@ -33,7 +33,7 @@ public class CheckPoints extends InteractiveTileObject {
 
     @Override
     public void bodyHit() {
-        FunGame.manager.get("sounds/checkPoint.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/checkPoint.wav", Sound.class).play();
         Gdx.app.log("Check Point Touch", "Ha Ha!");
         Player2.checkPointX = body.getPosition().x;
     }

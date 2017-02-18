@@ -559,9 +559,6 @@ public class Player2 extends Sprite {
         if(timeToRedefinePlayer)
             timeToRedefinePlayer();
 
-        Gdx.app.log("player Postion", String.format("%04f", b2body.getPosition().x));
-        Gdx.app.log("checkPoint", String.format("%04f", checkPointX));
-
 
     }
 
@@ -692,7 +689,7 @@ public class Player2 extends Sprite {
     public void hit() {
         Hud.addScore(-1000);
 
-        FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");

@@ -257,7 +257,7 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        FunGame.manager.get("sounds/enemyHit1.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/enemyHit1.wav", Sound.class).play();
     }
 
     public static int hit = 0;

@@ -61,9 +61,9 @@ public class FunGame extends Game {
 		manager.load("sounds/game background1.mp3", Music.class);
 		manager.load("sounds/FinalGameBackground.mp3", Music.class);
 		manager.load("sounds/is that all stranger.mp3", Sound.class);
-		manager.load("sounds/enemyHit1.wav", Sound.class);
-		manager.load("sounds/enemyHit2.wav", Sound.class);
-		manager.load("sounds/checkPoint.wav", Sound.class);
+		//manager.load("sounds/enemyHit1.wav", Sound.class);
+		//manager.load("sounds/enemyHit2.wav", Sound.class);
+		//manager.load("sounds/checkPoint.wav", Sound.class);
 		manager.load("sounds/stranger stranger.mp3", Sound.class);
 		manager.load("sounds/thank you.mp3", Sound.class);
 		manager.load("sounds/welcome.mp3", Sound.class);
@@ -72,7 +72,7 @@ public class FunGame extends Game {
 		manager.load("sounds/coin.wav", Sound.class);
 		manager.load("sounds/Decline.wav", Sound.class);
 		manager.load("sounds/enemy hit.wav", Sound.class);
-		manager.load("sounds/hitByEnemy.wav", Sound.class);
+		//manager.load("sounds/hitByEnemy.wav", Sound.class);
 		manager.finishLoading();
 
         setScreen(new PlayScreen(this));
