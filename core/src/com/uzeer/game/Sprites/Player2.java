@@ -61,8 +61,9 @@ public class Player2 extends Sprite {
     FixtureDef fdef;
     private boolean hitted;
     private boolean finalStage;
+    public static int lives;
 
-    public static float checkPointX = 32;
+    public static float checkPointX;
 
     public Player2(PlayScreen screen){
         super(screen.getAtlas().findRegion("player"));
@@ -71,6 +72,7 @@ public class Player2 extends Sprite {
         previousState = State.STANDING;
         stateTimer = 0f;
         runningRight = true;
+        lives = 3;
 
         texture = new Texture("player2.png");
 
@@ -84,74 +86,139 @@ public class Player2 extends Sprite {
 
         for(int i = 1; i < 14; i++) {
             if(i == 1)
-                frames.add(new TextureRegion(texture, 13, 214, 52, 61));
+                frames.add(new TextureRegion(texture, 13, 1214, 52, 61));
             else if(i == 2)
-                frames.add(new TextureRegion(texture, 65, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 65, 1214, 53, 61));
             else if(i == 3)
-                frames.add(new TextureRegion(texture, 119, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 119, 1214, 51, 61));
             else if(i == 4)
-                frames.add(new TextureRegion(texture, 170, 214, 49, 61));
+                frames.add(new TextureRegion(texture, 170, 1214, 49, 61));
             else if(i == 5)
-                frames.add(new TextureRegion(texture, 219, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 219, 1214, 53, 61));
             else if(i == 6)
-                frames.add(new TextureRegion(texture, 278, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 278, 1214, 53, 61));
             else if(i == 7)
-                frames.add(new TextureRegion(texture, 333, 214, 52, 61));
+                frames.add(new TextureRegion(texture, 333, 1214, 52, 61));
             else if(i == 8)
-                frames.add(new TextureRegion(texture, 385, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 385, 1214, 53, 61));
             else if(i == 9)
-                frames.add(new TextureRegion(texture, 439, 214, 47, 61));
+                frames.add(new TextureRegion(texture, 439, 1214, 47, 61));
             else if(i == 10)
-                frames.add(new TextureRegion(texture, 487, 214, 53, 61));
+                frames.add(new TextureRegion(texture, 487, 1214, 53, 61));
             else if(i == 11)
-                frames.add(new TextureRegion(texture, 546, 214, 56, 61));
+                frames.add(new TextureRegion(texture, 546, 1214, 56, 61));
             else if(i == 12)
-                frames.add(new TextureRegion(texture, 610, 214, 56, 61));
+                frames.add(new TextureRegion(texture, 610, 1214, 56, 61));
             else if(i == 13)
-                frames.add(new TextureRegion(texture, 678, 214, 53, 61));
-
+                frames.add(new TextureRegion(texture, 678, 1214, 53, 61));
         }
+
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 5; i++){
+        for(int i = 1; i < 7; i++){
             if(i == 1)
-                frames.add(new TextureRegion(getTexture(), 6, 193, 33, 59));
-            if(i == 2)
-                frames.add(new TextureRegion(getTexture(),49, 193, 35, 59));
-            if(i == 3)
-                frames.add(new TextureRegion(getTexture(), 89, 193, 49, 59));
-            if(i == 4)
-                frames.add(new TextureRegion(getTexture(), 143, 193, 49, 59));
+                frames.add(new TextureRegion(texture, 6, 230, 50, 61));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 56, 230, 52, 61));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 108, 230, 53, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 162, 230, 53, 61));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 220, 230, 47, 61));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 267, 230, 53, 61));
         }
         playerThrow = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 15; i++) {
+        for(int i = 1; i < 9; i++) {
             if(i == 1)
-                frames.add(new TextureRegion(getTexture(), 2, 543, 44, 40));
-            if(i == 2)
-                frames.add(new TextureRegion(getTexture(), 6, 670, 33, 35));
-            if(i == 3)
-                frames.add(new TextureRegion(getTexture(), 132, 669, 31, 38));
-            if(i == 4)
-                frames.add(new TextureRegion(getTexture(), 190, 685, 34, 34));
-            if(i == 5)
-                frames.add(new TextureRegion(getTexture(), 4, 123, 24, 63));
-            if(i > 5)
-                frames.add(new TextureRegion(getTexture(), 329, 306, 38, 68));
+                frames.add(new TextureRegion(texture, 65, 691, 57, 67));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 123, 685, 58, 61));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 198, 685, 59, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 272, 685, 62, 61));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 349, 685, 59, 61));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 418, 685, 58, 61));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 389, 817, 55, 80));
         }
+        //setBounds(0, 0, 35 / FunGame.PPM, 48 / FunGame.PPM);
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
+        for(int i = 1; i < 7; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(texture, 2, 1, 46, 57));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 46, 1, 46, 57));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 196, 1, 46, 57));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 249, 1, 46, 57));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 302, 1, 46, 57));
+        }
 
-        playerIsDead = new TextureRegion(getTexture(), 189, 684, 35, 40);
+        playerStand = new Animation(0.20f, frames);
+        frames.clear();
 
-        playerFalling = new TextureRegion(getTexture(), 329, 306, 38, 68);
+        for(int i = 1; i < 17; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(texture, 2, 138, 43, 80));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 45, 138, 43, 80));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 90, 138, 43, 80));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 187, 138, 43, 80));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 237, 138, 43, 80));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 287, 138, 43, 80));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 333, 138, 43, 80));
+            else if(i == 8)
+                frames.add(new TextureRegion(texture, 377, 138, 43, 80));
+            else if(i == 9)
+                frames.add(new TextureRegion(texture, 424, 138, 43, 80));
+            else if(i == 10)
+                frames.add(new TextureRegion(texture, 471, 138, 43, 80));
+            else if(i == 11)
+                frames.add(new TextureRegion(texture, 518, 138, 43, 80));
+            else if(i == 12)
+                frames.add(new TextureRegion(texture, 567, 138, 43, 80));
+            else if(i == 13)
+                frames.add(new TextureRegion(texture, 614, 138, 43, 80));
+            else if(i == 14)
+                frames.add(new TextureRegion(texture, 665, 138, 43, 80));
+            else if(i == 15)
+                frames.add(new TextureRegion(texture, 714, 138, 43, 80));
+            else if(i == 16)
+                frames.add(new TextureRegion(texture, 760, 138, 43, 80));
+        }
+
+        playerStand2 = new Animation(0.1f, frames);
+        frames.clear();
+
+
+        playerIsDead = new TextureRegion(texture, 406, 2229, 47, 61);
+
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 491, 679, 58, 86));
+        playerFalling = new TextureRegion(new TextureRegion(texture, 389, 817, 50, 80));
+        //playerFalling = new TextureRegion(new TextureRegion(texture, 564, 811, 58, 93));
 
         definePlayer();
-        setBounds(0, 0, 21 / FunGame.PPM, 38 / FunGame.PPM);
-        setRegion(playerStand1);
+        setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
+       // setRegion(playerStand1);
     }
 
     public Player2(SecondStage screen){
@@ -163,6 +230,7 @@ public class Player2 extends Sprite {
         runningRight = true;
 
         playerHitted = false;
+        lives = 3;
 
         texture = new Texture("player2.png");
 
@@ -332,7 +400,8 @@ public class Player2 extends Sprite {
         playerDead = false;
         spacePressed = false;
 
-        //checkPointX = 32;
+        lives = 3;
+        checkPointX = 32;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -487,22 +556,11 @@ public class Player2 extends Sprite {
         if(spacePressed && dt < .2f)
             spacePressed = false;
 
-        if((bdef.position.x / FunGame.PPM) > 1000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 2000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 3000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 4000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 5000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 6000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 7000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
-        if((bdef.position.x / FunGame.PPM) > 8000 / FunGame.PPM)
-            checkPointX = bdef.position.x;
+        if(timeToRedefinePlayer)
+            timeToRedefinePlayer();
+
+        Gdx.app.log("player Postion", String.format("%04f", b2body.getPosition().x));
+        Gdx.app.log("checkPoint", String.format("%04f", checkPointX));
 
 
     }
@@ -578,7 +636,7 @@ public class Player2 extends Sprite {
 
     public void definePlayer() {
         bdef = new BodyDef();
-        bdef.position.set(checkPointX / FunGame.PPM, 32 / FunGame.PPM);
+        bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -598,6 +656,7 @@ public class Player2 extends Sprite {
                 FunGame.ENEMY_BIT |
                 FunGame.OBJECT_BIT |
                 FunGame.GROUND_BIT |
+                FunGame.CHECK_POINT_BIT |
                 FunGame.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;
@@ -633,7 +692,7 @@ public class Player2 extends Sprite {
     public void hit() {
         Hud.addScore(-1000);
 
-        FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
+        FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
@@ -651,19 +710,76 @@ public class Player2 extends Sprite {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num > 3) {
-            playerDead = true;
+            //playerDead = true;
             Hud.chances(0);
+            lives--;
             Gdx.app.log("hit by Enemy: ", "Dead!");
             Filter filter = new Filter();
             filter.maskBits = FunGame.NOTHING_BIT;
             for(Fixture fixture: b2body.getFixtureList())
                 fixture.setFilterData(filter);
             b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+            timeToRedefinePlayer = true;
         }
     }
 
     private void timeToRedefinePlayer() {
-        //Gdx.app.log("hit by Enemy", "ha!");
+
+        Hud.chances(4);
+        num = 0;
+
+        float postion = b2body.getPosition().x;
+        float postionY = b2body.getPosition().y;
+
+        world.destroyBody(b2body);
+
+        bdef = new BodyDef();
+        bdef.position.set(checkPointX, 32 / FunGame.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        //Rectangle shape = new Rectangle();
+        //CircleShape shape = new CircleShape();
+        //shape.setRadius(7 / FunGame.PPM);
+
+        shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        //fdef.isSensor = false;
+
+        fdef.filter.categoryBits = FunGame.PLAYER_BIT;
+        fdef.filter.maskBits = FunGame.DEFAULT_BIT |
+                FunGame.COIN_BIT |
+                FunGame.FIRE_BIT |
+                FunGame.ENEMY_BIT |
+                FunGame.OBJECT_BIT |
+                FunGame.GROUND_BIT |
+                FunGame.ENEMY_HEAD_BIT;
+
+        fdef.shape = shape;
+
+        // b2body.createFixture(fdef).setUserData("player");
+        b2body.createFixture(fdef).setUserData(this);
+
+
+
+
+        // b2body.createFixture(fdef).setUserData(this);
+
+       /* PolygonShape body = new PolygonShape();
+        body.set(new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM), );
+        fdef.shape = body;
+
+        b2body.createFixture(fdef).setUserData("body");
+
+        EdgeShape head = new EdgeShape();
+        head.set(new Vector2(-2 / FunGame.PPM, 7 / FunGame.PPM), new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM));
+        fdef.shape = head;
+        fdef.isSensor = true;
+
+        b2body.createFixture(fdef).setUserData("head");  */
+
+        timeToRedefinePlayer = false;
     }
 
     public boolean isDead(){

@@ -81,10 +81,46 @@ public class BulletFinal extends Sprite {
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.KinematicBody;
         b2body = world.createBody(bdef);
-        if(screen2.player2.isFlipX())
-            leftSide = true;
-        else
-            rightSide = true;
+
+        if(FunGame.PlayScreen) {
+            if (FunGame.player2Selected) {
+                if (screen.player2.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            } else {
+                if (screen.player.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            }
+        }
+        if(FunGame.SecondScreen) {
+            if (FunGame.player2Selected) {
+                if (screen1.player2.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            } else {
+                if (screen1.player.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            }
+        }
+        if(FunGame.FinalScreen) {
+            if (FunGame.player2Selected) {
+                if (screen2.player2.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            } else {
+                if (screen2.player.isFlipX())
+                    leftSide = true;
+                else
+                    rightSide = true;
+            }
+        }
 
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
@@ -158,7 +194,7 @@ public class BulletFinal extends Sprite {
     public void dispose() {
         apple.getTexture().dispose();
         //world.dispose();
-        screen.dispose();
-        screen1.dispose();
+        //screen.dispose();
+        //screen1.dispose();
     }
 }

@@ -71,10 +71,18 @@ public class WorldContactListner implements ContactListener {
                     Gdx.app.log("Boxes Man", "Finally");
                 break;
             case FunGame.PLAYER_BIT | FunGame.ENEMY_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    ((Player2)fixA.getUserData()).hit();
-                else
-                    ((Player2)fixB.getUserData()).hit();
+                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT) {
+                    if(FunGame.player2Selected)
+                        ((Player2) fixA.getUserData()).hit();
+                    else
+                        ((Player) fixA.getUserData()).hit();
+                }
+                else {
+                        if(FunGame.player2Selected)
+                            ((Player2) fixB.getUserData()).hit();
+                        else
+                            ((Player) fixB.getUserData()).hit();
+                }
                 break;
             case FunGame.BULLET_BIT | FunGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
@@ -89,6 +97,12 @@ public class WorldContactListner implements ContactListener {
                     ((BulletFinal)fixB.getUserData()).destroyBullet();
                 break;
             case FunGame.PLAYER_BIT | FunGame.COIN_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                    ((InteractiveTileObject) fixB.getUserData()).bodyHit();
+                else
+                    ((InteractiveTileObject) fixA.getUserData()).bodyHit();
+                break;
+            case FunGame.PLAYER_BIT | FunGame.CHECK_POINT_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
                     ((InteractiveTileObject) fixB.getUserData()).bodyHit();
                 else

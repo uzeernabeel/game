@@ -20,8 +20,8 @@ public class FunGame extends Game {
 	public static final int V_HEIGHT1 = 480;
 	public static final int V_WIDTH2 = 750;
 	public static final int V_HEIGHT2 = 390;
-    //public static final int V_WIDTH = 750;
-    //public static final int V_HEIGHT = 330;
+    public static final int V_WIDTH = 750;
+    public static final int V_HEIGHT = 330;
 	public static final float PPM = 100;
 
 	public static final short NOTHING_BIT = 0;
@@ -35,8 +35,15 @@ public class FunGame extends Game {
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short GROUND_BIT = 256;
 	public static final short BULLET_BIT = 512;
-	public static final short ITEM_BIT = 1024;
-	public static final short PLAYER_HIT_BIT = 2048;
+	public static final short ITEM_BIT = 2048;
+	public static final short CHECK_POINT_BIT = 1024;
+
+
+	public static boolean player2Selected;
+	public static boolean PlayScreen;
+	public static boolean SecondScreen;
+	public static boolean FinalScreen;
+
 
 	public SpriteBatch batch;
 
@@ -46,6 +53,7 @@ public class FunGame extends Game {
 	@Override
 	public void create () {
 
+		player2Selected = true;
 
 		batch = new SpriteBatch();
 
@@ -53,7 +61,9 @@ public class FunGame extends Game {
 		manager.load("sounds/game background1.mp3", Music.class);
 		manager.load("sounds/FinalGameBackground.mp3", Music.class);
 		manager.load("sounds/is that all stranger.mp3", Sound.class);
-		manager.load("sounds/enemyHit.wav", Sound.class);
+		manager.load("sounds/enemyHit1.wav", Sound.class);
+		manager.load("sounds/enemyHit2.wav", Sound.class);
+		manager.load("sounds/checkPoint.wav", Sound.class);
 		manager.load("sounds/stranger stranger.mp3", Sound.class);
 		manager.load("sounds/thank you.mp3", Sound.class);
 		manager.load("sounds/welcome.mp3", Sound.class);
@@ -62,11 +72,13 @@ public class FunGame extends Game {
 		manager.load("sounds/coin.wav", Sound.class);
 		manager.load("sounds/Decline.wav", Sound.class);
 		manager.load("sounds/enemy hit.wav", Sound.class);
+		manager.load("sounds/hitByEnemy.wav", Sound.class);
 		manager.finishLoading();
 
-        //setScreen(new PlayScreen(this));
+        setScreen(new PlayScreen(this));
+		PlayScreen = true;
 		//setScreen(new SecondStage(this));
-		setScreen(new FinalStage(this));
+		//setScreen(new FinalStage(this));
 	}
 
 	@Override

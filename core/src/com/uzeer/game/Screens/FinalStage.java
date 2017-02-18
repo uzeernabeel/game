@@ -1,5 +1,6 @@
 package com.uzeer.game.Screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -22,7 +23,11 @@ import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
+import com.uzeer.game.Tools.Controller;
 import com.uzeer.game.Tools.WorldContactListner;
+
+import static com.badlogic.gdx.Application.ApplicationType.Android;
+import static com.badlogic.gdx.Application.ApplicationType.Desktop;
 
 /**
  * Created by Uzeer on 2/12/2017.
@@ -56,6 +61,8 @@ public class FinalStage implements Screen {
     private float maxPosition;
     private float minPosition;
 
+    Controller controller;
+
 
 
     public FinalStage(FunGame game){
@@ -86,6 +93,8 @@ public class FinalStage implements Screen {
         bulletFinal = new BulletFinal(this, 6, 70);
 
         creator = new B2WorldCreator(this);
+
+        controller = new Controller(game.batch);
 
         world.setContactListener(new WorldContactListner());
 
@@ -141,6 +150,17 @@ public class FinalStage implements Screen {
     }
 
     private void handleInput(float dt) {
+                // android specific code
+               if(controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 3)
+                   player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if(controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -3)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if(controller.isJumpPressed() && player2.b2body.getLinearVelocity().y == 0)
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                if(controller.isBulletPressed())
+                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+
+
 /*        if(player.currentState != Player.State.DEAD){
             if ((player.IsPlayerOnGround())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
@@ -231,6 +251,9 @@ public class FinalStage implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+        if(Gdx.app.getType() == Application.ApplicationType.Android)
+            controller.draw();
+
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
@@ -247,6 +270,8 @@ public class FinalStage implements Screen {
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
+        hud.resize(width, height);
+        controller.resize(width, height);
     }
 
     public TiledMap getMap(){

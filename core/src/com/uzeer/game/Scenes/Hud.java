@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Sprites.Player2;
 
 /**
  * Created by Uzeer on 12/25/2016.
@@ -36,10 +37,13 @@ public class Hud implements Disposable{
     Label coin;
     static Label coinLabel;
 
+    Label lives;
     Label chances;
+    Label livesNumber;
     static Label chancesNumber;
 
     static int chancesLeft;
+
 
     public Hud(SpriteBatch sb){
         worldTimer = 300;
@@ -59,22 +63,26 @@ public class Hud implements Disposable{
         scoreLabel = new Label(String.format("%08d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         coinLabel = new Label(String.format("%03d", coins), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         chancesNumber = new Label(String.format("%01d", chancesLeft), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        livesNumber = new Label(String.format("%01d", Player2.lives), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label(" - 2 - ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         worldLabel = new Label("World", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         GameLabel = new Label("Fun", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         chances = new Label("Chances Left", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         coin = new Label("Stars: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        lives = new Label("Lives: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(GameLabel).expandX().padTop(10);
         table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
+        table.add(lives).expandX().padTop(10);
         table.add(chances).expandX().padTop(10);
         table.add(coin).expandX().padTop(10);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(levelLabel).expandX();
         table.add(countLabel).expandX();
+        table.add(livesNumber).expandX();
         table.add(chancesNumber).expandX();
         table.add(coinLabel).expandX();
 
@@ -110,5 +118,9 @@ public class Hud implements Disposable{
     public static void chances(int i) {
         chancesLeft = i;
         chancesNumber.setText(String.format("%01d", chancesLeft));
+    }
+
+    public void resize(int width, int height){
+        viewport.update(width, height);
     }
 }

@@ -1,5 +1,6 @@
 package com.uzeer.game.Screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -34,7 +35,9 @@ import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 import com.uzeer.game.Sprites.Player;
+import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
+import com.uzeer.game.Tools.Controller;
 import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
@@ -56,7 +59,10 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     public Player player;
+    public Player2 player2;
     private B2WorldCreator creator;
+
+    private Controller controller;
 
     private Music music;
     private boolean playerIsTouchingTheGround;
@@ -66,12 +72,11 @@ public class PlayScreen implements Screen {
     TextureMapObjectRenderer objectRenderer;
 
     public PlayScreen(FunGame game) {
-        //atlas = new TextureAtlas("sprite sheet.pack");
         atlas = new TextureAtlas("sprite sheet.pack");
         this.game = game;
 
         gamecam = new OrthographicCamera();
-        //gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
+        gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
@@ -83,7 +88,11 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
+        controller = new Controller(game.batch);
+
+        if(!FunGame.player2Selected)
         player = new Player(this);
+        player2 = new Player2(this);
 
         bulletFinal = new BulletFinal(this, 5, 70);
 
@@ -92,7 +101,7 @@ public class PlayScreen implements Screen {
         world.setContactListener(new WorldContactListner());
 
         //FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
-        music = FunGame.manager.get("sounds/background.mp3", Music.class);
+        music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
         music.play();
@@ -115,9 +124,15 @@ public class PlayScreen implements Screen {
 
         world.step(1 / 60f, 6, 2);
 
-        player.update(dt);
-
+        if(!FunGame.player2Selected){
+            player.update(dt);
+        } else {
+            player2.update(dt);
+        }
         for(Enemy enemy : creator.getFlinkstone())
+            enemy.update(dt);
+
+        for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);
 
        // bullets2.update(dt);
@@ -125,10 +140,13 @@ public class PlayScreen implements Screen {
 
         hud.update(dt);
 
-
-
-        if(player.currentState != Player.State.DEAD)
-        gamecam.position.x = player.b2body.getPosition().x;
+        if(FunGame.player2Selected) {
+            if (player2.currentState != Player2.State.DEAD)
+                gamecam.position.x = player2.b2body.getPosition().x;
+        } else {
+            if (player.currentState != Player.State.DEAD)
+                gamecam.position.x = player.b2body.getPosition().x;
+        }
 
         gamecam.update();
         renderer.setView(gamecam);
@@ -137,24 +155,62 @@ public class PlayScreen implements Screen {
     }
 
     private void handleInput(float dt) {
-        if(player.currentState != Player.State.DEAD){
-            // if ((player.IsPlayerOnGround())) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-            // }
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
-                player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)
-                player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
-                player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                //Player.spacePressed = true;
+        // android specific code
+        if (FunGame.player2Selected) {
+            if (player2.currentState != Player2.State.DEAD) {
+                if (controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 3)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
+                if (controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -3)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
+                if (controller.isJumpPressed() && player2.b2body.getLinearVelocity().y == 0)
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                if (controller.isBulletPressed())
+                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+
+                // if ((player.IsPlayerOnGround())) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player2.b2body.getLinearVelocity().y == 0)
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                // }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -3)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+                    player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
+                    //Player.spacePressed = true;
+                }
+            }
+        } else {
+            if (player.currentState != Player.State.DEAD) {
+                if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 3)
+                    player.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player.b2body.getWorldCenter(), true);
+                if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -3)
+                    player.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player.b2body.getWorldCenter(), true);
+                if (controller.isJumpPressed() && player.b2body.getLinearVelocity().y == 0)
+                    player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+                if (controller.isBulletPressed())
+                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+
+                // if ((player.IsPlayerOnGround())) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player2.b2body.getLinearVelocity().y == 0)
+                    player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
+                // }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
+                    player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)
+                    player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+                    player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
+                    //Player.spacePressed = true;
+                }
             }
         }
-
     }
 
     @Override
@@ -164,35 +220,50 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        renderer.render();
-        objectRenderer.renderObject(map.getLayers().get(0).getObjects().get(0));
-
-        b2dr.render(world, gamecam.combined);
+        renderer.render(); //map render
+        b2dr.render(world, gamecam.combined); //box2D renderer
 
         game.batch.setProjectionMatrix(gamecam.combined);
 
-        game.batch.begin();
+        game.batch.begin(); // Begin!
+
+        if(!FunGame.player2Selected)
         player.draw(game.batch);
+        else
+        player2.draw(game.batch);
+
         for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
 
-        //bullets2.draw(game.batch);
+        for(Enemy enemy : creator.getBadGuys())
+            enemy.draw(game.batch);
+
         bulletFinal.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+        if(Gdx.app.getType() == Application.ApplicationType.Android)
+            controller.draw();
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             dispose();
+        }
+
+        if(levelComplete()){
+            //dispose();
+            game.setScreen(new Level_complition(game));
+
         }
     }
 
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
+        hud.resize(width, height);
+        controller.resize(width, height);
     }
 
     public TiledMap getMap(){
@@ -226,9 +297,25 @@ public class PlayScreen implements Screen {
         b2dr.dispose();
         hud.dispose();
         game.dispose();
+        bulletFinal.dispose();
+        player2.dispose();
     }
 
     public boolean gameOver(){
-        return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
+        if(FunGame.player2Selected)
+            return player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3;
+        else
+            return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
+    }
+
+    public boolean levelComplete(){
+        if(FunGame.player2Selected)
+            return player2.b2body.getPosition().y > 9294 / FunGame.PPM;
+        else
+            return player.b2body.getPosition().y > 9294 / FunGame.PPM;
+    }
+
+    public PlayScreen getScreen(){
+        return this;
     }
 }

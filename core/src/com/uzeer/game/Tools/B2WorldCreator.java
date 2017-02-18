@@ -17,6 +17,7 @@ import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.Boxes;
+import com.uzeer.game.Sprites.CheckPoints;
 import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
@@ -106,6 +107,13 @@ public class B2WorldCreator {
             for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
+        }
+
+        //creat badGuy Layer
+            badGuys = new Array<BadGuy>();
+            for(MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                badGuys.add(new BadGuy(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
     }
 
@@ -222,6 +230,14 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Fire(screen, rect, "Fire");
+
+        }
+
+        //This is for Fire Layer # 5
+        for(MapObject object : map.getLayers().get(11).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+            new CheckPoints(screen, rect, "Checkpoints");
 
         }
 

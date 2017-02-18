@@ -42,6 +42,7 @@ public abstract class InteractiveTileObject {
     protected EdgeShape head;
     protected FixtureDef fixtureDef;
     protected Segment line;
+    TiledMapTileLayer layer;
 
     public InteractiveTileObject(PlayScreen screen, Rectangle bounds, String value){
         this.world = screen.getWorld();
@@ -97,6 +98,9 @@ public abstract class InteractiveTileObject {
         else if(value.equals("Fire")) {
             fdef.restitution = 0.8f;
         }
+
+        else if(value.equals("Checkpoints"))
+            fdef.isSensor = true;
 
         fixture = body.createFixture(fdef);
     }
@@ -157,6 +161,9 @@ public abstract class InteractiveTileObject {
             fdef.restitution = 0.8f;
         }
 
+        else if(value.equals("Checkpoints"))
+            fdef.isSensor = true;
+
         fixture = body.createFixture(fdef);
     }
 
@@ -215,6 +222,9 @@ public abstract class InteractiveTileObject {
             fdef.restitution = 0.8f;
         }
 
+        else if(value.equals("Checkpoints"))
+            fdef.isSensor = true;
+
         fixture = body.createFixture(fdef);
     }
 
@@ -229,9 +239,15 @@ public abstract class InteractiveTileObject {
     }
 
     public TiledMapTileLayer.Cell getCell(){
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(5);
-        return layer.getCell((int)(body.getPosition().x * FunGame.PPM / 22),
-                             (int)(body.getPosition().y * FunGame.PPM / 22));
+        if(FunGame.PlayScreen)
+            layer = (TiledMapTileLayer) map.getLayers().get(1);
+        if(FunGame.SecondScreen)
+            layer = (TiledMapTileLayer) map.getLayers().get(3);
+        if(FunGame.FinalScreen)
+            layer = (TiledMapTileLayer) map.getLayers().get(5);
+
+        return layer.getCell((int) (body.getPosition().x * FunGame.PPM / 22),
+                (int) (body.getPosition().y * FunGame.PPM / 22));
     }
 
 }

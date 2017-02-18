@@ -168,7 +168,12 @@ public class Flinkstone extends Enemy {
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen2.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
+            if(FunGame.SecondScreen)
+                setRegion(new TextureRegion(screen2.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
+            if(FunGame.PlayScreen)
+                setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
+            if(FunGame.FinalScreen)
+                setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 48, 0, 40, 52));
             //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
@@ -252,7 +257,7 @@ public class Flinkstone extends Enemy {
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
+        FunGame.manager.get("sounds/enemyHit1.wav", Sound.class).play();
     }
 
     public static int hit = 0;

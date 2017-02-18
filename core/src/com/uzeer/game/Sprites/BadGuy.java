@@ -69,7 +69,7 @@ public class BadGuy extends Enemy{
         }
 
         stateTime = 0;
-        setBounds(getX(), getY(), 32 / FunGame.PPM, 38 / FunGame.PPM);
+        setBounds(getX(), getY(), 52 / FunGame.PPM, 39 / FunGame.PPM);
 
         setToDestroy = false;
         destroyed = false;
@@ -165,6 +165,7 @@ public class BadGuy extends Enemy{
             //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
+            dispose();
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
@@ -245,7 +246,7 @@ public class BadGuy extends Enemy{
     @Override
     public void hitOnHead() {
         setToDestroy = true;
-        FunGame.manager.get("sounds/enemyHit.wav", Sound.class).play();
+        FunGame.manager.get("sounds/enemyHit2.wav", Sound.class).play();
     }
 
     public static int hit = 0;
