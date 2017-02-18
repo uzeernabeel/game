@@ -76,6 +76,7 @@ public class PlayScreen implements Screen {
         this.game = game;
 
         gamecam = new OrthographicCamera();
+        FunGame.LEVEL = 1;
         gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
@@ -136,6 +137,9 @@ public class PlayScreen implements Screen {
             enemy.update(dt);
 
        // bullets2.update(dt);
+
+       // Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
+
         bulletFinal.update(dt);
 
         hud.update(dt);
@@ -143,6 +147,8 @@ public class PlayScreen implements Screen {
         if(FunGame.player2Selected) {
             if (player2.currentState != Player2.State.DEAD)
                 gamecam.position.x = player2.b2body.getPosition().x;
+                if(player2.b2body.getPosition().x > 25)
+                    levelComplete();
         } else {
             if (player.currentState != Player.State.DEAD)
                 gamecam.position.x = player.b2body.getPosition().x;
@@ -252,11 +258,6 @@ public class PlayScreen implements Screen {
             dispose();
         }
 
-        if(levelComplete()){
-            //dispose();
-            game.setScreen(new Level_complition(game));
-
-        }
     }
 
     @Override
@@ -308,11 +309,10 @@ public class PlayScreen implements Screen {
             return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
     }
 
-    public boolean levelComplete(){
-        if(FunGame.player2Selected)
-            return player2.b2body.getPosition().y > 9294 / FunGame.PPM;
-        else
-            return player.b2body.getPosition().y > 9294 / FunGame.PPM;
+    public void levelComplete(){
+        FunGame.LEVEL++;
+        new Level_complition(game);
+        //dispose();
     }
 
     public PlayScreen getScreen(){

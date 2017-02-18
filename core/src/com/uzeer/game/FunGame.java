@@ -38,7 +38,7 @@ public class FunGame extends Game {
 	public static final short ITEM_BIT = 2048;
 	public static final short CHECK_POINT_BIT = 1024;
 
-
+	public static int LEVEL;
 	public static boolean player2Selected;
 	public static boolean PlayScreen;
 	public static boolean SecondScreen;
@@ -75,6 +75,8 @@ public class FunGame extends Game {
 		//manager.load("sounds/hitByEnemy.wav", Sound.class);
 		manager.finishLoading();
 
+		LEVEL = 0;
+
         setScreen(new PlayScreen(this));
 		PlayScreen = true;
 		//setScreen(new SecondStage(this));
@@ -86,7 +88,7 @@ public class FunGame extends Game {
 		super.dispose();
 		manager.dispose();
 		batch.dispose();
-		screen.dispose();
+		//screen.dispose();
 	}
 
 	@Override
