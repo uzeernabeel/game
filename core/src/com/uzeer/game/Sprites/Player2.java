@@ -61,7 +61,7 @@ public class Player2 extends Sprite {
     FixtureDef fdef;
     private boolean hitted;
     private boolean finalStage;
-    public static int lives;
+
 
     public static float checkPointX;
 
@@ -72,7 +72,7 @@ public class Player2 extends Sprite {
         previousState = State.STANDING;
         stateTimer = 0f;
         runningRight = true;
-        lives = 3;
+        FunGame.lives = 3;
 
         texture = new Texture("player2.png");
 
@@ -230,7 +230,7 @@ public class Player2 extends Sprite {
         runningRight = true;
 
         playerHitted = false;
-        lives = 3;
+        FunGame.lives = 3;
 
         texture = new Texture("player2.png");
 
@@ -400,7 +400,7 @@ public class Player2 extends Sprite {
         playerDead = false;
         spacePressed = false;
 
-        lives = 3;
+        FunGame.lives = 3;
         checkPointX = 32;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -552,9 +552,6 @@ public class Player2 extends Sprite {
 
         if(b2body.getPosition().y < -1f)
             playerDead = true;
-
-        if(spacePressed && dt < .2f)
-            spacePressed = false;
 
         if(timeToRedefinePlayer)
             timeToRedefinePlayer();
@@ -709,7 +706,7 @@ public class Player2 extends Sprite {
         if(num > 3) {
             //playerDead = true;
             Hud.chances(0);
-            lives--;
+            FunGame.lives--;
             Gdx.app.log("hit by Enemy: ", "Dead!");
             Filter filter = new Filter();
             filter.maskBits = FunGame.NOTHING_BIT;

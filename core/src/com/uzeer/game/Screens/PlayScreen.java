@@ -69,7 +69,9 @@ public class PlayScreen implements Screen {
 
     private BulletFinal bulletFinal;
 
-    TextureMapObjectRenderer objectRenderer;
+    public static final float TIMER = 0.5f;
+    float shootTimer;
+
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -80,10 +82,11 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
+        shootTimer = 0;
+
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("My Imagination.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
-        objectRenderer = new TextureMapObjectRenderer(map);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
         world = new World(new Vector2(0, -10), true);
@@ -91,9 +94,11 @@ public class PlayScreen implements Screen {
 
         controller = new Controller(game.batch);
 
-        if(!FunGame.player2Selected)
-        player = new Player(this);
-        player2 = new Player2(this);
+        if(FunGame.player2Selected)
+            player2 = new Player2(this);
+        else
+            player = new Player(this);
+
 
         bulletFinal = new BulletFinal(this, 5, 70);
 
@@ -127,8 +132,12 @@ public class PlayScreen implements Screen {
 
         if(FunGame.player2Selected){
             player2.update(dt);
+            if (player2.b2body.getPosition().x > 3) // 173
+                levelComplete();
         } else {
             player.update(dt);
+            if (player.b2body.getPosition().x > 3) // 173
+                levelComplete();
         }
         for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);
@@ -136,19 +145,18 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);
 
-       // bullets2.update(dt);
-
-       // Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
+        Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
 
         bulletFinal.update(dt);
 
         hud.update(dt);
 
+        shootTimer += dt;
+
         if(FunGame.player2Selected) {
             if (player2.currentState != Player2.State.DEAD)
                 gamecam.position.x = player2.b2body.getPosition().x;
-                if(player2.b2body.getPosition().x > 25)
-                    levelComplete();
+
         } else {
             if (player.currentState != Player.State.DEAD)
                 gamecam.position.x = player.b2body.getPosition().x;
@@ -170,11 +178,13 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
                 if (controller.isJumpPressed() && player2.b2body.getLinearVelocity().y == 0)
                     player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
-                if (controller.isBulletPressed())
+                if (controller.isBulletPressed() && shootTimer >= TIMER) {
+                    shootTimer = 0;
                     bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                }
 
                 // if ((player.IsPlayerOnGround())) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player2.b2body.getLinearVelocity().y == 0)
+                if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                     player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
                 // }
                 if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
@@ -183,7 +193,8 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
+                    shootTimer = 0;
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                     bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
                     //Player.spacePressed = true;
@@ -192,29 +203,33 @@ public class PlayScreen implements Screen {
         } else {
             if (player.currentState != Player.State.DEAD) {
                 if (controller.isRightPressed() && player.b2body.getLinearVelocity().x <= 3)
-                    player.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player.b2body.getWorldCenter(), true);
+                    player.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player.b2body.getWorldCenter(), true);
                 if (controller.isLeftPressed() && player.b2body.getLinearVelocity().x >= -3)
-                    player.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player.b2body.getWorldCenter(), true);
+                    player.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player.b2body.getWorldCenter(), true);
                 if (controller.isJumpPressed() && player.b2body.getLinearVelocity().y == 0)
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-                if (controller.isBulletPressed())
+                if (controller.isBulletPressed() && shootTimer >= TIMER) {
+                    shootTimer = 0;
                     bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                }
 
-                // if ((player.IsPlayerOnGround())) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.UP) && player2.b2body.getLinearVelocity().y == 0)
+                 if ((player.IsPlayerOnGround())) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
-                // }
+                 }
                 if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 3)
                     player.b2body.applyLinearImpulse(new Vector2(0.1f, 0), player.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -3)
                     player.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), player.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                     player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
-                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
+                    shootTimer = 0;
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                     bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                     //Player.spacePressed = true;
                 }
+
             }
         }
     }
@@ -255,7 +270,7 @@ public class PlayScreen implements Screen {
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
-            dispose();
+            //dispose();
         }
 
     }
@@ -299,7 +314,7 @@ public class PlayScreen implements Screen {
         hud.dispose();
         game.dispose();
         bulletFinal.dispose();
-        player2.dispose();
+        //player2.dispose();
     }
 
     public boolean gameOver(){
@@ -311,7 +326,8 @@ public class PlayScreen implements Screen {
 
     public void levelComplete(){
         FunGame.LEVEL++;
-        new Level_complition(game);
+        game.setScreen(new Level_complition(game));
+        FunGame.PlayScreen = false;
         //dispose();
     }
 

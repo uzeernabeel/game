@@ -32,6 +32,8 @@ import com.uzeer.game.Screens.SecondStage;
 public class Player extends Sprite {
 
 
+    public static float checkPointX;
+
     public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING }
     public State currentState;
     public State previousState;
@@ -60,6 +62,7 @@ public class Player extends Sprite {
         previousState = State.STANDING;
         stateTimer = 0f;
         runningRight = true;
+        FunGame.lives = 3;
 
         timeToRedefinePlayer = false;
         playerDead = false;
@@ -103,13 +106,13 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 15; i++) {
             if(i == 1)
-                frames.add(new TextureRegion(getTexture(), 2, 543, 44, 40));
+                frames.add(new TextureRegion(getTexture(), 2, 543, 44, 55));
             if(i == 2)
-                frames.add(new TextureRegion(getTexture(), 6, 670, 33, 35));
+                frames.add(new TextureRegion(getTexture(), 6, 670, 33, 55));
             if(i == 3)
-                frames.add(new TextureRegion(getTexture(), 132, 669, 31, 38));
+                frames.add(new TextureRegion(getTexture(), 132, 669, 31, 55));
             if(i == 4)
-                frames.add(new TextureRegion(getTexture(), 190, 685, 34, 34));
+                frames.add(new TextureRegion(getTexture(), 190, 685, 34, 55));
             if(i == 5)
                 frames.add(new TextureRegion(getTexture(), 4, 123, 24, 63));
             if(i > 5)
@@ -291,9 +294,8 @@ public class Player extends Sprite {
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
-        if(spacePressed && dt > 3)
-            spacePressed = false;
-
+        if(timeToRedefinePlayer)
+            timeToRedefinePlayer();
     }
 
 
@@ -434,11 +436,42 @@ public class Player extends Sprite {
             for(Fixture fixture: b2body.getFixtureList())
                 fixture.setFilterData(filter);
             b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+            timeToRedefinePlayer = true;
         }
     }
 
     private void timeToRedefinePlayer() {
-        //Gdx.app.log("hit by Enemy", "ha!");
+        Hud.chances(4);
+        num = 0;
+
+        bdef = new BodyDef();
+        bdef.position.set(checkPointX / FunGame.PPM, 32 / FunGame.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        PolygonShape shape = new PolygonShape();
+        //Rectangle shape = new Rectangle();
+        //CircleShape shape = new CircleShape();
+        //shape.setRadius(7 / FunGame.PPM);
+        shape.setAsBox(5 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+
+        fdef.filter.categoryBits = FunGame.PLAYER_BIT;
+        fdef.filter.maskBits = FunGame.DEFAULT_BIT |
+                FunGame.COIN_BIT |
+                FunGame.FIRE_BIT |
+                FunGame.ENEMY_BIT |
+                FunGame.OBJECT_BIT |
+                FunGame.GROUND_BIT |
+                FunGame.ENEMY_HEAD_BIT;
+
+        fdef.shape = shape;
+
+        // b2body.createFixture(fdef).setUserData("player");
+        b2body.createFixture(fdef).setUserData(this);
+
+        timeToRedefinePlayer = false;
+
     }
 
     public boolean isDead(){

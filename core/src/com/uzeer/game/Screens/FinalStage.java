@@ -70,6 +70,8 @@ public class FinalStage implements Screen {
         //System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
         this.game = game;
 
+        FunGame.FinalScreen = true;
+
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(FunGame.V_WIDTH2 / FunGame.PPM, FunGame.V_HEIGHT2 / FunGame.PPM, gamecam);
         //gamePort = new FitViewport(1980 / FunGame.PPM, 1080 / FunGame.PPM, gamecam);
@@ -254,16 +256,9 @@ public class FinalStage implements Screen {
         if(Gdx.app.getType() == Application.ApplicationType.Android)
             controller.draw();
 
-
-        /*if(gameOver()){
+        if(gameOver()){
             game.setScreen(new GameOverScreen(game));
             //dispose();
-        }*/
-
-        if(levelComplete()){
-            //dispose();
-            game.setScreen(new Level_complition(game));
-
         }
     }
 
@@ -304,25 +299,19 @@ public class FinalStage implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        world.dispose();
-        //spriteBatch.dispose();
-        getAtlas().dispose();
-        getWorld().dispose();
-        getMap().dispose();
-        getScreen().dispose();
-        atlas.dispose();
-        player2.dispose();
+        game.dispose();
         bulletFinal.dispose();
-        player2.dispose();
     }
 
     public boolean gameOver(){
         return player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3;
     }
 
-    public boolean levelComplete(){
+    public void levelComplete(){
         //dispose();
-        return player2.b2body.getPosition().y > 9294 / FunGame.PPM;
+        FunGame.LEVEL++;
+        game.setScreen(new Level_complition(game));
+        FunGame.FinalScreen = false;
     }
 
     public FinalStage getScreen(){

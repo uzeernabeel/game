@@ -1,17 +1,25 @@
 package com.uzeer.game.Screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Sprites.Player;
+
+import static com.badlogic.gdx.utils.Align.center;
 
 /**
  * Created by Uzeer on 2/13/2017.
@@ -24,11 +32,15 @@ public class StartScreen implements Screen {
     private Viewport viewport;
     private Stage stage;
 
+    boolean leftPressed;
+    boolean rightPressed;
+
     public StartScreen(Game game){
         this.game = game;
         fontHa = new BitmapFont();
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, ((FunGame)game).batch);
+        Gdx.input.setInputProcessor(stage);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
 
@@ -36,13 +48,54 @@ public class StartScreen implements Screen {
         table.center();
         table.setFillParent(true);
 
+
         Label gameOverLabel = new Label("Select The Character", font);
-
-        Label playAgainLabel = new Label("Click To Play Again", font);
-
-        table.add(gameOverLabel).expandX();
+        table.add(gameOverLabel);
         table.row();
-        table.add(playAgainLabel).expandX().padTop(10f);
+
+
+        Image leftImg = new Image(new Texture("aladdin1.png"));
+        leftImg.setSize(401, 450);
+        leftImg.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                leftPressed = true;
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                leftPressed = false;
+            }
+        });
+
+        Image rightImg = new Image(new Texture("aladdin2.png"));
+        rightImg.setSize(401, 450);
+        rightImg.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                rightPressed = true;
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                rightPressed = false;
+            }
+        });
+
+
+        table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
+
+
+
+
+        //Label playAgainLabel = new Label("Click Left to Select Aladdin 1 OR Click Right to Select Aladdin 2", font);
+
+        //table.add(gameOverLabel).padLeft(500);
+        //table.row();
+        //table.add(playAgainLabel).expandX().padTop(10f);
 
         stage.addActor(table);
 
@@ -56,7 +109,19 @@ public class StartScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.draw();
 
+        if(rightPressed) {
+            FunGame.player2Selected = true;
+            game.setScreen(new PlayScreen((FunGame) game));
+            dispose();
+        } else if(leftPressed) {
+            FunGame.player2Selected = false;
+            game.setScreen(new PlayScreen((FunGame) game));
+            dispose();
+        }
     }
 
     @Override
@@ -81,6 +146,6 @@ public class StartScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

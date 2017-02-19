@@ -55,8 +55,12 @@ public class Level_complition implements Screen {
 
     @Override
     public void render(float delta) {
-        if(Gdx.input.justTouched()) {
+        if(Gdx.input.justTouched() && FunGame.LEVEL == 2) {
             game.setScreen(new SecondStage((FunGame) game));
+            dispose();
+        }
+        if(Gdx.input.justTouched() && FunGame.LEVEL == 3) {
+            game.setScreen(new FinalStage((FunGame) game));
             dispose();
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);

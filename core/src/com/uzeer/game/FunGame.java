@@ -14,6 +14,7 @@ import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
+import com.uzeer.game.Screens.StartScreen;
 
 public class FunGame extends Game {
 	public static final int V_WIDTH1 = 920;
@@ -43,6 +44,7 @@ public class FunGame extends Game {
 	public static boolean PlayScreen;
 	public static boolean SecondScreen;
 	public static boolean FinalScreen;
+	public static int lives;
 
 
 	public SpriteBatch batch;
@@ -58,36 +60,30 @@ public class FunGame extends Game {
 		batch = new SpriteBatch();
 
 		manager = new AssetManager();
-		manager.load("sounds/game background1.mp3", Music.class);
 		manager.load("sounds/FinalGameBackground.mp3", Music.class);
-		manager.load("sounds/is that all stranger.mp3", Sound.class);
-		//manager.load("sounds/enemyHit1.wav", Sound.class);
-		//manager.load("sounds/enemyHit2.wav", Sound.class);
-		//manager.load("sounds/checkPoint.wav", Sound.class);
-		manager.load("sounds/stranger stranger.mp3", Sound.class);
-		manager.load("sounds/thank you.mp3", Sound.class);
+		manager.load("sounds/enemyHit1.wav", Sound.class);
+		manager.load("sounds/enemyHit2.wav", Sound.class);
+		manager.load("sounds/checkPoint.wav", Sound.class);
+        manager.load("sounds/thank you.mp3", Sound.class);
 		manager.load("sounds/welcome.mp3", Sound.class);
-		manager.load("sounds/what are you buying.mp3", Sound.class);
-		manager.load("sounds/what are you selling.mp3", Sound.class);
 		manager.load("sounds/coin.wav", Sound.class);
 		manager.load("sounds/Decline.wav", Sound.class);
-		manager.load("sounds/enemy hit.wav", Sound.class);
-		//manager.load("sounds/hitByEnemy.wav", Sound.class);
+		manager.load("sounds/hitByEnemy.wav", Sound.class);
+        manager.load("sounds/powerUp.mp3", Sound.class);
 		manager.finishLoading();
-
-		LEVEL = 0;
 
         setScreen(new PlayScreen(this));
 		PlayScreen = true;
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));
+		setScreen(new StartScreen(this));
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		manager.dispose();
-		batch.dispose();
+		//batch.dispose();
 		//screen.dispose();
 	}
 
