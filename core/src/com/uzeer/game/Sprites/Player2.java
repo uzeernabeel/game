@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -61,12 +62,17 @@ public class Player2 extends Sprite {
     FixtureDef fdef;
     private boolean hitted;
     private boolean finalStage;
+    private PlayScreen screen;
+    private SecondStage screen1;
+    private FinalStage screen2;
+
+    private Array<Bullet> bullet;
 
 
     public static float checkPointX;
 
     public Player2(PlayScreen screen){
-        super(screen.getAtlas().findRegion("player"));
+        this.screen = screen;
         this.world = screen.getWorld();
         currentState = State.STANDING;
         previousState = State.STANDING;
@@ -219,10 +225,12 @@ public class Player2 extends Sprite {
         definePlayer();
         setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
        // setRegion(playerStand1);
+
+        bullet = new Array<Bullet>();
     }
 
     public Player2(SecondStage screen){
-        super(screen.getAtlas().findRegion("player"));
+        this.screen1 = screen;
         this.world = screen.getWorld();
         currentState = State.STANDING_STILL;
         previousState = State.STANDING_STILL;
@@ -379,11 +387,12 @@ public class Player2 extends Sprite {
 
         setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
 
+        bullet = new Array<Bullet>();
         //setRegion(playerStand);
     }
 
     public Player2(FinalStage screen){
-        super(screen.getAtlas().findRegion("player"));
+        this.screen2 = screen;
         this.world = screen.getWorld();
         currentState = State.STANDING_STILL;
         previousState = State.STANDING_STILL;
@@ -543,6 +552,7 @@ public class Player2 extends Sprite {
         setBounds(0, 0, 28 / FunGame.PPM, 41 / FunGame.PPM);
 
         //setRegion(playerStand);
+        bullet = new Array<Bullet>();
     }
 
     public void update(float dt){
@@ -556,6 +566,11 @@ public class Player2 extends Sprite {
         if(timeToRedefinePlayer)
             timeToRedefinePlayer();
 
+        for(Bullet ball : bullet){
+            ball.update(dt);
+            if(ball.isDestroyed())
+                bullet.removeValue(ball, true);
+        }
 
     }
 
@@ -629,6 +644,7 @@ public class Player2 extends Sprite {
 
 
     public void definePlayer() {
+
         bdef = new BodyDef();
         bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
@@ -655,26 +671,8 @@ public class Player2 extends Sprite {
 
         fdef.shape = shape;
 
-        // b2body.createFixture(fdef).setUserData("player");
         b2body.createFixture(fdef).setUserData(this);
 
-
-
-
-        // b2body.createFixture(fdef).setUserData(this);
-
-       /* PolygonShape body = new PolygonShape();
-        body.set(new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM), );
-        fdef.shape = body;
-
-        b2body.createFixture(fdef).setUserData("body");
-
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / FunGame.PPM, 7 / FunGame.PPM), new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM));
-        fdef.shape = head;
-        fdef.isSensor = true;
-
-        b2body.createFixture(fdef).setUserData("head");  */
     }
 
     public boolean IsPlayerOnGround(){
@@ -752,26 +750,7 @@ public class Player2 extends Sprite {
 
         fdef.shape = shape;
 
-        // b2body.createFixture(fdef).setUserData("player");
         b2body.createFixture(fdef).setUserData(this);
-
-
-
-
-        // b2body.createFixture(fdef).setUserData(this);
-
-       /* PolygonShape body = new PolygonShape();
-        body.set(new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM), );
-        fdef.shape = body;
-
-        b2body.createFixture(fdef).setUserData("body");
-
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / FunGame.PPM, 7 / FunGame.PPM), new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM));
-        fdef.shape = head;
-        fdef.isSensor = true;
-
-        b2body.createFixture(fdef).setUserData("head");  */
 
         timeToRedefinePlayer = false;
     }
@@ -788,6 +767,16 @@ public class Player2 extends Sprite {
         world.dispose();
         texture.dispose();
 
+    }
+
+    public void fire(){
+        bullet.add(new Bullet(screen, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false));
+    }
+
+    public void draw(Batch batch){
+        super.draw(batch);
+        for(Bullet ball: bullet)
+            ball.draw(batch);
     }
 
 }

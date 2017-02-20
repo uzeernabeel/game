@@ -34,6 +34,8 @@ public class StartScreen implements Screen {
 
     boolean leftPressed;
     boolean rightPressed;
+    Image rightImg;
+    Image leftImg;
 
     public StartScreen(Game game){
         this.game = game;
@@ -54,7 +56,7 @@ public class StartScreen implements Screen {
         table.row();
 
 
-        Image leftImg = new Image(new Texture("aladdin1.png"));
+        leftImg = new Image(new Texture("aladdin1.png"));
         leftImg.setSize(401, 450);
         leftImg.addListener(new InputListener(){
             @Override
@@ -69,7 +71,7 @@ public class StartScreen implements Screen {
             }
         });
 
-        Image rightImg = new Image(new Texture("aladdin2.png"));
+        rightImg = new Image(new Texture("aladdin2.png"));
         rightImg.setSize(401, 450);
         rightImg.addListener(new InputListener(){
             @Override
@@ -87,15 +89,6 @@ public class StartScreen implements Screen {
 
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-
-
-
-
-        //Label playAgainLabel = new Label("Click Left to Select Aladdin 1 OR Click Right to Select Aladdin 2", font);
-
-        //table.add(gameOverLabel).padLeft(500);
-        //table.row();
-        //table.add(playAgainLabel).expandX().padTop(10f);
 
         stage.addActor(table);
 
@@ -147,5 +140,7 @@ public class StartScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        game.getScreen().dispose();
     }
+
 }

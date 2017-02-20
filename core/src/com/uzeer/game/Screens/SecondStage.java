@@ -30,7 +30,6 @@ import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
 import com.uzeer.game.Tools.Controller;
-import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
@@ -41,34 +40,24 @@ import java.util.ArrayList;
 
 public class SecondStage implements Screen {
     private FunGame game;
-
     private TextureAtlas atlas;
-
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
-
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-    //private TextureMapObjectRenderer textureMapObjectRenderer;
-
     private World world;
     private Box2DDebugRenderer b2dr;
     public Player player;
     public Player2 player2;
     private B2WorldCreator creator;
-
     private Controller controller;
-
     private Music music;
     private boolean playerIsTouchingTheGround;
-
     private BulletFinal bulletFinal;
-
     private float maxPosition;
     private float minPosition;
-
     public static final float TIMER = 0.5f;
     float shootTimer;
 
@@ -106,7 +95,7 @@ public class SecondStage implements Screen {
         maxPosition = 0;
         minPosition = 0;
 
-        //FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
+        FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
         //music.setVolume(.09f);
         music.setLooping(true);
@@ -146,23 +135,30 @@ public class SecondStage implements Screen {
 
         shootTimer += dt;
 
-       /* minPosition = player.b2body.getPosition().y;
+        minPosition = player.b2body.getPosition().y;
 
-        if (player.currentState != Player.State.DEAD) {
-            if(minPosition >= maxPosition) {
-                gamecam.position.y = player.b2body.getPosition().y;
-                maxPosition = player.b2body.getPosition().y;
-            }
-            if(minPosition < maxPosition + 3f)
-                gamecam.position.y = player.b2body.getPosition().y;
-        } */
         if(FunGame.player2Selected) {
-            if (player2.currentState != Player2.State.DEAD)
+            if (player2.currentState != Player2.State.DEAD) {
                 gamecam.position.y = player2.b2body.getPosition().y;
+                if(minPosition >= maxPosition) {
+                    gamecam.position.y = player2.b2body.getPosition().y;
+                    maxPosition = player2.b2body.getPosition().y;
+                }
+                if(minPosition < maxPosition + 3f) {
+                    gamecam.position.y = player2.b2body.getPosition().y;
+                }
 
         } else {
-            if (player.currentState != Player.State.DEAD)
-                gamecam.position.y = player.b2body.getPosition().y;
+                if (player.currentState != Player.State.DEAD) {
+                    gamecam.position.y = player.b2body.getPosition().y;
+                    if (minPosition >= maxPosition) {
+                        gamecam.position.y = player.b2body.getPosition().y;
+                        maxPosition = player.b2body.getPosition().y;
+                    }
+                    if (minPosition < maxPosition + 3f)
+                        gamecam.position.y = player.b2body.getPosition().y;
+                    }
+                }
         }
         gamecam.update();
         renderer.setView(gamecam);

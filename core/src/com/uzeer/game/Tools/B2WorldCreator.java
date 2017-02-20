@@ -17,6 +17,7 @@ import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.CheckPoints;
 import com.uzeer.game.Sprites.Coin;
+import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 
@@ -213,5 +214,12 @@ public class B2WorldCreator {
 
     public Array<BadGuy> getBadGuys(){
         return badGuys;
+    }
+
+    public Array<Enemy> getEnemies(){
+        Array<Enemy> enemies = new Array<Enemy>();
+        enemies.addAll(flinkstone);
+        enemies.addAll(badGuys);
+        return enemies;
     }
 }

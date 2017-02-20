@@ -188,7 +188,7 @@ public class BulletFinal extends Sprite {
 
     public void destroyBullet() {
         setToDestroy = true;
-        dispose();
+        //dispose();
         Gdx.app.log("touch ", "ground");
     }
 

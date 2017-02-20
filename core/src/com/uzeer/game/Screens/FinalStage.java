@@ -67,7 +67,6 @@ public class FinalStage implements Screen {
 
     public FinalStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
-        //System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
         this.game = game;
 
         FunGame.FinalScreen = true;
@@ -214,10 +213,6 @@ public class FinalStage implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        //renderer.renderObjects(map.getLayers().get(0));
-        //renderer.renderObjects(map.getLayers().get(1));
-
-
         b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
@@ -226,19 +221,6 @@ public class FinalStage implements Screen {
         //player.draw(game.batch);
         player2.draw(game.batch);
 
-        /*for (MapObject object : map.getLayers().get(1).getObjects()) {
-            //textureMapObjectRenderer.renderObject(object);
-
-            if (object instanceof TextureMapObject) {
-                textureObject = (TextureMapObject) object;
-                game.batch.draw(
-                        textureObject.getTextureRegion(),
-                        textureObject.getX(),
-                        textureObject.getY()
-                );
-            }
-        }
-    */
         for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
 
@@ -299,7 +281,7 @@ public class FinalStage implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        game.dispose();
+        game.getScreen().dispose();
         bulletFinal.dispose();
     }
 

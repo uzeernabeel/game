@@ -38,12 +38,12 @@ import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
 import com.uzeer.game.Tools.Controller;
-import com.uzeer.game.Tools.TextureMapObjectRenderer;
 import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
 
 public class PlayScreen implements Screen {
+
     private FunGame game;
 
     private TextureAtlas atlas;
@@ -52,20 +52,24 @@ public class PlayScreen implements Screen {
     private Viewport gamePort;
     private Hud hud;
 
+    //Tiled map variables
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
+    //Box2d variables
+    private B2WorldCreator creator;
     private World world;
     private Box2DDebugRenderer b2dr;
+
+    //Sprites
     public Player player;
     public Player2 player2;
-    private B2WorldCreator creator;
+
 
     private Controller controller;
 
     private Music music;
-    private boolean playerIsTouchingTheGround;
 
     private BulletFinal bulletFinal;
 
@@ -94,15 +98,15 @@ public class PlayScreen implements Screen {
 
         controller = new Controller(game.batch);
 
+        creator = new B2WorldCreator(this);
+
         if(FunGame.player2Selected)
             player2 = new Player2(this);
         else
             player = new Player(this);
 
 
-        bulletFinal = new BulletFinal(this, 5, 70);
-
-        creator = new B2WorldCreator(this);
+        //bulletFinal = new BulletFinal(this, 5, 70);
 
         world.setContactListener(new WorldContactListner());
 
@@ -110,7 +114,7 @@ public class PlayScreen implements Screen {
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
-        music.play();
+        //music.play();
 
     }
 
@@ -120,51 +124,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void show() {
-
-    }
-
-
-
-    public void update(float dt){
-        handleInput(dt);
-
-        world.step(1 / 60f, 6, 2);
-
-        if(FunGame.player2Selected){
-            player2.update(dt);
-            if (player2.b2body.getPosition().x > 3) // 173
-                levelComplete();
-        } else {
-            player.update(dt);
-            if (player.b2body.getPosition().x > 3) // 173
-                levelComplete();
-        }
-        for(Enemy enemy : creator.getFlinkstone())
-            enemy.update(dt);
-
-        for(Enemy enemy : creator.getBadGuys())
-            enemy.update(dt);
-
-        Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
-
-        bulletFinal.update(dt);
-
-        hud.update(dt);
-
-        shootTimer += dt;
-
-        if(FunGame.player2Selected) {
-            if (player2.currentState != Player2.State.DEAD)
-                gamecam.position.x = player2.b2body.getPosition().x;
-
-        } else {
-            if (player.currentState != Player.State.DEAD)
-                gamecam.position.x = player.b2body.getPosition().x;
-        }
-
-        gamecam.update();
-        renderer.setView(gamecam);
-       // objectRenderer.setView(gamecam);
 
     }
 
@@ -180,7 +139,8 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                    player2.fire();
+                    //bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                 // if ((player.IsPlayerOnGround())) {
@@ -196,7 +156,8 @@ public class PlayScreen implements Screen {
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
+                    player2.fire();
+                    //bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
                     //Player.spacePressed = true;
                 }
             }
@@ -234,6 +195,51 @@ public class PlayScreen implements Screen {
         }
     }
 
+    public void update(float dt){
+        handleInput(dt);
+
+        world.step(1 / 60f, 6, 2);
+
+        if(FunGame.player2Selected){
+            player2.update(dt);
+            if (player2.b2body.getPosition().x > 10) // 173
+                levelComplete();
+        } else {
+            player.update(dt);
+            if (player.b2body.getPosition().x > 13) // 173
+                levelComplete();
+        }
+
+        for(Enemy enemy : creator.getEnemies())
+            enemy.update(dt);
+
+        /*for(Enemy enemy : creator.getFlinkstone())
+            enemy.update(dt);
+
+        for(Enemy enemy : creator.getBadGuys())
+            enemy.update(dt);*/
+
+        //bulletFinal.update(dt);
+
+        hud.update(dt);
+
+        shootTimer += dt;
+
+        if(FunGame.player2Selected) {
+            if (player2.currentState != Player2.State.DEAD)
+                gamecam.position.x = player2.b2body.getPosition().x;
+
+        } else {
+            if (player.currentState != Player.State.DEAD)
+                gamecam.position.x = player.b2body.getPosition().x;
+        }
+
+        gamecam.update();
+        renderer.setView(gamecam);
+        // objectRenderer.setView(gamecam);
+
+    }
+
     @Override
     public void render(float delta) {
         update(delta);
@@ -253,13 +259,15 @@ public class PlayScreen implements Screen {
         else
         player2.draw(game.batch);
 
-        for(Enemy enemy : creator.getFlinkstone())
+       /* for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
 
         for(Enemy enemy : creator.getBadGuys())
+            enemy.draw(game.batch); */
+        for (Enemy enemy : creator.getEnemies())
             enemy.draw(game.batch);
 
-        bulletFinal.draw(game.batch);
+        //bulletFinal.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
@@ -270,9 +278,27 @@ public class PlayScreen implements Screen {
 
         if(gameOver()){
             game.setScreen(new GameOverScreen(game));
-            //dispose();
+            dispose();
         }
 
+    }
+
+    public boolean gameOver(){
+        if(FunGame.player2Selected)
+            return player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3;
+        else
+            return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
+    }
+
+    public void levelComplete(){
+        FunGame.LEVEL = 2;
+        game.setScreen(new Level_complition(game));
+        FunGame.PlayScreen = false;
+        dispose();
+    }
+
+    public PlayScreen getScreen(){
+        return this;
     }
 
     @Override
@@ -307,31 +333,13 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        atlas.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        game.dispose();
-        bulletFinal.dispose();
-        //player2.dispose();
     }
 
-    public boolean gameOver(){
-        if(FunGame.player2Selected)
-            return player2.currentState == Player2.State.DEAD && player2.getStateTimer() > 3;
-        else
-            return player.currentState == Player.State.DEAD && player.getStateTimer() > 3;
-    }
 
-    public void levelComplete(){
-        FunGame.LEVEL++;
-        game.setScreen(new Level_complition(game));
-        FunGame.PlayScreen = false;
-        //dispose();
-    }
-
-    public PlayScreen getScreen(){
-        return this;
-    }
 }

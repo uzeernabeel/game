@@ -56,6 +56,7 @@ public class FunGame extends Game {
 	public void create () {
 
 		player2Selected = true;
+		PlayScreen = true;
 
 		batch = new SpriteBatch();
 
@@ -73,18 +74,17 @@ public class FunGame extends Game {
 		manager.finishLoading();
 
         setScreen(new PlayScreen(this));
-		PlayScreen = true;
+
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));
-		setScreen(new StartScreen(this));
+		//setScreen(new StartScreen(this));
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		manager.dispose();
-		//batch.dispose();
-		//screen.dispose();
+		batch.dispose();
 	}
 
 	@Override
