@@ -89,7 +89,7 @@ public class PlayScreen implements Screen {
         shootTimer = 0;
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("My Imagination.tmx");
+        map = mapLoader.load("test.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -202,11 +202,11 @@ public class PlayScreen implements Screen {
 
         if(FunGame.player2Selected){
             player2.update(dt);
-            if (player2.b2body.getPosition().x > 10) // 173
+            if (player2.b2body.getPosition().x > 173) // 173
                 levelComplete();
         } else {
             player.update(dt);
-            if (player.b2body.getPosition().x > 13) // 173
+            if (player.b2body.getPosition().x > 173) // 173
                 levelComplete();
         }
 

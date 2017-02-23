@@ -39,7 +39,7 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -59,7 +59,7 @@ public class B2WorldCreator {
             body.createFixture(fdef);
         }
 
-        //This is for Coins Layer # 3
+        /*This is for Coins Layer # 3
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -85,7 +85,7 @@ public class B2WorldCreator {
             for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 badGuys.add(new BadGuy(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
-        }
+        } */
     }
 
     public B2WorldCreator(SecondStage screen) {
@@ -218,8 +218,8 @@ public class B2WorldCreator {
 
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();
-        enemies.addAll(flinkstone);
-        enemies.addAll(badGuys);
+        //enemies.addAll(flinkstone);
+        //enemies.addAll(badGuys);
         return enemies;
     }
 }
