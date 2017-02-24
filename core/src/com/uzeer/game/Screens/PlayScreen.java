@@ -76,6 +76,9 @@ public class PlayScreen implements Screen {
     public static final float TIMER = 0.5f;
     float shootTimer;
 
+    private int startingPoint;
+    private int endPoint;
+
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -89,7 +92,7 @@ public class PlayScreen implements Screen {
         shootTimer = 0;
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("test.tmx");
+        map = mapLoader.load("My Imagination.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -210,8 +213,8 @@ public class PlayScreen implements Screen {
                 levelComplete();
         }
 
-        for(Enemy enemy : creator.getEnemies())
-            enemy.update(dt);
+       // for(Enemy enemy : creator.getEnemies())
+          //  enemy.update(dt);
 
         /*for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);
@@ -264,8 +267,8 @@ public class PlayScreen implements Screen {
 
         for(Enemy enemy : creator.getBadGuys())
             enemy.draw(game.batch); */
-        for (Enemy enemy : creator.getEnemies())
-            enemy.draw(game.batch);
+       // for (Enemy enemy : creator.getEnemies())
+           // enemy.draw(game.batch);
 
         //bulletFinal.draw(game.batch);
         game.batch.end();

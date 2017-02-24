@@ -39,7 +39,7 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for(MapObject object : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -72,7 +72,7 @@ public class B2WorldCreator {
 
             new Fire(screen, rect, "Fire");
 
-        }
+        } /*
             //creat flinkstone
             flinkstone = new Array<Flinkstone>();
             for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
