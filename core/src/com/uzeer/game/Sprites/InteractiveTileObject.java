@@ -148,7 +148,7 @@ public abstract class InteractiveTileObject {
 
     public TiledMapTileLayer.Cell getCell(){
         if(FunGame.PlayScreen)
-            layer = (TiledMapTileLayer) map.getLayers().get(1);
+            layer = (TiledMapTileLayer) map.getLayers().get(4);
         if(FunGame.SecondScreen)
             layer = (TiledMapTileLayer) map.getLayers().get(2);
         if(FunGame.FinalScreen)

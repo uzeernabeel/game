@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="800" height="15" tilewidth="22" tileheight="22" nextobjectid="948">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="800" height="15" tilewidth="22" tileheight="22" nextobjectid="949">
  <tileset firstgid="1" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
   <image source="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
   <terraintypes>
@@ -44,7 +44,7 @@
   </data>
  </layer>
  <imagelayer name="Home" offsetx="16456" offsety="-374">
-  <image source="Mushroom_1.png" width="49" height="41"/>
+  <image source="Mushroom_1.png"/>
  </imagelayer>
  <layer name="Fire Ha" width="800" height="15">
   <data encoding="base64" compression="zlib">

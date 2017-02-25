@@ -20,6 +20,7 @@ import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
+import com.uzeer.game.Sprites.Player;
 
 /**
  * Created by Uzeer on 12/26/2016.
@@ -30,7 +31,7 @@ public class B2WorldCreator {
     private Array<Flinkstone> flinkstone;
     private Array<BadGuy> badGuys;
 
-    public B2WorldCreator(PlayScreen screen){
+    public B2WorldCreator(PlayScreen screen, Player player){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
         BodyDef bdef = new BodyDef();
@@ -39,7 +40,8 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        //for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -59,33 +61,33 @@ public class B2WorldCreator {
             body.createFixture(fdef);
         }
 
-        /*This is for Coins Layer # 3
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        //This is for Coins Layer # 3
+        for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Coin(screen, rect, "Coins");
         }
 
-        //This is for Fire Layer # 5
+        /*This is for Fire Layer # 5
         for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             new Fire(screen, rect, "Fire");
 
-        } /*
+        } */
             //creat flinkstone
             flinkstone = new Array<Flinkstone>();
-            for(MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+            for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 flinkstone.add(new Flinkstone(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
 
         //creat badGuy Layer
             badGuys = new Array<BadGuy>();
-            for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+            for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 badGuys.add(new BadGuy(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
-        } */
+        }
     }
 
     public B2WorldCreator(SecondStage screen) {
@@ -218,8 +220,8 @@ public class B2WorldCreator {
 
     public Array<Enemy> getEnemies(){
         Array<Enemy> enemies = new Array<Enemy>();
-        //enemies.addAll(flinkstone);
-        //enemies.addAll(badGuys);
+        enemies.addAll(flinkstone);
+        enemies.addAll(badGuys);
         return enemies;
     }
 }

@@ -61,7 +61,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void render(float delta) {
         if(Gdx.input.justTouched()) {
-            game.setScreen(new FinalStage((FunGame) game));
+            game.setScreen(new PlayScreen((FunGame) game));
             Player2.num = 0;
             dispose();
         }

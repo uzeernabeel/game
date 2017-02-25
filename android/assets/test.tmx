@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="20" tilewidth="22" tileheight="22" nextobjectid="13">
+ <tileset firstgid="1" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
+  <image source="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="150" height="20" opacity="0.36">
+  <data encoding="base64" compression="zlib">
+   eJzt2LsNgDAMQEFgBgbL/tNQUSFARDaRoyuu5SO/gJK2LUsDAAAAALrt673s+41+d+bxd8fM76kpXRFFS2TwnSKLrsiirXoq/GsqPCPXeUXNLXP/pqs6ovfy2V1pK2c+vec6b+dCFbo6rz96NhV8mTfx62BWB0dUmsE=
+  </data>
+ </layer>
+ <objectgroup name="ground">
+  <object id="2" x="0" y="418" width="3300" height="22"/>
+  <object id="3" x="3278" y="0" width="22" height="418"/>
+  <object id="4" x="0" y="0" width="3300" height="22"/>
+  <object id="5" x="0" y="22" width="22" height="396"/>
+  <object id="6" x="704" y="352" width="88" height="66"/>
+  <object id="7" x="1144" y="352" width="88" height="66"/>
+  <object id="8" x="924" y="176" width="88" height="22"/>
+  <object id="9" x="1518" y="198" width="110" height="22"/>
+  <object id="10" x="1826" y="198" width="242" height="132"/>
+  <object id="11" x="2222" y="132" width="110" height="44"/>
+  <object id="12" x="2442" y="242" width="110" height="88"/>
+ </objectgroup>
+</map>

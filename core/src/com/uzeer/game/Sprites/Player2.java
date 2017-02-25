@@ -702,7 +702,7 @@ public class Player2 extends Sprite {
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num > 3) {
-            //playerDead = true;
+            playerDead = true;
             Hud.chances(0);
             FunGame.lives--;
             Gdx.app.log("hit by Enemy: ", "Dead!");
@@ -726,7 +726,7 @@ public class Player2 extends Sprite {
         world.destroyBody(b2body);
 
         bdef = new BodyDef();
-        bdef.position.set(checkPointX, 32 / FunGame.PPM);
+        bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

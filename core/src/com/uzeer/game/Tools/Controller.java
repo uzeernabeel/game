@@ -35,7 +35,7 @@ public class Controller {
 
 
         Image leftImg = new Image(new Texture("controller/left.png"));
-        leftImg.setSize(75, 75);
+        leftImg.setSize(95, 95);
         leftImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -50,7 +50,7 @@ public class Controller {
         });
 
         Image rightImg = new Image(new Texture("controller/right.png"));
-        rightImg.setSize(75, 75);
+        rightImg.setSize(95, 95);
         rightImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -65,7 +65,7 @@ public class Controller {
         });
 
         final Image jumpImg = new Image(new Texture("controller/jump.png"));
-        jumpImg.setSize(75, 75);
+        jumpImg.setSize(95, 95);
         jumpImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -80,7 +80,7 @@ public class Controller {
         });
 
         Image bulletImg = new Image(new Texture("controller/bullet.png"));
-        bulletImg.setSize(75, 75);
+        bulletImg.setSize(95, 95);
         bulletImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -96,11 +96,13 @@ public class Controller {
 
         table.left().bottom();
 
+
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        table.padLeft(5);
         table.add().padRight(25);
 
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-        table.add().padRight(350);
+        table.add().padRight(300);
 
         table.padLeft(15);
         table.padBottom(1);

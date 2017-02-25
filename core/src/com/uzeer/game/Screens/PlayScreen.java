@@ -92,7 +92,7 @@ public class PlayScreen implements Screen {
         shootTimer = 0;
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("My Imagination.tmx");
+        map = mapLoader.load("Small1.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -101,7 +101,7 @@ public class PlayScreen implements Screen {
 
         controller = new Controller(game.batch);
 
-        creator = new B2WorldCreator(this);
+        creator = new B2WorldCreator(this, player);
 
         if(FunGame.player2Selected)
             player2 = new Player2(this);
@@ -117,7 +117,7 @@ public class PlayScreen implements Screen {
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
         music.setVolume(.09f);
         music.setLooping(true);
-        //music.play();
+        music.play();
 
     }
 
@@ -134,26 +134,28 @@ public class PlayScreen implements Screen {
         // android specific code
         if (FunGame.player2Selected) {
             if (player2.currentState != Player2.State.DEAD) {
-                if (controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 3)
-                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -3)
-                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (controller.isJumpPressed() && player2.b2body.getLinearVelocity().y == 0)
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                if (controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if (controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if(player2.IsPlayerOnGround()) {
+                    if (controller.isJumpPressed())
+                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                }
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
                     player2.fire();
                     //bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
-                // if ((player.IsPlayerOnGround())) {
+                 if ((player2.IsPlayerOnGround())) {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
-                // }
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
-                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -3)
-                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
+                    player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                 }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
@@ -213,8 +215,8 @@ public class PlayScreen implements Screen {
                 levelComplete();
         }
 
-       // for(Enemy enemy : creator.getEnemies())
-          //  enemy.update(dt);
+        for(Enemy enemy : creator.getEnemies())
+            enemy.update(dt);
 
         /*for(Enemy enemy : creator.getFlinkstone())
             enemy.update(dt);
@@ -239,7 +241,6 @@ public class PlayScreen implements Screen {
 
         gamecam.update();
         renderer.setView(gamecam);
-        // objectRenderer.setView(gamecam);
 
     }
 
@@ -267,8 +268,8 @@ public class PlayScreen implements Screen {
 
         for(Enemy enemy : creator.getBadGuys())
             enemy.draw(game.batch); */
-       // for (Enemy enemy : creator.getEnemies())
-           // enemy.draw(game.batch);
+        for (Enemy enemy : creator.getEnemies())
+             enemy.draw(game.batch);
 
         //bulletFinal.draw(game.batch);
         game.batch.end();
