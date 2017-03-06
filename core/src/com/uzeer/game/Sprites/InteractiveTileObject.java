@@ -150,7 +150,7 @@ public abstract class InteractiveTileObject {
         if(FunGame.PlayScreen)
             layer = (TiledMapTileLayer) map.getLayers().get(4);
         if(FunGame.SecondScreen)
-            layer = (TiledMapTileLayer) map.getLayers().get(2);
+            layer = (TiledMapTileLayer) map.getLayers().get(4);
         if(FunGame.FinalScreen)
             layer = (TiledMapTileLayer) map.getLayers().get(5);
 

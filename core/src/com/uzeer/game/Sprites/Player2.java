@@ -656,7 +656,8 @@ public class Player2 extends Sprite {
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
 
-            shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+
         //fdef.isSensor = false;
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
@@ -726,7 +727,7 @@ public class Player2 extends Sprite {
         world.destroyBody(b2body);
 
         bdef = new BodyDef();
-        bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
+        bdef.position.set(52 / FunGame.PPM, 50 / FunGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

@@ -56,7 +56,8 @@ public class FunGame extends Game {
 	public void create () {
 
 		player2Selected = true;
-		PlayScreen = true;
+		//PlayScreen = true;
+		SecondScreen = true;
 
 		batch = new SpriteBatch();
 
@@ -73,7 +74,7 @@ public class FunGame extends Game {
         manager.load("sounds/powerUp.mp3", Sound.class);
 		manager.finishLoading();
 
-        setScreen(new PlayScreen(this));
+        setScreen(new SecondStage(this));
 
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));

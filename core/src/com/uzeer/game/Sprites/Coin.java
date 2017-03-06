@@ -46,7 +46,7 @@ public class Coin extends InteractiveTileObject{
         setCategoryFilter(FunGame.DESTROYED_BIT);
         getCell().setTile(null);
         Hud.addScore(500);
-        Hud.addCoin(1);
+        Hud.addCoin(4);
         FunGame.manager.get("sounds/coin.wav", Sound.class).play();
     }
 }

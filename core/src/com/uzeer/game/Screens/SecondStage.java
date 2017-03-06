@@ -73,7 +73,7 @@ public class SecondStage implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("FinalSecond.tmx");
+        map = mapLoader.load("Small4.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
@@ -113,11 +113,11 @@ public class SecondStage implements Screen {
 
         if(FunGame.player2Selected){
             player2.update(dt);
-            if (player2.b2body.getPosition().y > 30) //
+            if (player2.b2body.getPosition().y > 130) //
                 levelComplete();
         } else {
             player.update(dt);
-            if (player.b2body.getPosition().y > 30) //
+            if (player.b2body.getPosition().y > 130) //
                 levelComplete();
         }
 
@@ -135,9 +135,9 @@ public class SecondStage implements Screen {
 
         shootTimer += dt;
 
-        minPosition = player.b2body.getPosition().y;
+        minPosition = player2.b2body.getPosition().y;
 
-        if(FunGame.player2Selected) {
+       /* if(FunGame.player2Selected) {
             if (player2.currentState != Player2.State.DEAD) {
                 gamecam.position.y = player2.b2body.getPosition().y;
                 if(minPosition >= maxPosition) {
@@ -159,7 +159,8 @@ public class SecondStage implements Screen {
                         gamecam.position.y = player.b2body.getPosition().y;
                     }
                 }
-        }
+        } */
+        gamecam.position.y = player2.b2body.getPosition().y;
         gamecam.update();
         renderer.setView(gamecam);
        // textureMapObjectRenderer.setView(gamecam);
@@ -170,31 +171,41 @@ public class SecondStage implements Screen {
         // android specific code
         if (FunGame.player2Selected) {
             if (player2.currentState != Player2.State.DEAD) {
-                if (controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 3)
-                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -3)
-                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (controller.isJumpPressed() && player2.b2body.getLinearVelocity().y == 0)
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
+                if (controller.isRightPressed() && player2.b2body.getLinearVelocity().x <= 2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if (controller.isLeftPressed() && player2.b2body.getLinearVelocity().x >= -2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if(player2.IsPlayerOnGround()) {
+                    if (controller.isJumpPressed())
+                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                }
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                    //player2.fire();
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .2f, player2.b2body.getPosition().y + .2f);
                 }
 
-                // if ((player.IsPlayerOnGround())) {
-                if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                    player2.b2body.applyLinearImpulse(new Vector2(0, 5f), player2.b2body.getWorldCenter(), true);
-                // }
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 3)
-                    player2.b2body.applyLinearImpulse(new Vector2(0.15f, 0), player2.b2body.getWorldCenter(), true);
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -3)
-                    player2.b2body.applyLinearImpulse(new Vector2(-0.15f, 0), player2.b2body.getWorldCenter(), true);
+                if ((player2.IsPlayerOnGround())) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
+                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player2.b2body.getLinearVelocity().x >= -2.5)
+                    player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
+                    //player2.fire();
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                     //Player.spacePressed = true;
                 }
             }
@@ -208,7 +219,10 @@ public class SecondStage implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                 if ((player.IsPlayerOnGround())) {
@@ -224,8 +238,10 @@ public class SecondStage implements Screen {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    //Player.spacePressed = true;
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
             }

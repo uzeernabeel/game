@@ -56,12 +56,12 @@ public class BulletFinal extends Sprite {
         this.world = screen.getWorld();
         this.screen1 = screen;
         setPosition(x, y);
-        defineBullet();
         velocity2 = new Vector2(5f, 0f);
         NegVelocity2 = new Vector2(-5f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
         setRegion(apple);
+        defineBullet();
     }
 
     public BulletFinal(FinalStage screen, float x, float y) {
@@ -78,6 +78,7 @@ public class BulletFinal extends Sprite {
     }
 
     protected void defineBullet() {
+        //rightSide = true;
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
         bdef.type = BodyDef.BodyType.KinematicBody;
@@ -182,6 +183,7 @@ public class BulletFinal extends Sprite {
         }
 
         setPosition(b2body.getPosition().x + getWidth() / 2 - 8 / FunGame.PPM , b2body.getPosition().y + getHeight() / 2 - 7 / FunGame.PPM);
+
         setRegion(apple);
 
     }

@@ -57,7 +57,7 @@ public class BadGuy extends Enemy{
         walkAnimation = new Animation(0.3f, frames);
         frames.clear();
 
-        TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
+        region = walkAnimation.getKeyFrame(stateTime, true);
 
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
@@ -97,7 +97,7 @@ public class BadGuy extends Enemy{
         walkAnimation = new Animation(0.3f, frames);
         frames.clear();
 
-        TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
+        region = walkAnimation.getKeyFrame(stateTime, true);
 
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
@@ -137,7 +137,7 @@ public class BadGuy extends Enemy{
         walkAnimation = new Animation(0.3f, frames);
         frames.clear();
 
-        TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
+            region = walkAnimation.getKeyFrame(stateTime, true);
 
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
@@ -165,7 +165,7 @@ public class BadGuy extends Enemy{
             //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
-            dispose();
+            //dispose();
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
@@ -261,7 +261,6 @@ public class BadGuy extends Enemy{
     }
 
     public void dispose(){
-        frames.clear();
         badGuyTexture.dispose();
     }
 }

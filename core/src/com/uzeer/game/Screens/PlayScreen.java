@@ -109,7 +109,7 @@ public class PlayScreen implements Screen {
             player = new Player(this);
 
 
-        //bulletFinal = new BulletFinal(this, 5, 70);
+        bulletFinal = new BulletFinal(this, 5, 70);
 
         world.setContactListener(new WorldContactListner());
 
@@ -144,8 +144,10 @@ public class PlayScreen implements Screen {
                 }
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    player2.fire();
-                    //bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                  if ((player2.IsPlayerOnGround())) {
@@ -160,10 +162,10 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    player2.fire();
-                    //bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .1f, player2.b2body.getPosition().y + .2f);
-                    //Player.spacePressed = true;
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
             }
         } else {
@@ -176,7 +178,10 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(0, 5f), player.b2body.getWorldCenter(), true);
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                  if ((player.IsPlayerOnGround())) {
@@ -191,9 +196,10 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    //Player.spacePressed = true;
+                    if(player2.isFlipX())
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                    else
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
             }
@@ -224,7 +230,7 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);*/
 
-        //bulletFinal.update(dt);
+        bulletFinal.update(dt);
 
         hud.update(dt);
 
@@ -271,7 +277,7 @@ public class PlayScreen implements Screen {
         for (Enemy enemy : creator.getEnemies())
              enemy.draw(game.batch);
 
-        //bulletFinal.draw(game.batch);
+        bulletFinal.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
