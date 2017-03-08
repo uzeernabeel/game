@@ -60,6 +60,7 @@ public class SecondStage implements Screen {
     private float minPosition;
     public static final float TIMER = 0.5f;
     float shootTimer;
+    float time;
 
 
 
@@ -73,7 +74,16 @@ public class SecondStage implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Small4.tmx");
+
+        //stage selecting # 4, 5, 6.
+        if(FunGame.secondScreenStages == 1)
+            map = mapLoader.load("Small4.tmx");
+        if(FunGame.secondScreenStages == 1)
+            map = mapLoader.load("Small4.tmx");
+        if(FunGame.secondScreenStages == 1)
+            map = mapLoader.load("Small4.tmx");
+
+        //renderer of the map
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
@@ -94,6 +104,7 @@ public class SecondStage implements Screen {
 
         maxPosition = 0;
         minPosition = 0;
+
 
         FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
@@ -127,7 +138,14 @@ public class SecondStage implements Screen {
         for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);
 
-        Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
+        time += dt;
+
+        if(time > 2) {
+            Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
+            Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().y));
+            time = 0;
+        }
+
 
         bulletFinal.update(dt);
 
@@ -190,7 +208,7 @@ public class SecondStage implements Screen {
 
                 if ((player2.IsPlayerOnGround())) {
                     if (Gdx.input.isKeyJustPressed(Input.Keys.UP))
-                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.85f), player2.b2body.getWorldCenter(), true);
                 }
                 if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player2.b2body.getLinearVelocity().x <= 2.5)
                     player2.b2body.applyLinearImpulse(new Vector2(0.125f, 0), player2.b2body.getWorldCenter(), true);
@@ -326,13 +344,12 @@ public class SecondStage implements Screen {
 
     @Override
     public void dispose() {
+        atlas.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        game.dispose();
-        bulletFinal.dispose();
     }
 
     public boolean gameOver(){

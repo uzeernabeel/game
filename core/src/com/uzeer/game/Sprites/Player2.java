@@ -319,7 +319,7 @@ public class Player2 extends Sprite {
         playerJump = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 7; i++) {
+       /* for(int i = 1; i < 7; i++) {
             if (i == 1)
                 frames.add(new TextureRegion(texture, 2, 1, 46, 57));
             else if(i == 2)
@@ -331,6 +331,30 @@ public class Player2 extends Sprite {
             else if(i == 5)
                 frames.add(new TextureRegion(texture, 249, 1, 46, 57));
             else if(i == 6)
+                frames.add(new TextureRegion(texture, 302, 1, 46, 57));
+        }
+
+        playerStand = new Animation(0.20f, frames);
+        frames.clear(); */
+
+        for(int i = 1; i < 10; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(texture, 2, 1, 46, 57));
+            else if(i == 2)
+                frames.add(new TextureRegion(texture, 46, 1, 46, 57));
+            else if(i == 3)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 4)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 5)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 6)
+                frames.add(new TextureRegion(texture, 94, 1, 46, 57));
+            else if(i == 7)
+                frames.add(new TextureRegion(texture, 196, 1, 46, 57));
+            else if(i == 8)
+                frames.add(new TextureRegion(texture, 249, 1, 46, 57));
+            else if(i == 9)
                 frames.add(new TextureRegion(texture, 302, 1, 46, 57));
         }
 

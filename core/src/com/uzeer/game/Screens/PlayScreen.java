@@ -75,6 +75,7 @@ public class PlayScreen implements Screen {
 
     public static final float TIMER = 0.5f;
     float shootTimer;
+    float time;
 
     private int startingPoint;
     private int endPoint;
@@ -92,7 +93,16 @@ public class PlayScreen implements Screen {
         shootTimer = 0;
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Small1.tmx");
+
+        //selecting the stage # 1, 2, 3.
+        if(FunGame.playScreenStages == 1)
+            map = mapLoader.load("Small1.tmx");
+        if(FunGame.playScreenStages == 2)
+            map = mapLoader.load("Small2.tmx");
+        if(FunGame.playScreenStages == 3)
+            map = mapLoader.load("Small3.tmx");
+
+
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -196,7 +206,7 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    if(player2.isFlipX())
+                     if(player2.isFlipX())
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
                     else
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
@@ -212,9 +222,10 @@ public class PlayScreen implements Screen {
         world.step(1 / 60f, 6, 2);
 
         if(FunGame.player2Selected){
-            player2.update(dt);
-            if (player2.b2body.getPosition().x > 173) // 173
-                levelComplete();
+            player2.update(dt); //Start Editing Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if(FunGame.secondScreenStages == 1)
+                if (player2.b2body.getPosition().x > 32 && player2.b2body.getPosition().y > .5) // 173
+                    levelComplete();
         } else {
             player.update(dt);
             if (player.b2body.getPosition().x > 173) // 173
@@ -233,7 +244,6 @@ public class PlayScreen implements Screen {
         bulletFinal.update(dt);
 
         hud.update(dt);
-
         shootTimer += dt;
 
         if(FunGame.player2Selected) {
