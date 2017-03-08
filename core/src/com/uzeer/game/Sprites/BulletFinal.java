@@ -43,12 +43,12 @@ public class BulletFinal extends Sprite {
         this.world = screen.getWorld();
         this.screen = screen;
         setPosition(x, y);
-        defineBullet();
-        velocity2 = new Vector2(4f, 0f);
-        NegVelocity2 = new Vector2(4f, 0f);
+        velocity2 = new Vector2(5f, 0f);
+        NegVelocity2 = new Vector2(-5f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
         setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
         setRegion(apple);
+        defineBullet();
     }
 
     public BulletFinal(SecondStage screen, float x, float y) {
@@ -169,7 +169,6 @@ public class BulletFinal extends Sprite {
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
             stateTimer += dt;
             setTexture(null);
-            //getTexture().dispose();
         }
         if(leftSide) {
             b2body.setLinearVelocity(NegVelocity2);

@@ -78,10 +78,10 @@ public class SecondStage implements Screen {
         //stage selecting # 4, 5, 6.
         if(FunGame.secondScreenStages == 1)
             map = mapLoader.load("Small4.tmx");
-        if(FunGame.secondScreenStages == 1)
-            map = mapLoader.load("Small4.tmx");
-        if(FunGame.secondScreenStages == 1)
-            map = mapLoader.load("Small4.tmx");
+        if(FunGame.secondScreenStages == 2)
+            map = mapLoader.load("Small5.tmx");
+        if(FunGame.secondScreenStages == 3)
+            map = mapLoader.load("Small6.tmx");
 
         //renderer of the map
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
@@ -122,10 +122,22 @@ public class SecondStage implements Screen {
 
         world.step(1 / 60f, 6, 2);
 
-        if(FunGame.player2Selected){
+        if(FunGame.player2Selected){  //Stage selecting (if) statements and deciding when to complete.
             player2.update(dt);
-            if (player2.b2body.getPosition().y > 130) //
-                levelComplete();
+            if(FunGame.secondScreenStages == 1)
+                if (player2.b2body.getPosition().y > 22.965 && player2.b2body.getPosition().x < .35) {// 173
+                    FunGame.playScreenStages = 2;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 2)
+                if (player2.b2body.getPosition().y > 20.767 && player2.b2body.getPosition().x < .485) {
+                    FunGame.playScreenStages = 3;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 3)
+                if (player2.b2body.getPosition().y > 21.2 && player2.b2body.getPosition().x < 4.19) {
+                    levelComplete();
+                }
         } else {
             player.update(dt);
             if (player.b2body.getPosition().y > 130) //
@@ -137,15 +149,6 @@ public class SecondStage implements Screen {
 
         for(Enemy enemy : creator.getBadGuys())
             enemy.update(dt);
-
-        time += dt;
-
-        if(time > 2) {
-            Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().x));
-            Gdx.app.log("Player Position: ", String.format("%03f", player2.b2body.getPosition().y));
-            time = 0;
-        }
-
 
         bulletFinal.update(dt);
 
@@ -360,10 +363,16 @@ public class SecondStage implements Screen {
     }
 
     public void levelComplete(){
-        FunGame.LEVEL++;
-        game.setScreen(new Level_complition(game));
+        if(FunGame.secondScreenStages == 1)
+            FunGame.playScreenStages = 2;
+        if(FunGame.secondScreenStages == 2)
+            FunGame.playScreenStages = 3;
+        if(FunGame.secondScreenStages == 3)
+            game.setScreen(new FinishGame(game));
+
+        FunGame.PlayScreen = true;
         FunGame.SecondScreen = false;
-        //dispose();
+        game.setScreen(new Level_complition(game));
     }
 
     public SecondStage getScreen(){
