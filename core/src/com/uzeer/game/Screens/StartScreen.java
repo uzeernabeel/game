@@ -108,11 +108,11 @@ public class StartScreen implements Screen {
 
         if(rightPressed) {
             FunGame.player2Selected = true;
-            game.setScreen(new PlayScreen((FunGame) game));
+            game.setScreen(new LevelSelectScreen(game));
             dispose();
         } else if(leftPressed) {
             FunGame.player2Selected = false;
-            game.setScreen(new PlayScreen((FunGame) game));
+            game.setScreen(new LevelSelectScreen(game));
             dispose();
         }
     }
