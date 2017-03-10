@@ -48,6 +48,7 @@ public class PlayScreen implements Screen {
     private FunGame game;
 
     private TextureAtlas atlas;
+    private TextureAtlas atlas2;
 
     //game camera
     private OrthographicCamera gamecam;
@@ -84,7 +85,10 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
+        atlas2 = new TextureAtlas("stuff.pack");
         this.game = game;
+
+        FunGame.player2Selected = true;
 
         gamecam = new OrthographicCamera();
         FunGame.LEVEL = 1;
@@ -133,6 +137,10 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getAtlas(){
         return atlas;
+    }
+
+    public TextureAtlas getAtlas2(){
+        return atlas2;
     }
 
     @Override

@@ -41,6 +41,7 @@ import java.util.ArrayList;
 public class SecondStage implements Screen {
     private FunGame game;
     private TextureAtlas atlas;
+    private TextureAtlas atlas2;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
@@ -66,6 +67,7 @@ public class SecondStage implements Screen {
 
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
+        atlas2 = new TextureAtlas("stuff.pack");
         this.game = game;
         FunGame.SecondScreen = true;
         gamecam = new OrthographicCamera();
@@ -115,6 +117,10 @@ public class SecondStage implements Screen {
 
     public TextureAtlas getAtlas(){
         return atlas;
+    }
+
+    public TextureAtlas getAtlas2(){
+        return atlas2;
     }
 
     public void update(float dt){
@@ -363,16 +369,19 @@ public class SecondStage implements Screen {
     }
 
     public void levelComplete(){
-        if(FunGame.secondScreenStages == 1)
-            FunGame.playScreenStages = 2;
-        if(FunGame.secondScreenStages == 2)
-            FunGame.playScreenStages = 3;
         if(FunGame.secondScreenStages == 3)
             game.setScreen(new FinishGame(game));
-
+        if(FunGame.secondScreenStages == 1) {
+            FunGame.playScreenStages = 2;
+            game.setScreen(new Level_complition(game));
+        }
+        if(FunGame.secondScreenStages == 2) {
+            FunGame.playScreenStages = 3;
+            game.setScreen(new Level_complition(game));
+        }
         FunGame.PlayScreen = true;
         FunGame.SecondScreen = false;
-        game.setScreen(new Level_complition(game));
+
     }
 
     public SecondStage getScreen(){

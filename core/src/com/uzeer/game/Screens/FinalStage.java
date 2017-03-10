@@ -93,7 +93,7 @@ public class FinalStage implements Screen {
 
         bulletFinal = new BulletFinal(this, 6, 70);
 
-        creator = new B2WorldCreator(this);
+        //creator = new B2WorldCreator(this);
 
         controller = new Controller(game.batch);
 

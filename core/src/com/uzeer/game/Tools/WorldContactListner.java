@@ -78,16 +78,20 @@ public class WorldContactListner implements ContactListener {
                 }
                 break;
             case FunGame.BULLET_BIT | FunGame.ENEMY_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
-                    ((Enemy)fixA.getUserData()).hitOnHead();
-                else
-                    ((Enemy)fixB.getUserData()).hitOnHead();
+                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT) {
+                    ((Enemy) fixA.getUserData()).hitOnHead();
+                    ((BulletFinal) fixB.getUserData()).destroyBullet();
+                }
+                else {
+                    ((Enemy) fixB.getUserData()).hitOnHead();
+                    ((BulletFinal)fixA.getUserData()).destroyBullet();
+                }
                 break;
             case FunGame.BULLET_BIT | FunGame.GROUND_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
-                    ((Bullet)fixA.getUserData()).setToDestroy();
+                    ((BulletFinal)fixA.getUserData()).destroyBullet();
                 else
-                    ((Bullet)fixB.getUserData()).setToDestroy();
+                    ((BulletFinal)fixB.getUserData()).destroyBullet();
                 break;
             case FunGame.PLAYER_BIT | FunGame.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)

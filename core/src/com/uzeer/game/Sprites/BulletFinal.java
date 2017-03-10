@@ -81,7 +81,7 @@ public class BulletFinal extends Sprite {
         //rightSide = true;
         BodyDef bdef = new BodyDef();
         bdef.position.set(getX(), getY());
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
         if(FunGame.PlayScreen) {
@@ -132,7 +132,7 @@ public class BulletFinal extends Sprite {
         //fdef.isSensor = true;
         fdef.filter.categoryBits = FunGame.BULLET_BIT;
 
-        fdef.filter.maskBits = //FunGame.DEFAULT_BIT |
+        fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
@@ -141,6 +141,8 @@ public class BulletFinal extends Sprite {
                 FunGame.PLAYER_BIT;
 
         b2body.createFixture(fdef).setUserData(this);
+
+        b2body.setGravityScale(0);
 
         //setRegion(apple);
 

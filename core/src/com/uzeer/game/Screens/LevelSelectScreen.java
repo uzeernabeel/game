@@ -58,13 +58,13 @@ public class LevelSelectScreen implements Screen {
     table.setFillParent(true);
 
 
-    Label gameOverLabel = new Label("Select The Character", font);
-    table.add(gameOverLabel);
+    Label gameOverLabel = new Label("Select The Level", font);
+    table.add(gameOverLabel).center();
     table.row();
 
 
     oneImg = new Image(new TextureRegion(texture, 0, 0, 242, 314));
-    oneImg.setSize(242, 314);
+    oneImg.setSize(175, 205);
     oneImg.addListener(new InputListener(){
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -79,7 +79,7 @@ public class LevelSelectScreen implements Screen {
     });
 
         twoImg = new Image(new TextureRegion(texture, 243, 0, 242, 314));
-        twoImg.setSize(242, 314);
+        twoImg.setSize(175, 205);
         twoImg.addListener(new InputListener(){
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -94,7 +94,7 @@ public class LevelSelectScreen implements Screen {
     });
 
         threeImg = new Image(new TextureRegion(texture, 0, 315, 242, 314));
-        threeImg.setSize(242, 314);
+        threeImg.setSize(175, 205);
         threeImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -109,7 +109,7 @@ public class LevelSelectScreen implements Screen {
         });
 
         fourImg = new Image(new TextureRegion(texture, 243, 315, 242, 314));
-        fourImg.setSize(242, 314);
+        fourImg.setSize(175, 205);
         fourImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -124,9 +124,10 @@ public class LevelSelectScreen implements Screen {
         });
 
 
-        table.add(oneImg).size(oneImg.getWidth(), oneImg.getHeight());
-        table.add(twoImg).size(twoImg.getWidth(), twoImg.getHeight());
-        table.add(threeImg).size(threeImg.getWidth(), threeImg.getHeight());
+        table.add(oneImg).size(oneImg.getWidth(), oneImg.getHeight()).padRight(15).padLeft(15).padBottom(15);
+        table.add(twoImg).size(twoImg.getWidth(), twoImg.getHeight()).padBottom(15);
+        table.add().row();
+        table.add(threeImg).size(threeImg.getWidth(), threeImg.getHeight()).padRight(15).padLeft(15);
         table.add(fourImg).size(fourImg.getWidth(), fourImg.getHeight());
 
         stage.addActor(table);
