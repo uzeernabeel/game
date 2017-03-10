@@ -6,14 +6,23 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Sprites.Player;
+import com.uzeer.game.Sprites.ginnie;
 
 /**
  * Created by uzeer on 1/31/2017.
@@ -21,14 +30,24 @@ import com.uzeer.game.Sprites.Player;
 public class Level_complition implements Screen {
     private Viewport viewport;
     private Stage stage;
-    private Game game;
+    private FunGame game;
     BitmapFont fontHa;
+    private Animation ginnieDance;
+    Array<TextureRegion> frames;
+    private TextureAtlas atlas2;
+    private float stateTime;
+    private SpriteBatch batch;
+    private ginnie ginnies;
 
-    public Level_complition(Game game) {
+    public Level_complition(FunGame game) {
+
         this.game = game;
+
         fontHa = new BitmapFont();
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
-        stage = new Stage(viewport, ((FunGame)game).batch);
+        stage = new Stage(viewport, game.batch);
+
+        ginnies = new ginnie(this, FunGame.V_WIDTH / 2 / FunGame.PPM, FunGame.V_HEIGHT / 2 / FunGame.PPM);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
 
@@ -46,6 +65,7 @@ public class Level_complition implements Screen {
         stage.addActor(table);
 
         Player.num = 0;
+        stateTime = 0;
     }
 
     @Override
@@ -53,15 +73,27 @@ public class Level_complition implements Screen {
 
     }
 
+    public void update(float dt){
+        ginnies.update(dt);
+    }
+
+
     @Override
     public void render(float delta) {
+        update(delta);
+
+        game.batch.begin();
+        ginnies.draw(game.batch);
+        game.batch.end();
+
+
         if(Gdx.input.justTouched() && FunGame.SecondScreen) {
-            game.setScreen(new SecondStage((FunGame) game));
+            game.setScreen(new SecondStage(game));
             dispose();
         }
 
         if(Gdx.input.justTouched() && FunGame.PlayScreen) {
-            game.setScreen(new PlayScreen((FunGame) game));
+            game.setScreen(new PlayScreen(game));
             dispose();
         }
 
@@ -93,5 +125,6 @@ public class Level_complition implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        ginnies.dispose();
     }
 }

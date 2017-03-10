@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.FinalStage;
+import com.uzeer.game.Screens.Level_complition;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Screens.StartScreen;
@@ -78,9 +79,10 @@ public class FunGame extends Game {
 		manager.finishLoading();
 
 
-		setScreen(new PlayScreen(this));
+		//setScreen(new PlayScreen(this));
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));
+		setScreen(new Level_complition(this));
 
 		//Final Thing Ha!
 		//setScreen(new StartScreen(this));
