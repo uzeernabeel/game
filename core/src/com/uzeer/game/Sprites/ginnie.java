@@ -74,7 +74,7 @@ public class ginnie extends Sprite {
 
         setBounds(0, 0, 55 / FunGame.PPM, 70 / FunGame.PPM);
 
-        stateTime = 0;
+        stateTime = 0; //call of duty
     }
 
     public void update(float dt){
