@@ -59,7 +59,7 @@ public class FunGame extends Game {
 	@Override
 	public void create () {
 
-		//player2Selected = true;
+		player2Selected = false;
 		PlayScreen = true;
 		//SecondScreen = true;
 
