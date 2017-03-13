@@ -88,9 +88,6 @@ public class FinalStage implements Screen {
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
 
-        //player = new Player(this);
-        player2 = new Player2(this);
-
         bulletFinal = new BulletFinal(this, 6, 70);
 
         //creator = new B2WorldCreator(this);
@@ -281,7 +278,6 @@ public class FinalStage implements Screen {
         world.dispose();
         b2dr.dispose();
         hud.dispose();
-        game.getScreen().dispose();
         bulletFinal.dispose();
     }
 

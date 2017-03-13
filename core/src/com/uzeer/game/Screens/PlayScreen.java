@@ -35,6 +35,7 @@ import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
+import com.uzeer.game.Sprites.Jasmine;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 import com.uzeer.game.Tools.B2WorldCreator;
@@ -54,6 +55,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
+    private Jasmine jasmine;
 
     //Tiled map variables
     private TmxMapLoader mapLoader;
@@ -124,6 +126,9 @@ public class PlayScreen implements Screen {
 
         //creating bullet
         bulletFinal = new BulletFinal(this, 5, 70);
+
+        //creating jasmine
+        //jasmine = new Jasmine(this, 311/FunGame.PPM, 321/FunGame.PPM);
 
         world.setContactListener(new WorldContactListner());
 
@@ -260,11 +265,7 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getEnemies())
             enemy.update(dt);
 
-        /*for(Enemy enemy : creator.getFlinkstone())
-            enemy.update(dt);
-
-        for(Enemy enemy : creator.getBadGuys())
-            enemy.update(dt);*/
+        creator.getJasmine().update(dt);
 
         bulletFinal.update(dt);
 
@@ -312,7 +313,12 @@ public class PlayScreen implements Screen {
         for (Enemy enemy : creator.getEnemies())
              enemy.draw(game.batch);
 
+        creator.getJasmine().draw(game.batch);
+
         bulletFinal.draw(game.batch);
+
+        //jasmine.draw(game.batch);
+
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);

@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
@@ -28,43 +29,30 @@ import com.uzeer.game.Sprites.ginnie;
  * Created by uzeer on 1/31/2017.
  */
 public class Level_complition implements Screen {
-    private Viewport viewport;
-    private Stage stage;
     private FunGame game;
-    BitmapFont fontHa;
-    private Animation ginnieDance;
-    Array<TextureRegion> frames;
-    private TextureAtlas atlas2;
     private float stateTime;
-    private SpriteBatch batch;
     private ginnie ginnies;
+    private OrthographicCamera camera;
+    private Viewport gamePort;
+    Texture texture;
 
     public Level_complition(FunGame game) {
 
         this.game = game;
 
-        fontHa = new BitmapFont();
-        viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
-        stage = new Stage(viewport, game.batch);
+        texture = new Texture("levelComplete2.png");
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        ginnies = new ginnie(this, FunGame.V_WIDTH / 2 / FunGame.PPM, FunGame.V_HEIGHT / 2 / FunGame.PPM);
+        camera = new OrthographicCamera();
 
-        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
+        gamePort = new FitViewport(FunGame.V_WIDTH1 / FunGame.PPM, FunGame.V_HEIGHT1 / FunGame.PPM, camera);
+        //gamePort = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, camera);
 
-        Table table = new Table();
-        table.center();
-        table.setFillParent(true);
+        camera.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+        //camera.position.set(0, 0, 0);
 
-        Label gameOverLabel = new Label("Hurray Level Complete!", font);
-        Label playAgainLabel = new Label("Click To Play Next Level", font);
+        ginnies = new ginnie(this, (FunGame.V_WIDTH / 2) / FunGame.PPM, (FunGame.V_HEIGHT / 2) / FunGame.PPM);
 
-        table.add(gameOverLabel).expandX();
-        table.row();
-        table.add(playAgainLabel).expandX().padTop(10f);
-
-        stage.addActor(table);
-
-        Player.num = 0;
         stateTime = 0;
     }
 
@@ -82,8 +70,20 @@ public class Level_complition implements Screen {
     public void render(float delta) {
         update(delta);
 
+        //clearing the screen
+        Gdx.gl.glClearColor(0, 0, 0, 55);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.batch.setProjectionMatrix(camera.combined);
+
+
+        //drawing Ginnie
         game.batch.begin();
+
+        game.batch.draw(texture, 0, 0, camera.viewportWidth, camera.viewportHeight);
+
         ginnies.draw(game.batch);
+
         game.batch.end();
 
 
@@ -97,14 +97,11 @@ public class Level_complition implements Screen {
             dispose();
         }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        gamePort.update(width, height);
     }
 
     @Override
@@ -124,7 +121,7 @@ public class Level_complition implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
         ginnies.dispose();
+        texture.dispose();
     }
 }

@@ -20,6 +20,7 @@ import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
+import com.uzeer.game.Sprites.Jasmine;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.parrot;
 
@@ -32,6 +33,7 @@ public class B2WorldCreator {
     private Array<Flinkstone> flinkstone;
     private Array<BadGuy> badGuys;
     private Array<parrot> parrots;
+    private Jasmine jasmine;
 
     public B2WorldCreator(PlayScreen screen, Player player){
         World world = screen.getWorld();
@@ -70,14 +72,7 @@ public class B2WorldCreator {
             new Coin(screen, rect, "Coins");
         }
 
-        /*This is for Fire Layer # 5
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new Fire(screen, rect, "Fire");
-
-        } */
-            //creat flinkstone
+        //creat flinkstone
             flinkstone = new Array<Flinkstone>();
             for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -97,6 +92,12 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             parrots.add(new parrot(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
+
+        //creat Jasmine
+        for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            jasmine = new Jasmine(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM);
+        }
     }
 
     public B2WorldCreator(SecondStage screen) {
@@ -108,7 +109,6 @@ public class B2WorldCreator {
         Body body;
 
         //This is for Ground Layer # 2
-        //for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -136,13 +136,6 @@ public class B2WorldCreator {
             new Coin(screen, rect, "Coins");
         }
 
-        /*This is for Fire Layer # 5
-        for(MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            new Fire(screen, rect, "Fire");
-
-        } */
         //creat flinkstone
         flinkstone = new Array<Flinkstone>();
         for(MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
@@ -163,6 +156,12 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             parrots.add(new parrot(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM));
         }
+
+        //creat Jasmine
+        for(MapObject object : map.getLayers().get(9).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            jasmine = new Jasmine(screen, rect.getX() / FunGame.PPM, rect.getY() / FunGame.PPM);
+        }
     }
 
     public Array<Flinkstone> getFlinkstone() {
@@ -175,6 +174,10 @@ public class B2WorldCreator {
 
     public Array<parrot> getParrots(){
         return parrots;
+    }
+
+    public Jasmine getJasmine(){
+        return jasmine;
     }
 
     public Array<Enemy> getEnemies(){

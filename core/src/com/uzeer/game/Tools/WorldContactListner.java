@@ -11,6 +11,7 @@ import com.uzeer.game.Sprites.Bullet;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.InteractiveTileObject;
+import com.uzeer.game.Sprites.Jasmine;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.Player2;
 
@@ -41,6 +42,12 @@ public class WorldContactListner implements ContactListener {
                 else
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
+            case FunGame.OBJECT_BIT | FunGame.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.OBJECT_BIT)
+                    ((Jasmine)fixA.getUserData()).reverseVelocity(true, false);
+                else
+                    ((Jasmine)fixB.getUserData()).reverseVelocity(true, false);
+                break;
             case FunGame.ENEMY_BIT | FunGame.GROUND_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
@@ -51,6 +58,7 @@ public class WorldContactListner implements ContactListener {
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
+
             case FunGame.ENEMY_BIT | FunGame.FIRE_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);

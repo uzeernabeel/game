@@ -25,18 +25,20 @@ public class GameOverScreen implements Screen {
 
     private Viewport viewport;
     private Stage stage;
-    private Game game;
+    private FunGame game;
     BitmapFont fontHa;
+    String string;
 
 
-    public GameOverScreen(Game game) {
+    public GameOverScreen(FunGame game) {
         this.game = game;
-        fontHa = new BitmapFont();
+        fontHa = new BitmapFont(Gdx.files.internal("font.fnt"));
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
-        stage = new Stage(viewport, ((FunGame)game).batch);
+        stage = new Stage(viewport, (game).batch);
 
         Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
 
+        string = "Game Over! press to play again.";
         Table table = new Table();
         table.center();
         table.setFillParent(true);
@@ -60,14 +62,17 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         if(Gdx.input.justTouched()) {
             game.setScreen(new PlayScreen((FunGame) game));
             Player2.num = 0;
             dispose();
         }
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
+
     }
 
     @Override
