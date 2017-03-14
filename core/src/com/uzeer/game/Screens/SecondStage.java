@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,6 +43,7 @@ public class SecondStage implements Screen {
     private FunGame game;
     private TextureAtlas atlas;
     private TextureAtlas atlas2;
+    private Texture texture;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
@@ -68,6 +70,7 @@ public class SecondStage implements Screen {
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
         atlas2 = new TextureAtlas("stuff.pack");
+        texture = new Texture("subZero1.png");
         this.game = game;
         FunGame.SecondScreen = true;
         gamecam = new OrthographicCamera();
@@ -121,6 +124,10 @@ public class SecondStage implements Screen {
 
     public TextureAtlas getAtlas2(){
         return atlas2;
+    }
+
+    public Texture getTexture(){
+        return texture;
     }
 
     public void update(float dt){
@@ -369,14 +376,21 @@ public class SecondStage implements Screen {
     }
 
     public void levelComplete(){
-        if(FunGame.secondScreenStages == 3)
+        if(FunGame.secondScreenStages == 3) {
             game.setScreen(new FinishGame(game));
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("2", false);
+        }
         if(FunGame.secondScreenStages == 1) {
             FunGame.playScreenStages = 2;
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("4", false);
             game.setScreen(new Level_complition(game));
         }
         if(FunGame.secondScreenStages == 2) {
             FunGame.playScreenStages = 3;
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("6", false);
             game.setScreen(new Level_complition(game));
         }
         FunGame.PlayScreen = true;

@@ -6,12 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.FinalStage;
+import com.uzeer.game.Screens.LevelSelectScreen;
 import com.uzeer.game.Screens.Level_complition;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
@@ -42,6 +44,7 @@ public class FunGame extends Game {
 	public static final short BULLET_BIT2 = 4096;
 
 	public static int LEVEL;
+	public static boolean LEVEL1, LEVEL2, LEVEL3, LEVEL4, LEVEL5, LEVEL6;
 	public static boolean player2Selected;
 	public static boolean PlayScreen;
 	public static boolean SecondScreen;
@@ -59,6 +62,46 @@ public class FunGame extends Game {
 	
 	@Override
 	public void create () {
+
+		LEVEL1 = LEVEL2 = LEVEL3 = LEVEL4 = LEVEL5 = LEVEL6 = false;
+
+		//reading the save file.
+		FileHandle file = Gdx.files.internal("saveData.txt");
+		String text = file.readString();
+		if(text.contains("1")) {
+			FunGame.LEVEL1 = true;
+		}
+		if(text.contains("2")) {
+			FunGame.LEVEL1 = true;
+			FunGame.LEVEL2 = true;
+		}
+		if(text.contains("3")) {
+			FunGame.LEVEL1 = true;
+			FunGame.LEVEL2 = true;
+			FunGame.LEVEL3 = true;
+		}
+		if(text.contains("4")) {
+			FunGame.LEVEL1 = true;
+			FunGame.LEVEL2 = true;
+			FunGame.LEVEL3 = true;
+			FunGame.LEVEL4 = true;
+		}
+		if(text.contains("5")) {
+			FunGame.LEVEL1 = true;
+			FunGame.LEVEL2 = true;
+			FunGame.LEVEL3 = true;
+			FunGame.LEVEL4 = true;
+			FunGame.LEVEL5 = true;
+		}
+		if(text.contains("6")) {
+			FunGame.LEVEL1 = true;
+			FunGame.LEVEL2 = true;
+			FunGame.LEVEL3 = true;
+			FunGame.LEVEL4 = true;
+			FunGame.LEVEL5 = true;
+			FunGame.LEVEL6 = true;
+		}
+
 
 		player2Selected = false;
 		PlayScreen = true;
@@ -80,10 +123,11 @@ public class FunGame extends Game {
 		manager.finishLoading();
 
 
+		setScreen(new LevelSelectScreen(this));
 		//setScreen(new PlayScreen(this));
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));
-		setScreen(new Level_complition(this));
+		//setScreen(new Level_complition(this));
 
 		//Final Thing Ha!
 		//setScreen(new StartScreen(this));

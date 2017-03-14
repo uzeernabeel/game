@@ -54,13 +54,10 @@ public class Player extends Sprite {
     public static boolean playerDead;
     public static boolean spacePressed;
     private BodyDef bdef;
-    private Texture texture;
     float time;
 
     public Player(PlayScreen screen){
-        //super(screen.getAtlas3().findRegion("player"));
         this.world = screen.getWorld();
-        texture = new Texture("subZero1.png");
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0f;
@@ -76,34 +73,34 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 10; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 608, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 147, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 147, 608, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 298, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 298, 608, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 415, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 415, 608, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 557, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 557, 608, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 705, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 705, 608, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 869, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 869, 608, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 1026, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1026, 608, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1165, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1165, 608, 85, 170));
         }
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
         for (int i = 1; i < 4; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 408, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 127, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 127, 408, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 275, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 275, 408, 85, 170));
         }
 
         playerThrow = new Animation(0.1f, frames);
@@ -111,13 +108,13 @@ public class Player extends Sprite {
 
         for (int i = 1; i < 5; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 1202, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1202, 826, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 1317, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1317, 826, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 1432, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1432, 826, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 1549, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1549, 826, 85, 170));
         }
 
         playerStand2 = new Animation(0.1f, frames);
@@ -126,51 +123,51 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 11; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 826, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 119, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 119, 826, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 247, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 247, 826, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 367, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 367, 826, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 481, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 481, 826, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 602, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 602, 826, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 714, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 714, 826, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 837, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 837, 826, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 955, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 955, 826, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1083, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1083, 826, 85, 170));
         }
 
         playerStand = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 11; i++) {
+        for(int i = 3; i < 11; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 216, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 118, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 280, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 280, 216, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 413, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 413, 216, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 528, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 528, 216, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 657, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 657, 216, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 778, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 778, 216, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 887, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 887, 216, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1009, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1009, 216, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1125, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1125, 216, 85, 170));
         }
 
         playerJump = new Animation(0.1f, frames);
@@ -178,36 +175,36 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 12; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, -8, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 142, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 142, -8, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 286, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 286, -8, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 438, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 438, -8, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 599, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 599, -8, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 738, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 738, -8, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 883, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 883, -8, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 1028, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1028, -8, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1164, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1164, -8, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1281, -8, 87, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1281, -8, 87, 170));
             else if (i == 11)
-                frames.add(new TextureRegion(texture, 1673, -8, 86, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1673, -8, 86, 170));
         }
 
         playerIsDead = new Animation(0.1f, frames);
         frames.clear();
 
-        playerFalling = new TextureRegion(texture, 1125, 216, 85, 170);
+        playerFalling = new TextureRegion(screen.getTexture(), 1125, 216, 85, 170);
 
         definePlayer();
-        setBounds(0, 0, 35 / FunGame.PPM, 50 / FunGame.PPM);
+        setBounds(0, 0, 37 / FunGame.PPM, 55 / FunGame.PPM);
     }
 
     public Player(SecondStage screen){
@@ -226,34 +223,34 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 10; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 608, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 147, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 147, 608, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 298, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 298, 608, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 415, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 415, 608, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 557, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 557, 608, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 705, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 705, 608, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 869, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 869, 608, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 1026, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1026, 608, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1165, 608, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1165, 608, 85, 170));
         }
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
         for (int i = 1; i < 4; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 408, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 127, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 127, 408, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 275, 408, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 275, 408, 85, 170));
         }
 
         playerThrow = new Animation(0.1f, frames);
@@ -262,49 +259,49 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 11; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, 826, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 119, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 119, 826, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 247, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 247, 826, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 367, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 367, 826, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 481, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 481, 826, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 602, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 602, 826, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 714, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 714, 826, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 837, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 837, 826, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 955, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 955, 826, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1083, 826, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1083, 826, 85, 170));
         }
 
         playerStand = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 2; i < 11; i++) {
-             if (i == 2)
-                frames.add(new TextureRegion(texture, 118, 216, 85, 170));
-            else if (i == 3)
-                frames.add(new TextureRegion(texture, 280, 216, 85, 170));
+        for(int i = 3; i < 11; i++) {
+             //if (i == 2)
+                //frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
+             if (i == 3)
+                frames.add(new TextureRegion(screen.getTexture(), 280, 216, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 413, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 413, 216, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 528, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 528, 216, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 657, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 657, 216, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 778, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 778, 216, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 887, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 887, 216, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1009, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1009, 216, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1125, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1125, 216, 85, 170));
         }
 
         playerJump = new Animation(0.1f, frames);
@@ -312,43 +309,46 @@ public class Player extends Sprite {
 
         for(int i = 1; i < 12; i++) {
             if (i == 1)
-                frames.add(new TextureRegion(texture, 0, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 0, -8, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(texture, 142, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 142, -8, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(texture, 286, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 286, -8, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(texture, 438, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 438, -8, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(texture, 599, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 599, -8, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(texture, 738, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 738, -8, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(texture, 883, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 883, -8, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(texture, 1028, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1028, -8, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(texture, 1164, -8, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1164, -8, 85, 170));
             else if (i == 10)
-                frames.add(new TextureRegion(texture, 1281, -8, 87, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1281, -8, 87, 170));
             else if (i == 11)
-                frames.add(new TextureRegion(texture, 1673, -8, 86, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1673, -8, 86, 170));
         }
 
         playerIsDead = new Animation(0.1f, frames);
         frames.clear();
 
-        playerFalling = new TextureRegion(texture, 1125, 216, 85, 170);
+        playerFalling = new TextureRegion(screen.getTexture(), 1125, 216, 85, 170);
 
         definePlayer();
-        setBounds(0, 0, 35 / FunGame.PPM, 50 / FunGame.PPM);
+        setBounds(0, 0, 37 / FunGame.PPM, 55 / FunGame.PPM);
 
     }
 
 
     public void update(float dt){
         time += dt;
-        setPosition((b2body.getPosition().x - getWidth() / 2) + 5 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 16 / FunGame.PPM);
+        if(runningRight)
+        setPosition((b2body.getPosition().x - getWidth() / 2) + 5 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 18 / FunGame.PPM);
+        else
+            setPosition((b2body.getPosition().x - getWidth() / 2) - 1 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 18 / FunGame.PPM);
         setRegion(getFrame(dt));
 
         if(b2body.getPosition().y < -1f)
@@ -476,8 +476,9 @@ public class Player extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-        FunGame.manager.get("sounds/enemy hit.wav", Sound.class).play();
+        //FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
+        playerDead = true;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
             Hud.chances(3);

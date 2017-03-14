@@ -210,6 +210,7 @@ public class Flinkstone extends Enemy {
                 FunGame.OBJECT_BIT|
                 FunGame.GROUND_BIT |
                 FunGame.BULLET_BIT |
+                FunGame.BULLET_BIT2 |
                 FunGame.PLAYER_BIT;
 
         fdef.shape = shape;

@@ -61,6 +61,7 @@ public class B2WorldCreator {
                     FunGame.ENEMY_BIT |
                     FunGame.OBJECT_BIT|
                     FunGame.BULLET_BIT |
+                    FunGame.BULLET_BIT2 |
                     FunGame.PLAYER_BIT;
             body.createFixture(fdef);
         }
@@ -125,6 +126,7 @@ public class B2WorldCreator {
                     FunGame.ENEMY_BIT |
                     FunGame.OBJECT_BIT|
                     FunGame.BULLET_BIT |
+                    FunGame.BULLET_BIT2 |
                     FunGame.PLAYER_BIT;
             body.createFixture(fdef);
         }

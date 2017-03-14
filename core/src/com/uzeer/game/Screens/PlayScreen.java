@@ -52,6 +52,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas;
     private TextureAtlas atlas2;
     private TextureAtlas atlas3;
+    private Texture texture;
 
     //game camera
     private OrthographicCamera gamecam;
@@ -92,6 +93,7 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas("sprite sheet.pack");
         atlas2 = new TextureAtlas("stuff.pack");
         atlas3 = new TextureAtlas("subZero.pack");
+        texture = new Texture("subZero1.png");
         this.game = game;
 
         FunGame.player2Selected = false;
@@ -161,6 +163,10 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getAtlas3(){
         return atlas3;
+    }
+
+    public Texture getTexture(){
+        return texture;
     }
 
     @Override
@@ -369,12 +375,21 @@ public class PlayScreen implements Screen {
     }
 
     public void levelComplete(){
-        if(FunGame.playScreenStages == 1)
-        FunGame.secondScreenStages = 1;
-        if(FunGame.playScreenStages == 2)
+        if(FunGame.playScreenStages == 1) {
+            FunGame.secondScreenStages = 1;
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("2", false);
+        }
+        if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
-        if(FunGame.playScreenStages == 3)
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("3", false);
+        }
+        if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
+            FileHandle file = Gdx.files.internal("saveData.txt");
+            file.writeString("5", false);
+        }
 
         FunGame.PlayScreen = false;
         FunGame.SecondScreen = true;

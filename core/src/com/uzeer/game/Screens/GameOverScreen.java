@@ -32,7 +32,7 @@ public class GameOverScreen implements Screen {
 
     public GameOverScreen(FunGame game) {
         this.game = game;
-        fontHa = new BitmapFont(Gdx.files.internal("font.fnt"));
+        fontHa = new BitmapFont();
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, (game).batch);
 
@@ -43,7 +43,7 @@ public class GameOverScreen implements Screen {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("Game Over!", font);
+        Label gameOverLabel = new Label("You Are Dead. But, Show Them What You Are Made Of!", font);
         Label playAgainLabel = new Label("Click To Play Again", font);
 
         table.add(gameOverLabel).expandX();
