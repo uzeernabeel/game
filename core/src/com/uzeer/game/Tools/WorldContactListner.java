@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Sprites.Bullet;
 import com.uzeer.game.Sprites.BulletFinal;
+import com.uzeer.game.Sprites.BulletFinal2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.InteractiveTileObject;
 import com.uzeer.game.Sprites.Jasmine;
@@ -95,11 +96,27 @@ public class WorldContactListner implements ContactListener {
                     ((BulletFinal)fixA.getUserData()).destroyBullet();
                 }
                 break;
+            case FunGame.BULLET_BIT2 | FunGame.ENEMY_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT) {
+                    ((Enemy) fixA.getUserData()).hitOnHead();
+                    ((BulletFinal2) fixB.getUserData()).destroyBullet();
+                }
+                else {
+                    ((Enemy) fixB.getUserData()).hitOnHead();
+                    ((BulletFinal2)fixA.getUserData()).destroyBullet();
+                }
+                break;
             case FunGame.BULLET_BIT | FunGame.GROUND_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
                     ((BulletFinal)fixA.getUserData()).destroyBullet();
                 else
                     ((BulletFinal)fixB.getUserData()).destroyBullet();
+                break;
+            case FunGame.BULLET_BIT2 | FunGame.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
+                    ((BulletFinal2)fixA.getUserData()).destroyBullet();
+                else
+                    ((BulletFinal2)fixB.getUserData()).destroyBullet();
                 break;
             case FunGame.PLAYER_BIT | FunGame.COIN_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)

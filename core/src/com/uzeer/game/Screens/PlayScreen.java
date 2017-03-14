@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.BulletFinal;
+import com.uzeer.game.Sprites.BulletFinal2;
 import com.uzeer.game.Sprites.Enemy;
 import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
@@ -78,6 +79,7 @@ public class PlayScreen implements Screen {
     private Music music;
 
     private BulletFinal bulletFinal;
+    private BulletFinal2 bulletFinal2;
 
     private static final float TIMER = 0.5f;
     private float shootTimer;
@@ -124,13 +126,17 @@ public class PlayScreen implements Screen {
         creator = new B2WorldCreator(this, player);
 
         //crating player
-        if(FunGame.player2Selected)
-        player2 = new Player2(this);
-        else
-        player = new Player(this);
+        if(FunGame.player2Selected) {
+            player2 = new Player2(this);
+            //creating bullet
+            bulletFinal = new BulletFinal(this, 5, 70);
+        }
+        else {
+            player = new Player(this);
+            bulletFinal2 = new BulletFinal2(this, 5, 70);
+        }
 
-        //creating bullet
-        bulletFinal = new BulletFinal(this, 5, 70);
+
 
         //creating jasmine
         //jasmine = new Jasmine(this, 311/FunGame.PPM, 321/FunGame.PPM);
@@ -218,9 +224,9 @@ public class PlayScreen implements Screen {
                     shootTimer = 0;
                     //player2.fire();
                     if(player.isFlipX())
-                        bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                     else
-                        bulletFinal = new BulletFinal(this, player.b2body.getPosition().x - .2f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                 if ((player.IsPlayerOnGround())) {
@@ -238,9 +244,9 @@ public class PlayScreen implements Screen {
                     //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
                     //player2.fire();
                     if(player.isFlipX())
-                        bulletFinal = new BulletFinal(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
                     else
-                        bulletFinal = new BulletFinal(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
                     //Player.spacePressed = true;
                 }
 
@@ -281,7 +287,10 @@ public class PlayScreen implements Screen {
 
         creator.getJasmine().update(dt);
 
+        if(FunGame.player2Selected)
         bulletFinal.update(dt);
+        else
+        bulletFinal2.update(dt);
 
         hud.update(dt);
         shootTimer += dt;
@@ -314,10 +323,14 @@ public class PlayScreen implements Screen {
 
         game.batch.begin(); // Begin!
 
-        if(!FunGame.player2Selected)
-        player.draw(game.batch);
-        else
-        player2.draw(game.batch);
+        if(FunGame.player2Selected) {
+            player2.draw(game.batch);
+            bulletFinal.draw(game.batch);
+        }
+        else {
+            player.draw(game.batch);
+            bulletFinal2.draw(game.batch);
+        }
 
        /* for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
@@ -329,7 +342,7 @@ public class PlayScreen implements Screen {
 
         creator.getJasmine().draw(game.batch);
 
-        bulletFinal.draw(game.batch);
+
 
         //jasmine.draw(game.batch);
 
