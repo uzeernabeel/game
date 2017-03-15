@@ -478,7 +478,7 @@ public class Player extends Sprite {
         Hud.addScore(-1000);
         //FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
-        playerDead = true;
+        //playerDead = true;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
             Hud.chances(3);

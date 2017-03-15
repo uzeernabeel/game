@@ -62,10 +62,12 @@ public class LevelSelectScreen implements Screen {
     table.setFillParent(true);
 
 
-    Label gameOverLabel = new Label("Select The Level", font);
+        Label gameOverLabel = new Label("Select The Level", font);
         Label notYet = new Label(string, font);
-    table.add(gameOverLabel).center();
-    table.row();
+        table.add(gameOverLabel).center();
+        table.row();
+        Label note = new Label("Hard Levels", font);
+
 
 
     oneImg = new Image(new TextureRegion(texture, 0, 0, 242, 314));
@@ -158,13 +160,14 @@ public class LevelSelectScreen implements Screen {
             }
         });
 
-        table.add(oneImg).size(oneImg.getWidth(), oneImg.getHeight()).padRight(15).padLeft(15).padBottom(15);
+        table.add(oneImg).size(oneImg.getWidth(), oneImg.getHeight()).padRight(15).padLeft(10).padBottom(15);
         table.add(twoImg).size(twoImg.getWidth(), twoImg.getHeight()).padBottom(15);
+        table.add(threeImg).size(threeImg.getWidth(), threeImg.getHeight()).padRight(15).padLeft(15).padBottom(15);
+        table.add(fourImg).size(fourImg.getWidth(), fourImg.getHeight()).padBottom(15).padLeft(15);
         table.add().row();
-        table.add(threeImg).size(threeImg.getWidth(), threeImg.getHeight()).padRight(15).padLeft(15);
-        table.add(fourImg).size(fourImg.getWidth(), fourImg.getHeight());
         table.add().row();
-        table.add(fiveImg).size(fiveImg.getWidth(), fiveImg.getHeight()).padRight(15).padBottom(15);
+        table.add(note);
+        table.add(fiveImg).size(fiveImg.getWidth(), fiveImg.getHeight()).padRight(15).padBottom(15).padLeft(40);
         table.add(sixImg).size(sixImg.getWidth(), sixImg.getHeight()).padBottom(15);
 
         stage.addActor(table);

@@ -110,20 +110,7 @@ public class BulletFinal extends Sprite {
                     rightSide = true;
             }
         }
-        if(FunGame.FinalScreen) {
-            if (FunGame.player2Selected) {
-                if (screen2.player2.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
-            } else {
-                if (screen2.player.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
-            }
-        }
-
+        
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(5 / FunGame.PPM, 5/ FunGame.PPM, new Vector2(5 / FunGame.PPM, 5 / FunGame.PPM), 0);

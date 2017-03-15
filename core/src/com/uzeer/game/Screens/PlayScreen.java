@@ -88,6 +88,8 @@ public class PlayScreen implements Screen {
     private int startingPoint;
     private int endPoint;
 
+    FileHandle file;
+
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -96,10 +98,7 @@ public class PlayScreen implements Screen {
         texture = new Texture("subZero1.png");
         this.game = game;
 
-        FunGame.player2Selected = false;
-
         gamecam = new OrthographicCamera();
-        FunGame.LEVEL = 1;
         gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
@@ -112,10 +111,6 @@ public class PlayScreen implements Screen {
             map = mapLoader.load("Small2.tmx");
         if(FunGame.playScreenStages == 3)
             map = mapLoader.load("Small3.tmx");
-
-        FileHandle file = Gdx.files.local("saveData.txt");
-        file.writeString("2", false);
-
 
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -137,11 +132,6 @@ public class PlayScreen implements Screen {
             player = new Player(this);
             bulletFinal2 = new BulletFinal2(this, 5, 70);
         }
-
-
-
-        //creating jasmine
-        //jasmine = new Jasmine(this, 311/FunGame.PPM, 321/FunGame.PPM);
 
         world.setContactListener(new WorldContactListner());
 
@@ -184,11 +174,10 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
                 if(player2.IsPlayerOnGround()) {
                     if (controller.isJumpPressed())
-                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player2.b2body.getWorldCenter(), true);
+                        player2.b2body.applyLinearImpulse(new Vector2(0, 4.85f), player2.b2body.getWorldCenter(), true);
                 }
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    //player2.fire();
                     if(player2.isFlipX())
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                     else
@@ -207,13 +196,10 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    //player2.fire();
                     if(player2.isFlipX())
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
                     else
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
-                    //Player.spacePressed = true;
                 }
             }
         } else {
@@ -224,7 +210,7 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player.b2body.getWorldCenter(), true);
                 if(player.IsPlayerOnGround()) {
                     if (controller.isJumpPressed())
-                        player.b2body.applyLinearImpulse(new Vector2(0, 4.5f), player.b2body.getWorldCenter(), true);
+                        player.b2body.applyLinearImpulse(new Vector2(0, 4.85f), player.b2body.getWorldCenter(), true);
                 }
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
@@ -253,7 +239,6 @@ public class PlayScreen implements Screen {
                         bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
                     else
                         bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
-                    //Player.spacePressed = true;
                 }
 
             }
@@ -284,8 +269,21 @@ public class PlayScreen implements Screen {
                 }
         } else {
             player.update(dt);
-            if (player.b2body.getPosition().x > 173) // 173
-                levelComplete();
+            if(FunGame.playScreenStages == 1)
+                if (player.b2body.getPosition().x > 32.70 && player.b2body.getPosition().y >= 0.5) {// 173
+                    FunGame.secondScreenStages = 1;
+                    levelComplete();
+                }
+            if(FunGame.playScreenStages == 2)
+                if (player.b2body.getPosition().x > 32.48 && player.b2body.getPosition().y >= 0.3) { // 173
+                    FunGame.secondScreenStages = 2;
+                    levelComplete();
+                }
+            if(FunGame.playScreenStages == 3)
+                if (player.b2body.getPosition().x > 32.48 && player.b2body.getPosition().y >= 0.3){ // 173
+                    FunGame.secondScreenStages = 3;
+                    levelComplete();
+                }
         }
 
         for(Enemy enemy : creator.getEnemies())
@@ -377,17 +375,19 @@ public class PlayScreen implements Screen {
     public void levelComplete(){
         if(FunGame.playScreenStages == 1) {
             FunGame.secondScreenStages = 1;
-            FileHandle file = Gdx.files.internal("saveData.txt");
-            file.writeString("2", false);
+            if(Gdx.files.internal("saveData.txt").exists()) {
+                file = Gdx.files.internal("saveData.txt");
+                file.writeString("2", false);
+            }
         }
         if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
-            FileHandle file = Gdx.files.internal("saveData.txt");
-            file.writeString("3", false);
+            file = Gdx.files.internal("saveData.txt");
+            file.writeString("4", false);
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
-            FileHandle file = Gdx.files.internal("saveData.txt");
+            file = Gdx.files.internal("saveData.txt");
             file.writeString("5", false);
         }
 
