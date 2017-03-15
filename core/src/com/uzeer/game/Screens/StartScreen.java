@@ -52,12 +52,12 @@ public class StartScreen implements Screen {
 
 
         Label gameOverLabel = new Label("Select The Character", font);
-        table.add(gameOverLabel);
+        table.add(gameOverLabel).padLeft(300).padBottom(15);
         table.row();
 
 
-        leftImg = new Image(new Texture("aladdin1.png"));
-        leftImg.setSize(401, 450);
+        leftImg = new Image(new Texture("sub.png"));
+        leftImg.setSize(280, 450);
         leftImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -71,8 +71,8 @@ public class StartScreen implements Screen {
             }
         });
 
-        rightImg = new Image(new Texture("aladdin2.png"));
-        rightImg.setSize(401, 450);
+        rightImg = new Image(new Texture("ala.png"));
+        rightImg.setSize(280, 450);
         rightImg.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -87,7 +87,7 @@ public class StartScreen implements Screen {
         });
 
 
-        table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
+        table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight()).padRight(25);
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
 
         stage.addActor(table);
@@ -119,7 +119,7 @@ public class StartScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override

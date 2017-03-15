@@ -123,14 +123,14 @@ public class FunGame extends Game {
 		manager.finishLoading();
 
 
-		setScreen(new LevelSelectScreen(this));
+		//setScreen(new LevelSelectScreen(this));
 		//setScreen(new PlayScreen(this));
 		//setScreen(new SecondStage(this));
 		//setScreen(new FinalStage(this));
 		//setScreen(new Level_complition(this));
 
 		//Final Thing Ha!
-		//setScreen(new StartScreen(this));
+		setScreen(new StartScreen(this));
 	}
 
 	@Override
