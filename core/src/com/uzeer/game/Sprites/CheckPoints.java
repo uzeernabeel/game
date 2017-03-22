@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.uzeer.game.FunGame;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -13,11 +12,6 @@ import com.uzeer.game.Screens.SecondStage;
  */
 
 public class CheckPoints extends InteractiveTileObject {
-    public CheckPoints(FinalStage screen, Rectangle bounds, String value) {
-        super(screen, bounds, value);
-        setCategoryFilter(FunGame.CHECK_POINT_BIT);
-        fixture.setUserData(this);
-    }
 
     public CheckPoints(PlayScreen screen, Rectangle bounds, String value) {
         super(screen, bounds, value);

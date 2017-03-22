@@ -45,6 +45,8 @@ import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
 
+import static com.badlogic.gdx.Gdx.app;
+
 public class PlayScreen implements Screen {
 
     private FunGame game;
@@ -120,7 +122,7 @@ public class PlayScreen implements Screen {
 
         controller = new Controller(game.batch);
 
-        creator = new B2WorldCreator(this, player);
+        creator = new B2WorldCreator(this);
 
         //crating player
         if(FunGame.player2Selected) {
@@ -355,7 +357,7 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
-        if(Gdx.app.getType() == Application.ApplicationType.Android)
+        if(app.getType() == Application.ApplicationType.Android)
             controller.draw();
 
         if(gameOver()){
@@ -375,20 +377,25 @@ public class PlayScreen implements Screen {
     public void levelComplete(){
         if(FunGame.playScreenStages == 1) {
             FunGame.secondScreenStages = 1;
-            if(Gdx.files.internal("saveData.txt").exists()) {
-                file = Gdx.files.internal("saveData.txt");
+                file = Gdx.files.local("saveData.txt");
                 file.writeString("2", false);
-            }
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 2);
+
         }
         if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
-            file = Gdx.files.internal("saveData.txt");
+            file = Gdx.files.local("saveData.txt");
             file.writeString("4", false);
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 4);
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
-            file = Gdx.files.internal("saveData.txt");
+            file = Gdx.files.local("saveData.txt");
             file.writeString("5", false);
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 5);
         }
 
         FunGame.PlayScreen = false;

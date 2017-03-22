@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -115,45 +114,6 @@ public class BadGuy extends Enemy{
         destroyed = false;
     }
 
-    public BadGuy(FinalStage screen, float x, float y) {
-        super(screen, x, y);
-        runningRight = true;
-        badGuyTexture = new Texture("enemy.png");
-        frames = new Array<TextureRegion>();
-        for(int i = 1; i < 6; i++){
-            if(i == 1)
-                frames.add(new TextureRegion(badGuyTexture, 5, 138, 57, 50));
-            else if(i == 2)
-                frames.add(new TextureRegion(badGuyTexture, 68, 138, 55, 50));
-            else if(i == 3)
-                frames.add(new TextureRegion(badGuyTexture, 123, 138, 56, 50));
-            else if(i == 4)
-                frames.add(new TextureRegion(badGuyTexture, 190, 138, 55, 50));
-            else if(i == 5)
-                frames.add(new TextureRegion(badGuyTexture, 314, 138, 58, 50));
-        }
-        //else if(i == 5)
-        //frames.add(new TextureRegion(badGuyTexture, 246, 138, 61, 50));
-        walkAnimation = new Animation(0.3f, frames);
-        frames.clear();
-
-            region = walkAnimation.getKeyFrame(stateTime, true);
-
-        if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = false;
-        }
-        else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
-
-        stateTime = 0;
-        setBounds(getX(), getY(), 52 / FunGame.PPM, 39 / FunGame.PPM);
-
-        setToDestroy = false;
-        destroyed = false;
-    }
 
     public void update(float dt){
         stateTime += dt;

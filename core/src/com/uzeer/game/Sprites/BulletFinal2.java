@@ -13,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -31,7 +30,6 @@ public class BulletFinal2 extends Sprite {
     private boolean leftSide;
     protected PlayScreen screen;
     protected SecondStage screen1;
-    protected FinalStage screen2;
     protected World world;
     public Body b2body;
     public Vector2 velocity2;

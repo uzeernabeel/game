@@ -38,7 +38,7 @@ public class FinishGame implements Screen {
             table.setFillParent(true);
 
             Label gameOverLabel = new Label("Hurray Game Complete!", font);
-            Label playAgainLabel = new Label("Click To Start Again", font);
+            Label playAgainLabel = new Label("Click To Select A level Again", font);
 
             table.add(gameOverLabel).expandX();
             table.row();
@@ -60,7 +60,7 @@ public class FinishGame implements Screen {
 
                 FunGame.PlayScreen = true;
                 FunGame.SecondScreen = false;
-                game.setScreen(new PlayScreen((FunGame) game));
+                game.setScreen(new LevelSelectScreen(game));
                 dispose();
             }
 

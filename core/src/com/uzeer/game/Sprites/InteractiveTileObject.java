@@ -20,7 +20,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -104,38 +103,6 @@ public abstract class InteractiveTileObject {
 
         fixture = body.createFixture(fdef);
     }
-
-    public InteractiveTileObject(FinalStage screen, Rectangle bounds, String value){
-        this.world = screen.getWorld();
-        this.map = screen.getMap();
-        this.bounds = bounds;
-
-        BodyDef bdef = new BodyDef();
-        FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-
-        bdef.type = BodyDef.BodyType.StaticBody;
-        bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / FunGame.PPM, (bounds.getY() + bounds.getHeight() / 2) / FunGame.PPM);
-
-        body = world.createBody(bdef);
-
-        shape.setAsBox(bounds.getWidth() / 2 / FunGame.PPM, bounds.getHeight() / 2 / FunGame.PPM);
-        fdef.shape = shape;
-
-
-        if (value.equals("Coins"))
-            fdef.isSensor = true;
-
-        else if(value.equals("Fire")) {
-            fdef.restitution = 0.8f;
-        }
-
-        else if(value.equals("Checkpoints"))
-            fdef.isSensor = true;
-
-        fixture = body.createFixture(fdef);
-    }
-
 
 
     public abstract void bodyHit();

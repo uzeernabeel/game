@@ -15,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -28,11 +27,14 @@ public class parrot extends Enemy {
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean runningRight;
+    private PlayScreen screen;
+    private SecondStage screen2;
     Texture region;
     FixtureDef fdef;
 
     public parrot(PlayScreen screen, float x, float y) {
         super(screen, x, y);
+        this.screen = screen;
         runningRight = false;
         frames = new Array<TextureRegion>();
         for(int i = 1; i < 5; i++){
@@ -68,6 +70,7 @@ public class parrot extends Enemy {
 
     public parrot(SecondStage screen, float x, float y) {
         super(screen, x, y);
+        this.screen2 = screen;
         runningRight = true;
         frames = new Array<TextureRegion>();
         for(int i = 1; i < 5; i++){
@@ -105,11 +108,14 @@ public class parrot extends Enemy {
         stateTime += dt;
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
-            destroyed = true;
             setBounds(getX(), getY(), 30 / FunGame.PPM, 25 / FunGame.PPM);
-            setRegion(new TextureRegion(screen.getAtlas2().findRegion("parrot"), 40, 31, 28, 24));
+            if(FunGame.PlayScreen)
+                setRegion(new TextureRegion(screen.getAtlas2().findRegion("parrot"), 40, 31, 28, 24));
+            else
+                setRegion(new TextureRegion(screen2.getAtlas2().findRegion("parrot"), 40, 31, 28, 24));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
+            destroyed = true;
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
@@ -154,14 +160,14 @@ public class parrot extends Enemy {
         //creat the head here
         PolygonShape head = new PolygonShape();
         Vector2[] vertice = new Vector2[4];
-        vertice[0] = new Vector2(-2, 7).scl(1 / FunGame.PPM);
-        vertice[1] = new Vector2(2, 7).scl(1 / FunGame.PPM);
-        vertice[2] = new Vector2(-7, 12).scl(1 / FunGame.PPM);
-        vertice[3] = new Vector2(7, 12).scl(1 / FunGame.PPM);
+        vertice[0] = new Vector2(-1, 24).scl(1 / FunGame.PPM);
+        vertice[1] = new Vector2(20, 24).scl(1 / FunGame.PPM);
+        vertice[2] = new Vector2(4, 20).scl(1 / FunGame.PPM);
+        vertice[3] = new Vector2(12, 20).scl(1 / FunGame.PPM);
         head.set(vertice);
 
         fdef.shape = head;
-        fdef.restitution = 0.7f;
+        fdef.restitution = 1.5f;
         fdef.filter.categoryBits = FunGame.ENEMY_HEAD_BIT;
         b2body.createFixture(fdef).setUserData(this);
 

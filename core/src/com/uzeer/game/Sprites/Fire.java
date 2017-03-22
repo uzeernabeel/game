@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Rectangle;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -26,14 +25,6 @@ public class Fire extends InteractiveTileObject {
     }
 
     public Fire(SecondStage screen, Rectangle bounds, String value) {
-        super(screen, bounds, value);
-
-        fixture.setUserData(this);
-        setCategoryFilter(FunGame.FIRE_BIT);
-
-    }
-
-    public Fire(FinalStage screen, Rectangle bounds, String value) {
         super(screen, bounds, value);
 
         fixture.setUserData(this);

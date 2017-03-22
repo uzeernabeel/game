@@ -23,7 +23,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -64,7 +63,6 @@ public class Player2 extends Sprite {
     private boolean finalStage;
     private PlayScreen screen;
     private SecondStage screen1;
-    private FinalStage screen2;
     State state;
 
     float time;
@@ -498,9 +496,8 @@ public class Player2 extends Sprite {
     private State getState(float dt) {
         if(playerDead)
             return State.DEAD;
-        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) ) {
+        else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING) )
             return State.JUMPING;
-        }
         else if(b2body.getLinearVelocity().y < 0)
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
@@ -561,13 +558,14 @@ public class Player2 extends Sprite {
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
-            Hud.chances(3);
+            Hud.chances(1);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
         if(num == 2) {
             Gdx.app.log("hit by Enemy: ", "2");
-            Hud.chances(2);
+            Hud.chances(0);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            playerDead = true;
         }
         if(num == 3) {
             Gdx.app.log("hit by Enemy: ", "3");

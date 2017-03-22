@@ -37,6 +37,8 @@ import com.uzeer.game.Tools.WorldContactListner;
 
 import java.util.ArrayList;
 
+import static com.badlogic.gdx.Gdx.app;
+
 /**
  * Created by Uzeer on 1/27/2017.
  */
@@ -107,7 +109,7 @@ public class SecondStage implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
 
-        gamecam.position.x = (gamePort.getScreenWidth() / 2) + 3.5f;
+        gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4.25f;
 
         world = new World(new Vector2(0, -10), true);
         b2dr = new Box2DDebugRenderer();
@@ -116,10 +118,9 @@ public class SecondStage implements Screen {
 
         creator = new B2WorldCreator(this);
 
-        //crating player
+        //crating player and bullet
         if(FunGame.player2Selected) {
             player2 = new Player2(this);
-            //creating bullet
             bulletFinal = new BulletFinal(this, 5, 70);
         }
         else {
@@ -393,20 +394,26 @@ public class SecondStage implements Screen {
 
     public void levelComplete(){
         if(FunGame.secondScreenStages == 3) {
-            FileHandle file = Gdx.files.internal("saveData.txt");
+            FileHandle file = Gdx.files.local("saveData.txt");
             file.writeString("6", false);
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 6);
             game.setScreen(new FinishGame(game));
         }
         if(FunGame.secondScreenStages == 1) {
             FunGame.playScreenStages = 2;
-            FileHandle file = Gdx.files.internal("saveData.txt");
+            FileHandle file = Gdx.files.local("saveData.txt");
             file.writeString("3", false);
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 3);
             game.setScreen(new Level_complition(game));
         }
         if(FunGame.secondScreenStages == 2) {
             FunGame.playScreenStages = 3;
-            FileHandle file = Gdx.files.internal("saveData.txt");
+            FileHandle file = Gdx.files.local("saveData.txt");
             file.writeString("5", false);
+            if(app.getType() == Application.ApplicationType.Android)
+                FunGame.prefs.putInteger("level", 5);
             game.setScreen(new Level_complition(game));
         }
         FunGame.PlayScreen = true;

@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Sprites.BadGuy;
@@ -35,7 +34,7 @@ public class B2WorldCreator {
     private Array<parrot> parrots;
     private Jasmine jasmine;
 
-    public B2WorldCreator(PlayScreen screen, Player player){
+    public B2WorldCreator(PlayScreen screen){
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
         BodyDef bdef = new BodyDef();

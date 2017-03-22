@@ -39,7 +39,6 @@ public class StartScreen implements Screen {
 
     public StartScreen(Game game){
         this.game = game;
-        fontHa = new BitmapFont(Gdx.files.internal("font.fnt"));
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, ((FunGame)game).batch);
         Gdx.input.setInputProcessor(stage);

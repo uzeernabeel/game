@@ -22,7 +22,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
-import com.uzeer.game.Screens.FinalStage;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
@@ -256,6 +255,20 @@ public class Player extends Sprite {
         playerThrow = new Animation(0.1f, frames);
         frames.clear();
 
+        for (int i = 1; i < 5; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(screen.getTexture(), 1202, 826, 85, 170));
+            else if (i == 2)
+                frames.add(new TextureRegion(screen.getTexture(), 1317, 826, 85, 170));
+            else if (i == 3)
+                frames.add(new TextureRegion(screen.getTexture(), 1432, 826, 85, 170));
+            else if (i == 4)
+                frames.add(new TextureRegion(screen.getTexture(), 1549, 826, 85, 170));
+        }
+
+        playerStand2 = new Animation(0.1f, frames);
+        frames.clear();
+
 
         for(int i = 1; i < 11; i++) {
             if (i == 1)
@@ -284,9 +297,11 @@ public class Player extends Sprite {
         frames.clear();
 
         for(int i = 3; i < 11; i++) {
-             //if (i == 2)
-                //frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
-             if (i == 3)
+            if (i == 1)
+                frames.add(new TextureRegion(screen.getTexture(), 0, 216, 85, 170));
+            else if (i == 2)
+                frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
+            else if (i == 3)
                 frames.add(new TextureRegion(screen.getTexture(), 280, 216, 85, 170));
             else if (i == 4)
                 frames.add(new TextureRegion(screen.getTexture(), 413, 216, 85, 170));
@@ -339,7 +354,6 @@ public class Player extends Sprite {
 
         definePlayer();
         setBounds(0, 0, 37 / FunGame.PPM, 55 / FunGame.PPM);
-
     }
 
 
@@ -488,6 +502,7 @@ public class Player extends Sprite {
             Gdx.app.log("hit by Enemy: ", "2");
             Hud.chances(2);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            playerDead = true;
         }
         if(num == 3) {
             Gdx.app.log("hit by Enemy: ", "3");

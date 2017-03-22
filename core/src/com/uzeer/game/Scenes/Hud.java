@@ -50,7 +50,7 @@ public class Hud implements Disposable{
         timeCount = 0;
         score = 500;
         coins = 0;
-        chancesLeft = 4;
+        chancesLeft = 2;
 
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, sb);

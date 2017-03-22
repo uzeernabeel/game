@@ -1,23 +1,18 @@
 package com.uzeer.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.uzeer.game.Screens.FinalStage;
-import com.uzeer.game.Screens.FinalStage;
-import com.uzeer.game.Screens.LevelSelectScreen;
-import com.uzeer.game.Screens.Level_complition;
-import com.uzeer.game.Screens.PlayScreen;
-import com.uzeer.game.Screens.SecondStage;
 import com.uzeer.game.Screens.StartScreen;
+
+import static com.badlogic.gdx.Gdx.app;
 
 public class FunGame extends Game {
 	public static final int V_WIDTH1 = 920;
@@ -57,6 +52,8 @@ public class FunGame extends Game {
 
 	public SpriteBatch batch;
 
+    public static Preferences prefs;
+
 	public static AssetManager manager;
 
 	
@@ -65,35 +62,37 @@ public class FunGame extends Game {
 
 		LEVEL1 = LEVEL2 = LEVEL3 = LEVEL4 = LEVEL5 = LEVEL6 = false;
 
+		prefs = Gdx.app.getPreferences("My Preferences");
+
 		//reading the save file.
 		FileHandle file = Gdx.files.internal("saveData.txt");
 		String text = file.readString();
-		if(text.contains("1")) {
+		if(text.contains("1") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 1)) {
 			FunGame.LEVEL1 = true;
 		}
-		if(text.contains("2")) {
+		if(text.contains("2") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 2)) {
 			FunGame.LEVEL1 = true;
 			FunGame.LEVEL2 = true;
 		}
-		if(text.contains("3")) {
+		if(text.contains("3") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 3)) {
 			FunGame.LEVEL1 = true;
 			FunGame.LEVEL2 = true;
 			FunGame.LEVEL3 = true;
 		}
-		if(text.contains("4")) {
+		if(text.contains("4") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 4)) {
 			FunGame.LEVEL1 = true;
 			FunGame.LEVEL2 = true;
 			FunGame.LEVEL3 = true;
 			FunGame.LEVEL4 = true;
 		}
-		if(text.contains("5")) {
+		if(text.contains("5") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 5)) {
 			FunGame.LEVEL1 = true;
 			FunGame.LEVEL2 = true;
 			FunGame.LEVEL3 = true;
 			FunGame.LEVEL4 = true;
 			FunGame.LEVEL5 = true;
 		}
-		if(text.contains("6")) {
+		if(text.contains("6") || (app.getType() == Application.ApplicationType.Android && prefs.getInteger("level") == 6)) {
 			FunGame.LEVEL1 = true;
 			FunGame.LEVEL2 = true;
 			FunGame.LEVEL3 = true;
