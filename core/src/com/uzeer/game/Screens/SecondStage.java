@@ -89,7 +89,7 @@ public class SecondStage implements Screen {
         atlas = new TextureAtlas("sprite sheet2.pack");
         atlas2 = new TextureAtlas("stuff.pack");
         if(!FunGame.player2Selected)
-            texture = new Texture("subZero.png");
+            texture = new Texture("hero.png");
         this.game = game;
 
         gamecam = new OrthographicCamera();
@@ -205,9 +205,9 @@ public class SecondStage implements Screen {
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
                     if(player.isFlipX())
-                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
                     else
-                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .2f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .2f, player.b2body.getPosition().y + .2f);
                 }
 
                 if ((player.IsPlayerOnGround())) {
