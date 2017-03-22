@@ -3,6 +3,7 @@ package com.uzeer.game.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,6 +36,7 @@ public class Level_complition implements Screen {
     private OrthographicCamera camera;
     private Viewport gamePort;
     Texture texture;
+    private Music music;
 
     public Level_complition(FunGame game) {
 
@@ -54,6 +56,11 @@ public class Level_complition implements Screen {
         ginnies = new ginnie(this, (FunGame.V_WIDTH / 2) / FunGame.PPM, (FunGame.V_HEIGHT / 2) / FunGame.PPM);
 
         stateTime = 0;
+
+        music = FunGame.manager.get("sounds/powerUp.mp3", Music.class);
+        music.setVolume(.9f);
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -88,11 +95,13 @@ public class Level_complition implements Screen {
 
 
         if(Gdx.input.justTouched() && FunGame.SecondScreen) {
+            music.stop();
             game.setScreen(new SecondStage(game));
             dispose();
         }
 
         if(Gdx.input.justTouched() && FunGame.PlayScreen) {
+            music.stop();
             game.setScreen(new PlayScreen(game));
             dispose();
         }

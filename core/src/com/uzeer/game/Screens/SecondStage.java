@@ -88,11 +88,12 @@ public class SecondStage implements Screen {
     public SecondStage(FunGame game){
         atlas = new TextureAtlas("sprite sheet2.pack");
         atlas2 = new TextureAtlas("stuff.pack");
-        texture = new Texture("subZero1.png");
+        if(!FunGame.player2Selected)
+            texture = new Texture("subZero.png");
         this.game = game;
+
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(FunGame.V_WIDTH1 / FunGame.PPM, FunGame.V_HEIGHT1 / FunGame.PPM, gamecam);
-        //gamePort = new FitViewport(1980 / FunGame.PPM, 1080 / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
@@ -108,7 +109,6 @@ public class SecondStage implements Screen {
         //renderer of the map
         renderer = new OrthogonalTiledMapRenderer(map, 1 / FunGame.PPM);
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2 , 0);
-
         gamecam.position.x = (gamePort.getScreenWidth() / 2) + 4.25f;
 
         world = new World(new Vector2(0, -10), true);
@@ -136,7 +136,7 @@ public class SecondStage implements Screen {
 
         FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
-        music.setVolume(.09f);
+        music.setVolume(.9f);
         music.setLooping(true);
         music.play();
     }
@@ -153,72 +153,6 @@ public class SecondStage implements Screen {
         return texture;
     }
 
-    public void update(float dt){
-        handleInput(dt);
-
-        world.step(1 / 60f, 6, 2); //important method to calculate all the number every second
-
-        if(FunGame.player2Selected){  //Stage selecting (if) statements and deciding when to complete.
-            player2.update(dt);
-            if(FunGame.secondScreenStages == 1)
-                if (player2.b2body.getPosition().y > 22.965 && player2.b2body.getPosition().x < .35) {// 173
-                    FunGame.playScreenStages = 2;
-                    levelComplete();
-                }
-            if(FunGame.secondScreenStages == 2)
-                if (player2.b2body.getPosition().y > 20.767 && player2.b2body.getPosition().x < .485) {
-                    FunGame.playScreenStages = 3;
-                    levelComplete();
-                }
-            if(FunGame.secondScreenStages == 3)
-                if (player2.b2body.getPosition().y > 21.2 && player2.b2body.getPosition().x < 4.19) {
-                    levelComplete();
-                }
-        } else {
-            player.update(dt);
-            if(FunGame.secondScreenStages == 1)
-                if (player.b2body.getPosition().y > 22.965 && player.b2body.getPosition().x < .35) {// 173
-                    FunGame.playScreenStages = 2;
-                    levelComplete();
-                }
-            if(FunGame.secondScreenStages == 2)
-                if (player.b2body.getPosition().y > 20.767 && player.b2body.getPosition().x < .485) {
-                    FunGame.playScreenStages = 3;
-                    levelComplete();
-                }
-            if(FunGame.secondScreenStages == 3)
-                if (player.b2body.getPosition().y > 21.2 && player.b2body.getPosition().x < 4.19) {
-                    levelComplete();
-                }
-        }
-
-        for(Enemy enemy : creator.getEnemies())
-            enemy.update(dt);
-
-        creator.getJasmine().update(dt);
-
-        if(FunGame.player2Selected)
-            bulletFinal.update(dt);
-        else
-            bulletFinal2.update(dt);
-
-        hud.update(dt);
-        shootTimer += dt;
-
-        if(FunGame.player2Selected) {
-            if (player2.currentState != Player2.State.DEAD)
-                gamecam.position.y = player2.b2body.getPosition().y;
-
-        } else {
-            if (player.currentState != Player.State.DEAD)
-                gamecam.position.y = player.b2body.getPosition().y;
-        }
-
-
-        gamecam.update();
-        renderer.setView(gamecam);
-
-    }
 
     private void handleInput(float dt) {
         // android specific code
@@ -298,6 +232,74 @@ public class SecondStage implements Screen {
         }
     }
 
+    public void update(float dt){
+        handleInput(dt);
+
+        world.step(1 / 60f, 6, 2); //important method to calculate all the number every second
+
+        if(FunGame.player2Selected){  //Stage selecting (if) statements and deciding when to complete.
+            player2.update(dt);
+            if(FunGame.secondScreenStages == 1)
+                if (player2.b2body.getPosition().y > 22.965 && player2.b2body.getPosition().x < .35) {// 173
+                    FunGame.playScreenStages = 2;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 2)
+                if (player2.b2body.getPosition().y > 20.767 && player2.b2body.getPosition().x < .485) {
+                    FunGame.playScreenStages = 3;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 3)
+                if (player2.b2body.getPosition().y > 21.2 && player2.b2body.getPosition().x < 4.19) {
+                    levelComplete();
+                }
+        } else {
+            player.update(dt);
+            if(FunGame.secondScreenStages == 1)
+                if (player.b2body.getPosition().y > 22.965 && player.b2body.getPosition().x < .35) {// 173
+                    FunGame.playScreenStages = 2;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 2)
+                if (player.b2body.getPosition().y > 20.767 && player.b2body.getPosition().x < .485) {
+                    FunGame.playScreenStages = 3;
+                    levelComplete();
+                }
+            if(FunGame.secondScreenStages == 3)
+                if (player.b2body.getPosition().y > 21.2 && player.b2body.getPosition().x < 4.19) {
+                    levelComplete();
+                }
+        }
+
+        for(Enemy enemy : creator.getEnemies())
+            enemy.update(dt);
+
+        creator.getJasmine().update(dt);
+
+        if(FunGame.player2Selected)
+            bulletFinal.update(dt);
+        else
+            bulletFinal2.update(dt);
+
+        hud.update(dt);
+        shootTimer += dt;
+
+        if(FunGame.player2Selected) {
+            if (player2.currentState != Player2.State.DEAD)
+                gamecam.position.y = player2.b2body.getPosition().y;
+
+        } else {
+            if (player.currentState != Player.State.DEAD)
+                gamecam.position.y = player.b2body.getPosition().y;
+        }
+
+
+        gamecam.update();
+        renderer.setView(gamecam);
+
+    }
+
+
     @Override
     public void show() {
 
@@ -310,7 +312,7 @@ public class SecondStage implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        b2dr.render(world, gamecam.combined);
+        //b2dr.render(world, gamecam.combined);
 
         game.batch.setProjectionMatrix(gamecam.combined);
 
@@ -340,6 +342,7 @@ public class SecondStage implements Screen {
             controller.draw();
 
         if(gameOver()){
+            music.stop();
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
@@ -378,6 +381,8 @@ public class SecondStage implements Screen {
     @Override
     public void dispose() {
         atlas.dispose();
+        atlas2.dispose();
+        //texture.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
@@ -393,25 +398,35 @@ public class SecondStage implements Screen {
     }
 
     public void levelComplete(){
+        music.stop();
         if(FunGame.secondScreenStages == 3) {
-            FileHandle file = Gdx.files.local("saveData.txt");
-            file.writeString("6", false);
+            if(app.getType() == Application.ApplicationType.Desktop) {
+                FileHandle file = Gdx.files.local("saveData.txt");
+                if (file.readString().contains("5"))
+                    file.writeString("6", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 6);
             game.setScreen(new FinishGame(game));
         }
         if(FunGame.secondScreenStages == 1) {
             FunGame.playScreenStages = 2;
-            FileHandle file = Gdx.files.local("saveData.txt");
-            file.writeString("3", false);
+            if(app.getType() == Application.ApplicationType.Desktop) {
+                FileHandle file = Gdx.files.local("saveData.txt");
+                if (file.readString().contains("2"))
+                    file.writeString("3", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 3);
             game.setScreen(new Level_complition(game));
         }
         if(FunGame.secondScreenStages == 2) {
             FunGame.playScreenStages = 3;
-            FileHandle file = Gdx.files.local("saveData.txt");
-            file.writeString("5", false);
+            if(app.getType() == Application.ApplicationType.Desktop) {
+                FileHandle file = Gdx.files.local("saveData.txt");
+                if (file.readString().contains("4"))
+                    file.writeString("5", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 5);
             game.setScreen(new Level_complition(game));

@@ -353,23 +353,34 @@ public class Player extends Sprite {
         playerFalling = new TextureRegion(screen.getTexture(), 1125, 216, 85, 170);
 
         definePlayer();
-        setBounds(0, 0, 37 / FunGame.PPM, 55 / FunGame.PPM);
+        setBounds(0, 0, 37 / FunGame.PPM, 60 / FunGame.PPM);
     }
 
 
     public void update(float dt){
         time += dt;
-        if(runningRight)
-        setPosition((b2body.getPosition().x - getWidth() / 2) + 5 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 18 / FunGame.PPM);
-        else
-            setPosition((b2body.getPosition().x - getWidth() / 2) - 1 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 18 / FunGame.PPM);
-        setRegion(getFrame(dt));
+        if(FunGame.PlayScreen) {
+            if (runningRight)
+                setPosition((b2body.getPosition().x - getWidth() / 2) + 5 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 22 / FunGame.PPM);
+            else
+                setPosition((b2body.getPosition().x - getWidth() / 2) - 1 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 22 / FunGame.PPM);
+            setRegion(getFrame(dt));
+        } else {
+            if (runningRight)
+                setPosition((b2body.getPosition().x - getWidth() / 2) + 5 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 25 / FunGame.PPM);
+            else
+                setPosition((b2body.getPosition().x - getWidth() / 2) - 1 / FunGame.PPM, (b2body.getPosition().y - getHeight() / 2) + 25 / FunGame.PPM);
+            setRegion(getFrame(dt));
+        }
 
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
         if(timeToRedefinePlayer)
             timeToRedefinePlayer();
+
+        if(Hud.dead)
+            playerDead = true;
     }
 
 
@@ -447,7 +458,7 @@ public class Player extends Sprite {
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
         //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(8 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        shape.setAsBox(8 / FunGame.PPM, 14 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
@@ -456,6 +467,7 @@ public class Player extends Sprite {
                 FunGame.ENEMY_BIT |
                 FunGame.OBJECT_BIT |
                 FunGame.GROUND_BIT |
+                FunGame.JASMINE_BIT |
                 FunGame.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;
@@ -490,7 +502,7 @@ public class Player extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-        //FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
+        FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
         //playerDead = true;
         if(num == 1) {

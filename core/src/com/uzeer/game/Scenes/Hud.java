@@ -20,6 +20,7 @@ import com.uzeer.game.Sprites.Player2;
  */
 
 public class Hud implements Disposable{
+    public static boolean dead;
     public Stage stage;
     private Viewport viewport;
 
@@ -41,16 +42,19 @@ public class Hud implements Disposable{
     Label chances;
     Label livesNumber;
     static Label chancesNumber;
+    private String levelNumber;
 
     static int chancesLeft;
 
 
     public Hud(SpriteBatch sb){
-        worldTimer = 300;
+        worldTimer = 250;
         timeCount = 0;
         score = 500;
         coins = 0;
         chancesLeft = 2;
+
+        dead = false;
 
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -65,24 +69,18 @@ public class Hud implements Disposable{
         chancesNumber = new Label(String.format("%01d", chancesLeft), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         livesNumber = new Label(String.format("%01d", FunGame.lives), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label(" - 2 - ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("World", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         GameLabel = new Label("Fun", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         chances = new Label("Chances Left", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         coin = new Label("Stars: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lives = new Label("Lives: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         table.add(GameLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
         table.add(timeLabel).expandX().padTop(10);
-        table.add(lives).expandX().padTop(10);
         table.add(chances).expandX().padTop(10);
         table.add(coin).expandX().padTop(10);
         table.row();
         table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
         table.add(countLabel).expandX();
-        table.add(livesNumber).expandX();
         table.add(chancesNumber).expandX();
         table.add(coinLabel).expandX();
 
@@ -97,6 +95,11 @@ public class Hud implements Disposable{
             countLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
         }
+
+        if(worldTimer <= 0)
+            dead = true;
+
+
     }
 
     public static void addScore(int value){
@@ -122,5 +125,9 @@ public class Hud implements Disposable{
 
     public void resize(int width, int height){
         viewport.update(width, height);
+    }
+
+    public static int highScore(){
+        return score;
     }
 }

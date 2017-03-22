@@ -118,7 +118,7 @@ public class FunGame extends Game {
 		manager.load("sounds/coin.wav", Sound.class);
 		manager.load("sounds/Decline.wav", Sound.class);
 		manager.load("sounds/hitByEnemy.wav", Sound.class);
-        manager.load("sounds/powerUp.mp3", Sound.class);
+        manager.load("sounds/powerUp.mp3", Music.class);
 		manager.finishLoading();
 
 

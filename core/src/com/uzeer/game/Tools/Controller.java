@@ -97,14 +97,14 @@ public class Controller {
 
 
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
-        table.padLeft(5);
+        table.padLeft(15);
         table.add().padRight(25);
 
         table.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
         table.add().padRight(300);
 
         table.padLeft(15);
-        table.padBottom(1);
+        table.padBottom(5);
 
         //table.right().bottom();
         table.add(jumpImg).size(jumpImg.getWidth(), jumpImg.getHeight());
@@ -112,7 +112,7 @@ public class Controller {
         table.add(bulletImg).size(bulletImg.getWidth(), bulletImg.getHeight());
 
         table.padRight(10);
-        table.padBottom(1);
+        table.padBottom(5);
 
 
         stage.addActor(table);

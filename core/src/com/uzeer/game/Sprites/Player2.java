@@ -250,7 +250,7 @@ public class Player2 extends Sprite {
         runningRight = true;
 
         playerHitted = false;
-        FunGame.lives = 3;
+        FunGame.lives = 1;
 
         texture = new Texture("player2.png");
 
@@ -442,6 +442,12 @@ public class Player2 extends Sprite {
             setBounds(0, 0, 38 / FunGame.PPM, 55 / FunGame.PPM);
             setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 19 / FunGame.PPM);
         }
+
+        if(currentState == state.DEAD)
+            setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 5 / FunGame.PPM);
+
+        if(Hud.dead)
+            playerDead = true;
     }
 
 
@@ -537,6 +543,7 @@ public class Player2 extends Sprite {
                 FunGame.OBJECT_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.CHECK_POINT_BIT |
+                FunGame.JASMINE_BIT |
                 FunGame.ENEMY_HEAD_BIT;
 
         fdef.shape = shape;
@@ -553,8 +560,7 @@ public class Player2 extends Sprite {
 
     public void hit() {
         Hud.addScore(-1000);
-
-        //FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
+        FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
         if(num == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
@@ -642,6 +648,10 @@ public class Player2 extends Sprite {
 
     public void draw(Batch batch){
         super.draw(batch);
+    }
+
+    public boolean isRight(){
+        return runningRight;
     }
 
 }

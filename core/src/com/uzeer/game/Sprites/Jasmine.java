@@ -93,7 +93,7 @@ public class Jasmine extends Sprite {
         }*/
 
         stateTime = 0;
-        setBounds(getX(), getY(), 25 / FunGame.PPM, 35 / FunGame.PPM);
+        setBounds(getX(), getY(), 30 / FunGame.PPM, 45 / FunGame.PPM);
 
         defineJasmine();
     }
@@ -135,7 +135,7 @@ public class Jasmine extends Sprite {
         TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
 
         stateTime = 0;
-        setBounds(getX(), getY(), 25 / FunGame.PPM, 35 / FunGame.PPM);
+        setBounds(getX(), getY(), 30 / FunGame.PPM, 48 / FunGame.PPM);
 
         defineJasmine();
     }
@@ -144,7 +144,10 @@ public class Jasmine extends Sprite {
     public void update(float dt){
         stateTime += dt;
         b2body.setLinearVelocity(velocity);
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 12 / FunGame.PPM);
+        if(FunGame.PlayScreen)
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 17 / FunGame.PPM);
+        if(FunGame.SecondScreen)
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 12 / FunGame.PPM);
         setRegion(getFrame(stateTime));
     }
 
@@ -206,6 +209,10 @@ public class Jasmine extends Sprite {
             velocity.x = -velocity.x;
         if(y)
             velocity.y = -velocity.y;
+    }
+
+    public void touch(){
+        FunGame.manager.get("sounds/checkPoint.wav", Sound.class).play();
     }
 
 

@@ -51,8 +51,8 @@ public class BulletFinal extends Sprite {
 
     public BulletFinal(SecondStage screen, float x, float y) {
         super(screen.getAtlas().findRegion("player"));
-        this.world = screen.getWorld();
         this.screen1 = screen;
+        this.world = screen.getWorld();
         setPosition(x, y);
         velocity2 = new Vector2(5f, 0f);
         NegVelocity2 = new Vector2(-5f, 0f);
@@ -76,21 +76,11 @@ public class BulletFinal extends Sprite {
                     leftSide = true;
                 else
                     rightSide = true;
-            } else {
-                if (screen.player.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
             }
         }
         if(FunGame.SecondScreen) {
             if (FunGame.player2Selected) {
                 if (screen1.player2.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
-            } else {
-                if (screen1.player.isFlipX())
                     leftSide = true;
                 else
                     rightSide = true;

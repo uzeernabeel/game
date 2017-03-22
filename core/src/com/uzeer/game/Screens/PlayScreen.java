@@ -48,9 +48,9 @@ import java.util.ArrayList;
 import static com.badlogic.gdx.Gdx.app;
 
 public class PlayScreen implements Screen {
-
     private FunGame game;
 
+    //Take in Texutres
     private TextureAtlas atlas;
     private TextureAtlas atlas2;
     private TextureAtlas atlas3;
@@ -60,7 +60,7 @@ public class PlayScreen implements Screen {
     private OrthographicCamera gamecam;
     private Viewport gamePort;
     private Hud hud;
-    private Jasmine jasmine;
+
 
     //Tiled map variables
     private TmxMapLoader mapLoader;
@@ -75,29 +75,25 @@ public class PlayScreen implements Screen {
     //Sprites
     public Player player;
     public Player2 player2;
-
-
-    private Controller controller;
-
-    private Music music;
-
+    private Jasmine jasmine;
     private BulletFinal bulletFinal;
     private BulletFinal2 bulletFinal2;
 
+    //other stuff
+    private Controller controller;
+    private Music music;
     private static final float TIMER = 0.5f;
     private float shootTimer;
-
     private int startingPoint;
     private int endPoint;
-
     FileHandle file;
 
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
         atlas2 = new TextureAtlas("stuff.pack");
-        atlas3 = new TextureAtlas("subZero.pack");
-        texture = new Texture("subZero1.png");
+        if(!FunGame.player2Selected)
+        texture = new Texture("subZero.png");
         this.game = game;
 
         gamecam = new OrthographicCamera();
@@ -127,7 +123,6 @@ public class PlayScreen implements Screen {
         //crating player
         if(FunGame.player2Selected) {
             player2 = new Player2(this);
-            //creating bullet
             bulletFinal = new BulletFinal(this, 5, 70);
         }
         else {
@@ -139,7 +134,7 @@ public class PlayScreen implements Screen {
 
         FunGame.manager.get("sounds/welcome.mp3", Sound.class).play();
         music = FunGame.manager.get("sounds/FinalGameBackground.mp3", Music.class);
-        music.setVolume(.09f);
+        music.setVolume(.9f);
         music.setLooping(true);
         music.play();
 
@@ -151,10 +146,6 @@ public class PlayScreen implements Screen {
 
     public TextureAtlas getAtlas2(){
         return atlas2;
-    }
-
-    public TextureAtlas getAtlas3(){
-        return atlas3;
     }
 
     public Texture getTexture(){
@@ -323,7 +314,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render(); //map render
-        b2dr.render(world, gamecam.combined); //box2D renderer
+        //b2dr.render(world, gamecam.combined); //box2D renderer
 
         game.batch.setProjectionMatrix(gamecam.combined);
 
@@ -361,6 +352,7 @@ public class PlayScreen implements Screen {
             controller.draw();
 
         if(gameOver()){
+            music.stop();
             game.setScreen(new GameOverScreen(game));
             dispose();
         }
@@ -375,25 +367,35 @@ public class PlayScreen implements Screen {
     }
 
     public void levelComplete(){
+        music.stop();
         if(FunGame.playScreenStages == 1) {
-            FunGame.secondScreenStages = 1;
+                FunGame.secondScreenStages = 1;
+            if(app.getType() == Application.ApplicationType.Desktop) {
                 file = Gdx.files.local("saveData.txt");
-                file.writeString("2", false);
+                if (file.readString().contains("1"))
+                    file.writeString("2", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 2);
 
         }
         if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
-            file = Gdx.files.local("saveData.txt");
-            file.writeString("4", false);
+            if(app.getType() == Application.ApplicationType.Desktop) {
+                file = Gdx.files.local("saveData.txt");
+                if (file.readString().contains("3")) ;
+                file.writeString("4", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 4);
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
-            file = Gdx.files.local("saveData.txt");
-            file.writeString("5", false);
+            if(app.getType() == Application.ApplicationType.Desktop) {
+                file = Gdx.files.local("saveData.txt");
+                if (file.readString().contains("4"))
+                    file.writeString("5", false);
+            }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 5);
         }
@@ -441,6 +443,8 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
         atlas.dispose();
+        atlas2.dispose();
+        //texture.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();

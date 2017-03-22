@@ -3,6 +3,8 @@ package com.uzeer.game.Screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.Player;
 
 /**
@@ -24,6 +27,7 @@ public class FinishGame implements Screen {
         private Stage stage;
         private Game game;
         BitmapFont fontHa;
+        private Music music;
 
         public FinishGame(Game game) {
             this.game = game;
@@ -37,9 +41,16 @@ public class FinishGame implements Screen {
             table.center();
             table.setFillParent(true);
 
+            Label highScore = new Label("High Score: " + String.valueOf(Hud.highScore()), font);
+            Label coinsCollected = new Label("Coins Collected: " + String.valueOf(Hud.coins), font);
             Label gameOverLabel = new Label("Hurray Game Complete!", font);
             Label playAgainLabel = new Label("Click To Select A level Again", font);
 
+            table.add(highScore);
+            table.row();
+            table.add(coinsCollected);
+            table.row();
+            table.row();
             table.add(gameOverLabel).expandX();
             table.row();
             table.add(playAgainLabel).expandX().padTop(10f);
@@ -47,6 +58,12 @@ public class FinishGame implements Screen {
             stage.addActor(table);
 
             Player.num = 0;
+
+            FunGame.manager.get("sounds/thank you.mp3", Sound.class).play();
+            music = FunGame.manager.get("sounds/powerUp.mp3", Music.class);
+            music.setVolume(.9f);
+            music.setLooping(true);
+            music.play();
         }
 
         @Override

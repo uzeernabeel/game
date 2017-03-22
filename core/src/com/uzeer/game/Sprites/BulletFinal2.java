@@ -113,12 +113,7 @@ public class BulletFinal2 extends Sprite {
         b2body = world.createBody(bdef);
 
         if(FunGame.PlayScreen) {
-            if (FunGame.player2Selected) {
-                if (screen.player2.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
-            } else {
+            if (!FunGame.player2Selected) {
                 if (screen.player.isFlipX())
                     leftSide = true;
                 else
@@ -126,12 +121,7 @@ public class BulletFinal2 extends Sprite {
             }
         }
         if(FunGame.SecondScreen) {
-            if (FunGame.player2Selected) {
-                if (screen1.player2.isFlipX())
-                    leftSide = true;
-                else
-                    rightSide = true;
-            } else {
+            if (!FunGame.player2Selected) {
                 if (screen1.player.isFlipX())
                     leftSide = true;
                 else
@@ -141,7 +131,7 @@ public class BulletFinal2 extends Sprite {
 
         fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(7 / FunGame.PPM, 7/ FunGame.PPM, new Vector2(3 / FunGame.PPM, 3 / FunGame.PPM), 0);
+        shape.setAsBox(5 / FunGame.PPM, 5/ FunGame.PPM, new Vector2(5 / FunGame.PPM, 5 / FunGame.PPM), 0);
 
         fdef.shape = shape;
         //fdef.isSensor = true;

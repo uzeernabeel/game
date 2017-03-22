@@ -1,8 +1,11 @@
 package com.uzeer.game.Screens;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,6 +31,7 @@ public class GameOverScreen implements Screen {
     private FunGame game;
     BitmapFont fontHa;
     String string;
+    private Music music;
 
 
     public GameOverScreen(FunGame game) {
@@ -53,6 +57,11 @@ public class GameOverScreen implements Screen {
         stage.addActor(table);
 
         Player.num = 0;
+
+        FunGame.manager.get("sounds/Decline.wav", Sound.class).loop();
+        FunGame.manager.get("sounds/Decline.wav", Sound.class).play();
+
+
     }
 
     @Override
@@ -64,8 +73,12 @@ public class GameOverScreen implements Screen {
     public void render(float delta) {
 
         if(Gdx.input.justTouched()) {
-            game.setScreen(new PlayScreen((FunGame) game));
-            Player2.num = 0;
+            FunGame.manager.get("sounds/Decline.wav", Sound.class).stop();
+            if(FunGame.PlayScreen)
+                game.setScreen(new PlayScreen(game));
+            if(FunGame.SecondScreen)
+                game.setScreen(new SecondStage(game));
+
             dispose();
         }
 

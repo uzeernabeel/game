@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.Bullet;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.BulletFinal2;
@@ -32,10 +33,14 @@ public class WorldContactListner implements ContactListener {
                 //hahaha
         switch (cDef){
             case FunGame.ENEMY_HEAD_BIT | FunGame.PLAYER_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_HEAD_BIT)
-                    ((Enemy)fixA.getUserData()).hitOnHead();
-                else
-                    ((Enemy)fixB.getUserData()).hitOnHead();
+                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_HEAD_BIT) {
+                    ((Enemy) fixA.getUserData()).hitOnHead();
+                    Hud.addScore(1000);
+                }
+                else {
+                    ((Enemy) fixB.getUserData()).hitOnHead();
+                    Hud.addScore(1000);
+                }
                 break;
             case FunGame.ENEMY_BIT | FunGame.OBJECT_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
@@ -90,27 +95,32 @@ public class WorldContactListner implements ContactListener {
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT) {
                     ((Enemy) fixA.getUserData()).hitOnHead();
                     ((BulletFinal) fixB.getUserData()).destroyBullet();
+                    Hud.addScore(1000);
                 }
                 else {
                     ((Enemy) fixB.getUserData()).hitOnHead();
                     ((BulletFinal)fixA.getUserData()).destroyBullet();
+                    Hud.addScore(1000);
                 }
                 break;
             case FunGame.BULLET_BIT2 | FunGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT) {
                     ((Enemy) fixA.getUserData()).hitOnHead();
                     ((BulletFinal2) fixB.getUserData()).destroyBullet();
+                    Hud.addScore(1000);
                 }
                 else {
                     ((Enemy) fixB.getUserData()).hitOnHead();
                     ((BulletFinal2)fixA.getUserData()).destroyBullet();
+                    Hud.addScore(1000);
                 }
                 break;
             case FunGame.BULLET_BIT | FunGame.GROUND_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
-                    ((BulletFinal)fixA.getUserData()).destroyBullet();
-                else
-                    ((BulletFinal)fixB.getUserData()).destroyBullet();
+                if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT) {
+                    ((BulletFinal) fixA.getUserData()).destroyBullet();
+                } else {
+                    ((BulletFinal) fixB.getUserData()).destroyBullet();
+                }
                 break;
             case FunGame.BULLET_BIT2 | FunGame.GROUND_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.BULLET_BIT)
@@ -136,7 +146,12 @@ public class WorldContactListner implements ContactListener {
                 else
                     ((InteractiveTileObject) fixA.getUserData()).bodyHit();
                 break;
-
+            case FunGame.JASMINE_BIT | FunGame.PLAYER_BIT:
+                if (fixA.getFilterData().categoryBits == FunGame.JASMINE_BIT)
+                    ((Jasmine) fixA.getUserData()).touch();
+                else
+                    ((Jasmine) fixB.getUserData()).touch();
+                break;
         }
     }
 
