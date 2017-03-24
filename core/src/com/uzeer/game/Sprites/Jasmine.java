@@ -147,7 +147,7 @@ public class Jasmine extends Sprite {
         if(FunGame.PlayScreen)
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 17 / FunGame.PPM);
         if(FunGame.SecondScreen)
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 12 / FunGame.PPM);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
         setRegion(getFrame(stateTime));
     }
 

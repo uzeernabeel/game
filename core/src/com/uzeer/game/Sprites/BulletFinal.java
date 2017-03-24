@@ -44,7 +44,7 @@ public class BulletFinal extends Sprite {
         velocity2 = new Vector2(5f, 0f);
         NegVelocity2 = new Vector2(-5f, 0f);
         apple = new TextureRegion(getTexture(), 213, 203, 9, 12);
-        setBounds(getX(), getY(), 12 / FunGame.PPM, 12 / FunGame.PPM);
+        setBounds(getX(), getY(), 9 / FunGame.PPM, 9 / FunGame.PPM);
         setRegion(apple);
         defineBullet();
     }

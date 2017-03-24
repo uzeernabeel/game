@@ -300,6 +300,29 @@ public class Player extends Sprite {
             if (i == 1)
                 frames.add(new TextureRegion(screen.getTexture(), 0, 216, 85, 170));
             else if (i == 2)
+                frames.add(new TextureRegion(screen.getTexture(), 118, 290, 85, 170));
+            else if (i == 3)
+                frames.add(new TextureRegion(screen.getTexture(), 280, 290, 85, 170));
+            else if (i == 4)
+                frames.add(new TextureRegion(screen.getTexture(), 413, 290, 85, 170));
+            else if (i == 5)
+                frames.add(new TextureRegion(screen.getTexture(), 528, 290, 85, 170));
+            else if (i == 6)
+                frames.add(new TextureRegion(screen.getTexture(), 657, 290, 85, 170));
+            else if (i == 7)
+                frames.add(new TextureRegion(screen.getTexture(), 778, 290, 85, 170));
+            else if (i == 8)
+                frames.add(new TextureRegion(screen.getTexture(), 887, 290, 85, 170));
+            else if (i == 9)
+                frames.add(new TextureRegion(screen.getTexture(), 1009, 290, 85, 170));
+            else if (i == 10)
+                frames.add(new TextureRegion(screen.getTexture(), 1125, 216, 85, 170));
+        }
+
+        /*for(int i = 3; i < 11; i++) {
+            if (i == 1)
+                frames.add(new TextureRegion(screen.getTexture(), 0, 216, 85, 170));
+            else if (i == 2)
                 frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
             else if (i == 3)
                 frames.add(new TextureRegion(screen.getTexture(), 280, 216, 85, 170));
@@ -317,7 +340,7 @@ public class Player extends Sprite {
                 frames.add(new TextureRegion(screen.getTexture(), 1009, 216, 85, 170));
             else if (i == 10)
                 frames.add(new TextureRegion(screen.getTexture(), 1125, 216, 85, 170));
-        }
+        } */
 
         playerJump = new Animation(0.1f, frames);
         frames.clear();
@@ -438,7 +461,7 @@ public class Player extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        else if(spacePressed && stateTimer < 3f)
+        else if(FunGame.spacePressed)
             return State.THROWING;
         else if(b2body.getLinearVelocity().x == 0 && time > 6)
             return State.STANDING2;
@@ -505,32 +528,19 @@ public class Player extends Sprite {
         FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
         num++;
         //playerDead = true;
-        if(num == 1) {
+        Hud.addScore(-1000);
+        FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
+        FunGame.chances--;
+        if(FunGame.chances == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
-            Hud.chances(3);
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-        }
-        if(num == 2) {
-            Gdx.app.log("hit by Enemy: ", "2");
-            Hud.chances(2);
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-            playerDead = true;
-        }
-        if(num == 3) {
-            Gdx.app.log("hit by Enemy: ", "3");
             Hud.chances(1);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
-        if(num > 3) {
-            playerDead = true;
+        if(FunGame.chances == 0) {
+            Gdx.app.log("hit by Enemy: ", "2");
             Hud.chances(0);
-            Gdx.app.log("hit by Enemy: ", "Dead!");
-            Filter filter = new Filter();
-            filter.maskBits = FunGame.NOTHING_BIT;
-            for(Fixture fixture: b2body.getFixtureList())
-                fixture.setFilterData(filter);
-            b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
-            timeToRedefinePlayer = true;
+            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+            playerDead = true;
         }
     }
 

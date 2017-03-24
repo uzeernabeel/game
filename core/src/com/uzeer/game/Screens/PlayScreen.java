@@ -87,7 +87,7 @@ public class PlayScreen implements Screen {
     private int startingPoint;
     private int endPoint;
     FileHandle file;
-
+    private float time;
 
     public PlayScreen(FunGame game) {
         atlas = new TextureAtlas("sprite sheet.pack");
@@ -101,6 +101,8 @@ public class PlayScreen implements Screen {
         hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
+
+        FunGame.chances = 2; // chances = 2
 
         //selecting the stage # 1, 2, 3.
         if(FunGame.playScreenStages == 1)
@@ -172,9 +174,9 @@ public class PlayScreen implements Screen {
                 if (controller.isBulletPressed() && shootTimer >= TIMER) {
                     shootTimer = 0;
                     if(player2.isFlipX())
-                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
                     else
-                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .2f, player2.b2body.getPosition().y + .2f);
+                        bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x + .2f, player2.b2body.getPosition().y + .2f);
                 }
 
                 if ((player2.IsPlayerOnGround())) {
@@ -189,6 +191,8 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
+                    FunGame.spacePressed = true;
+                    time = 0;
                     if(player2.isFlipX())
                         bulletFinal = new BulletFinal(this, player2.b2body.getPosition().x - .3f, player2.b2body.getPosition().y + .2f);
                     else
@@ -209,9 +213,9 @@ public class PlayScreen implements Screen {
                     shootTimer = 0;
                     //player2.fire();
                     if(player.isFlipX())
-                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
                     else
-                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .2f, player.b2body.getPosition().y + .2f);
+                        bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x + .2f, player.b2body.getPosition().y + .2f);
                 }
 
                 if ((player.IsPlayerOnGround())) {
@@ -226,8 +230,8 @@ public class PlayScreen implements Screen {
                     player.b2body.applyLinearImpulse(new Vector2(0, -2f), player.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
-                    //bullets2 = new Bullets2(this, player.b2body.getPosition().x + .1f, player.b2body.getPosition().y + .2f);
-                    //player2.fire();
+                    FunGame.spacePressed = true;
+                    time = 0;
                     if(player.isFlipX())
                         bulletFinal2 = new BulletFinal2(this, player.b2body.getPosition().x - .3f, player.b2body.getPosition().y + .2f);
                     else
@@ -240,6 +244,7 @@ public class PlayScreen implements Screen {
 
     public void update(float dt){
         handleInput(dt);
+        time += dt;
 
         world.step(1 / 60f, 6, 2);
 
@@ -303,6 +308,10 @@ public class PlayScreen implements Screen {
 
         gamecam.update();
         renderer.setView(gamecam);
+
+        if(time > 0.3)
+            FunGame.spacePressed = false;
+
 
     }
 
@@ -377,6 +386,7 @@ public class PlayScreen implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 2);
+                FunGame.prefs.flush();
 
         }
         if(FunGame.playScreenStages == 2) {
@@ -388,6 +398,7 @@ public class PlayScreen implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 4);
+                FunGame.prefs.flush();
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
@@ -398,6 +409,7 @@ public class PlayScreen implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 5);
+                FunGame.prefs.flush();
         }
 
         FunGame.PlayScreen = false;

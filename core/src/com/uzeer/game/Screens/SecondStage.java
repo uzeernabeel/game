@@ -98,6 +98,8 @@ public class SecondStage implements Screen {
 
         mapLoader = new TmxMapLoader();
 
+        FunGame.chances = 2; // chances = 2
+
         //stage selecting # 4, 5, 6.
         if(FunGame.secondScreenStages == 1)
             map = mapLoader.load("Small4.tmx");
@@ -297,6 +299,7 @@ public class SecondStage implements Screen {
         gamecam.update();
         renderer.setView(gamecam);
 
+        Gdx.app.log("Level ", String.valueOf(FunGame.prefs.getInteger("level")));
     }
 
 
@@ -407,6 +410,7 @@ public class SecondStage implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 6);
+                FunGame.prefs.flush();
             game.setScreen(new FinishGame(game));
         }
         if(FunGame.secondScreenStages == 1) {
@@ -418,6 +422,7 @@ public class SecondStage implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 3);
+                FunGame.prefs.flush();
             game.setScreen(new Level_complition(game));
         }
         if(FunGame.secondScreenStages == 2) {
@@ -429,6 +434,7 @@ public class SecondStage implements Screen {
             }
             if(app.getType() == Application.ApplicationType.Android)
                 FunGame.prefs.putInteger("level", 5);
+                FunGame.prefs.flush();
             game.setScreen(new Level_complition(game));
         }
         FunGame.PlayScreen = true;

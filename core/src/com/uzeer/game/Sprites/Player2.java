@@ -66,6 +66,7 @@ public class Player2 extends Sprite {
     State state;
 
     float time;
+    float time2;
 
 
     public static float checkPointX;
@@ -120,7 +121,7 @@ public class Player2 extends Sprite {
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 7; i++){
+        for(int i = 3; i < 7; i++){
             if(i == 1)
                 frames.add(new TextureRegion(texture, 6, 230, 50, 61));
             else if(i == 2)
@@ -294,7 +295,7 @@ public class Player2 extends Sprite {
         playerRun = new Animation(0.1f, frames);
         frames.clear();
 
-        for(int i = 1; i < 7; i++){
+        for(int i = 3; i < 7; i++){
             if(i == 1)
                 frames.add(new TextureRegion(texture, 6, 230, 50, 61));
             else if(i == 2)
@@ -453,7 +454,6 @@ public class Player2 extends Sprite {
 
     public TextureRegion getFrame(float dt) {
         currentState = getState(dt);
-
         TextureRegion region;
         switch (currentState) {
             case JUMPING:
@@ -508,7 +508,7 @@ public class Player2 extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        else if(spacePressed && stateTimer > 3f)
+        else if(FunGame.spacePressed)
             return State.THROWING;
         else if(b2body.getLinearVelocity().x == 0 && time > 6)
             return State.STANDING2;
@@ -556,46 +556,27 @@ public class Player2 extends Sprite {
         return !(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING));
     }
 
-    public static int num = 0;
 
     public void hit() {
         Hud.addScore(-1000);
         FunGame.manager.get("sounds/hitByEnemy.wav", Sound.class).play();
-        num++;
-        if(num == 1) {
+        FunGame.chances--;
+        if(FunGame.chances == 1) {
             Gdx.app.log("hit by Enemy: ", "1");
             Hud.chances(1);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
         }
-        if(num == 2) {
+        if(FunGame.chances == 0) {
             Gdx.app.log("hit by Enemy: ", "2");
             Hud.chances(0);
             b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
             playerDead = true;
-        }
-        if(num == 3) {
-            Gdx.app.log("hit by Enemy: ", "3");
-            Hud.chances(1);
-            b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-        }
-        if(num > 3) {
-            playerDead = true;
-            Hud.chances(0);
-            FunGame.lives--;
-            Gdx.app.log("hit by Enemy: ", "Dead!");
-            Filter filter = new Filter();
-            filter.maskBits = FunGame.NOTHING_BIT;
-            for(Fixture fixture: b2body.getFixtureList())
-                fixture.setFilterData(filter);
-            b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
-            timeToRedefinePlayer = true;
         }
     }
 
     private void timeToRedefinePlayer() {
 
         Hud.chances(4);
-        num = 0;
 
         float postion = b2body.getPosition().x;
         float postionY = b2body.getPosition().y;

@@ -44,10 +44,13 @@ public class FunGame extends Game {
 	public static boolean PlayScreen;
 	public static boolean SecondScreen;
 	public static boolean FinalScreen;
+	public static boolean spacePressed;
 	public static int lives;
 
 	public static int playScreenStages = 1;
 	public static int secondScreenStages = 1;
+
+	public static int chances = 2;
 
 
 	public SpriteBatch batch;
