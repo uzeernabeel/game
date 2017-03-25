@@ -150,24 +150,25 @@ public class Player extends Sprite {
             if (i == 1)
                 frames.add(new TextureRegion(screen.getTexture(), 0, 216, 85, 170));
             else if (i == 2)
-                frames.add(new TextureRegion(screen.getTexture(), 118, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 118, 290, 85, 170));
             else if (i == 3)
-                frames.add(new TextureRegion(screen.getTexture(), 280, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 280, 290, 85, 170));
             else if (i == 4)
-                frames.add(new TextureRegion(screen.getTexture(), 413, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 413, 290, 85, 170));
             else if (i == 5)
-                frames.add(new TextureRegion(screen.getTexture(), 528, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 528, 290, 85, 170));
             else if (i == 6)
-                frames.add(new TextureRegion(screen.getTexture(), 657, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 657, 290, 85, 170));
             else if (i == 7)
-                frames.add(new TextureRegion(screen.getTexture(), 778, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 778, 290, 85, 170));
             else if (i == 8)
-                frames.add(new TextureRegion(screen.getTexture(), 887, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 887, 290, 85, 170));
             else if (i == 9)
-                frames.add(new TextureRegion(screen.getTexture(), 1009, 216, 85, 170));
+                frames.add(new TextureRegion(screen.getTexture(), 1009, 290, 85, 170));
             else if (i == 10)
                 frames.add(new TextureRegion(screen.getTexture(), 1125, 216, 85, 170));
         }
+
 
         playerJump = new Animation(0.1f, frames);
         frames.clear();

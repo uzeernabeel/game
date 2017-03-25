@@ -1,14 +1,20 @@
 package com.uzeer.game.Scenes;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -45,6 +51,8 @@ public class Hud implements Disposable{
     private String levelNumber;
 
     static int chancesLeft;
+    private Image pauseImg;
+    public static boolean pausePressed;
 
 
     public Hud(SpriteBatch sb){
@@ -53,13 +61,14 @@ public class Hud implements Disposable{
         score = 500;
         coins = 0;
         chancesLeft = 2;
-
         dead = false;
+        pausePressed = false;
 
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();
+
         table.top();
         table.setFillParent(true);
 
@@ -74,10 +83,11 @@ public class Hud implements Disposable{
         coin = new Label("Stars: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         lives = new Label("Lives: ", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(GameLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
-        table.add(chances).expandX().padTop(10);
-        table.add(coin).expandX().padTop(10);
+        table.add(GameLabel).expandX().padTop(3);
+        table.add(timeLabel).expandX().padTop(3);
+        table.add(chances).expandX().padTop(3);
+        table.add(coin).expandX().padTop(3);
+        table.add(pauseImg).padTop(38).padRight(45);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(countLabel).expandX();
@@ -98,7 +108,6 @@ public class Hud implements Disposable{
 
         if(worldTimer <= 0)
             dead = true;
-
 
     }
 

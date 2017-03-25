@@ -63,6 +63,7 @@ public class FunGame extends Game {
 	@Override
 	public void create () {
 
+
 		LEVEL1 = LEVEL2 = LEVEL3 = LEVEL4 = LEVEL5 = LEVEL6 = false;
 
 		prefs = Gdx.app.getPreferences("My Preferences");
