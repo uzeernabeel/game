@@ -147,7 +147,7 @@ public class Jasmine extends Sprite {
         if(FunGame.PlayScreen)
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 17 / FunGame.PPM);
         if(FunGame.SecondScreen)
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 18 / FunGame.PPM);
         setRegion(getFrame(stateTime));
     }
 
@@ -167,7 +167,7 @@ public class Jasmine extends Sprite {
         PolygonShape shape = new PolygonShape();
         fdef.shape = shape;
 
-        fdef.filter.categoryBits = FunGame.OBJECT_BIT;
+        fdef.filter.categoryBits = FunGame.JASMINE_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |

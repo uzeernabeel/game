@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.uzeer.game.FunGame;
+import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.Player;
 import com.uzeer.game.Sprites.ginnie;
 
@@ -37,10 +38,36 @@ public class Level_complition implements Screen {
     private Viewport gamePort;
     Texture texture;
     private Music music;
+    private Stage stage;
+    private Viewport viewport;
 
     public Level_complition(FunGame game) {
 
         this.game = game;
+        viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
+        stage = new Stage(viewport, (game).batch);
+        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.RED);
+
+        Table table = new Table();
+        table.center();
+        table.setFillParent(true);
+
+        Label highScore = new Label("High Score: " + String.valueOf(Hud.highScore()), font);
+        Label coinsCollected = new Label("Coins Collected: " + String.valueOf(Hud.coins), font);
+        Label gameOverLabel = new Label("Hurray Level Complete!", font);
+        Label playAgainLabel = new Label("Click To Play Nex Level", font);
+
+        table.bottom().padBottom(200);
+        table.add(gameOverLabel).expandX();
+        table.row();
+        table.add(coinsCollected);
+        table.row();
+        table.row();
+        table.add(highScore);
+        table.row();
+        table.add(playAgainLabel).expandX().padTop(10f);
+
+        stage.addActor(table);
 
         texture = new Texture("levelComplete2.png");
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -106,6 +133,8 @@ public class Level_complition implements Screen {
             dispose();
         }
 
+        stage.draw();
+
     }
 
     @Override
@@ -132,5 +161,6 @@ public class Level_complition implements Screen {
     public void dispose() {
         ginnies.dispose();
         texture.dispose();
+        stage.dispose();
     }
 }

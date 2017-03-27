@@ -44,14 +44,14 @@ public class FinishGame implements Screen {
             Label highScore = new Label("High Score: " + String.valueOf(Hud.highScore()), font);
             Label coinsCollected = new Label("Coins Collected: " + String.valueOf(Hud.coins), font);
             Label gameOverLabel = new Label("Hurray Game Complete!", font);
-            Label playAgainLabel = new Label("Click To Select A level Again", font);
+            Label playAgainLabel = new Label("Click To Start Game Again", font);
 
+            table.add(gameOverLabel).expandX();
+            table.row();
             table.add(highScore);
             table.row();
+            table.row();
             table.add(coinsCollected);
-            table.row();
-            table.row();
-            table.add(gameOverLabel).expandX();
             table.row();
             table.add(playAgainLabel).expandX().padTop(10f);
 
@@ -74,10 +74,8 @@ public class FinishGame implements Screen {
         @Override
         public void render(float delta) {
             if(Gdx.input.justTouched()) {
-
-                FunGame.PlayScreen = true;
-                FunGame.SecondScreen = false;
-                game.setScreen(new LevelSelectScreen(game));
+                game.setScreen(new StartScreen(game));
+                music.stop();
                 dispose();
             }
 
@@ -88,7 +86,7 @@ public class FinishGame implements Screen {
 
         @Override
         public void resize(int width, int height) {
-
+            viewport.update(width, height);
         }
 
         @Override

@@ -51,8 +51,7 @@ public class Bullet extends Sprite {
         fdef.filter.categoryBits = FunGame.BULLET_BIT;
         fdef.filter.maskBits = FunGame.GROUND_BIT |
                 FunGame.COIN_BIT |
-                FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT;
+                FunGame.ENEMY_BIT;
 
         fdef.shape = shape;
         fdef.restitution = 1;

@@ -99,7 +99,6 @@ public class BulletFinal extends Sprite {
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT|
                 FunGame.GROUND_BIT |
                 FunGame.PLAYER_BIT;
 

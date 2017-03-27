@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.uzeer.game.Screens.Level_complition;
 import com.uzeer.game.Screens.StartScreen;
 
 import static com.badlogic.gdx.Gdx.app;
@@ -29,13 +30,12 @@ public class FunGame extends Game {
 	public static final short COIN_BIT = 4;
 	public static final short FIRE_BIT = 8;
 	public static final short DESTROYED_BIT = 16;
-	public static final short OBJECT_BIT = 32;
 	public static final short ENEMY_BIT = 64;
 	public static final short ENEMY_HEAD_BIT = 128;
 	public static final short GROUND_BIT = 256;
 	public static final short BULLET_BIT = 512;
 	public static final short CHECK_POINT_BIT = 1024;
-	public static final short JASMINE_BIT = 2048;
+	public static final short JASMINE_BIT = 32;
 	public static final short BULLET_BIT2 = 4096;
 
 	public static int LEVEL;
@@ -62,7 +62,6 @@ public class FunGame extends Game {
 	
 	@Override
 	public void create () {
-
 
 		LEVEL1 = LEVEL2 = LEVEL3 = LEVEL4 = LEVEL5 = LEVEL6 = false;
 

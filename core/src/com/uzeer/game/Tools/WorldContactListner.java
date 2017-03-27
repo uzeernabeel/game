@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.uzeer.game.FunGame;
 import com.uzeer.game.Scenes.Hud;
+import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Sprites.Bullet;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.BulletFinal2;
@@ -42,40 +43,21 @@ public class WorldContactListner implements ContactListener {
                     Hud.addScore(1000);
                 }
                 break;
-            case FunGame.ENEMY_BIT | FunGame.OBJECT_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
-                    ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
-                else
-                    ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
-                break;
-            case FunGame.OBJECT_BIT | FunGame.GROUND_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.OBJECT_BIT)
-                    ((Jasmine)fixA.getUserData()).reverseVelocity(true, false);
-                else
-                    ((Jasmine)fixB.getUserData()).reverseVelocity(true, false);
-                break;
             case FunGame.ENEMY_BIT | FunGame.GROUND_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
                 else
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
                 break;
+            case FunGame.JASMINE_BIT | FunGame.GROUND_BIT:
+                if(fixA.getFilterData().categoryBits == FunGame.JASMINE_BIT)
+                    ((Jasmine)fixA.getUserData()).reverseVelocity(true, false);
+                else
+                    ((Jasmine)fixB.getUserData()).reverseVelocity(true, false);
+                break;
             case FunGame.ENEMY_BIT | FunGame.ENEMY_BIT:
                     ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
                     ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
-                break;
-
-            case FunGame.ENEMY_BIT | FunGame.FIRE_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.ENEMY_BIT)
-                    ((Enemy)fixA.getUserData()).reverseVelocity(true, false);
-                else
-                    ((Enemy)fixB.getUserData()).reverseVelocity(true, false);
-                break;
-            case FunGame.PLAYER_BIT | FunGame.OBJECT_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    Gdx.app.log("Boxes Man", "Finally");
-                else
-                    Gdx.app.log("Boxes Man", "Finally");
                 break;
             case FunGame.PLAYER_BIT | FunGame.ENEMY_BIT:
                 if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT) {
@@ -134,23 +116,18 @@ public class WorldContactListner implements ContactListener {
                 else
                     ((InteractiveTileObject) fixA.getUserData()).bodyHit();
                 break;
-            case FunGame.PLAYER_BIT | FunGame.CHECK_POINT_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixB.getUserData()).bodyHit();
-                else
-                    ((InteractiveTileObject) fixA.getUserData()).bodyHit();
-                break;
-            case FunGame.PLAYER_BIT | FunGame.FIRE_BIT:
-                if(fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
-                    ((InteractiveTileObject) fixB.getUserData()).bodyHit();
-                else
-                    ((InteractiveTileObject) fixA.getUserData()).bodyHit();
-                break;
             case FunGame.JASMINE_BIT | FunGame.PLAYER_BIT:
-                if (fixA.getFilterData().categoryBits == FunGame.JASMINE_BIT)
-                    ((Jasmine) fixA.getUserData()).touch();
-                else
-                    ((Jasmine) fixB.getUserData()).touch();
+                if (FunGame.player2Selected){
+                    if (fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                        ((Player2) fixA.getUserData()).touch();
+                        else
+                        ((Player2) fixB.getUserData()).touch();
+                } else {
+                    if (fixA.getFilterData().categoryBits == FunGame.PLAYER_BIT)
+                        ((Player) fixA.getUserData()).touch();
+                    else
+                        ((Player) fixB.getUserData()).touch();
+                }
                 break;
         }
     }

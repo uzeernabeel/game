@@ -52,7 +52,6 @@ public class Hud implements Disposable{
 
     static int chancesLeft;
     private Image pauseImg;
-    public static boolean pausePressed;
 
 
     public Hud(SpriteBatch sb){
@@ -62,7 +61,6 @@ public class Hud implements Disposable{
         coins = 0;
         chancesLeft = 2;
         dead = false;
-        pausePressed = false;
 
         viewport = new FitViewport(FunGame.V_WIDTH1, FunGame.V_HEIGHT1, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -87,7 +85,6 @@ public class Hud implements Disposable{
         table.add(timeLabel).expandX().padTop(3);
         table.add(chances).expandX().padTop(3);
         table.add(coin).expandX().padTop(3);
-        table.add(pauseImg).padTop(38).padRight(45);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(countLabel).expandX();

@@ -58,9 +58,9 @@ public class B2WorldCreator {
             fdef.filter.maskBits = FunGame.COIN_BIT |
                     FunGame.FIRE_BIT |
                     FunGame.ENEMY_BIT |
-                    FunGame.OBJECT_BIT|
                     FunGame.BULLET_BIT |
                     FunGame.BULLET_BIT2 |
+                    FunGame.JASMINE_BIT |
                     FunGame.PLAYER_BIT;
             body.createFixture(fdef);
         }
@@ -123,9 +123,9 @@ public class B2WorldCreator {
             fdef.filter.maskBits = FunGame.COIN_BIT |
                     FunGame.FIRE_BIT |
                     FunGame.ENEMY_BIT |
-                    FunGame.OBJECT_BIT|
                     FunGame.BULLET_BIT |
                     FunGame.BULLET_BIT2 |
+                    FunGame.JASMINE_BIT |
                     FunGame.PLAYER_BIT;
             body.createFixture(fdef);
         }

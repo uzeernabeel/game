@@ -35,6 +35,8 @@ public class Player2 extends Sprite {
 
     private boolean playerHitted;
 
+
+
     public enum State { FALLING, JUMPING, STANDING, RUNNING, KICKING, DEAD, THROWING, STANDING_STILL, STANDING2 }
     public State currentState;
     public State previousState;
@@ -53,7 +55,6 @@ public class Player2 extends Sprite {
     private float stateTimer;
     private boolean runningRight;
     protected Fixture fixture;
-    private boolean timeToRedefinePlayer;
     public static boolean playerDead;
     public static boolean spacePressed;
     private BodyDef bdef;
@@ -83,7 +84,6 @@ public class Player2 extends Sprite {
 
         texture = new Texture("player2.png");
 
-        timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
 
@@ -255,7 +255,6 @@ public class Player2 extends Sprite {
 
         texture = new Texture("player2.png");
 
-        timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
 
@@ -436,9 +435,6 @@ public class Player2 extends Sprite {
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
-        if(timeToRedefinePlayer)
-            timeToRedefinePlayer();
-
         if(currentState == State.STANDING2) {
             setBounds(0, 0, 38 / FunGame.PPM, 55 / FunGame.PPM);
             setPosition(b2body.getPosition().x - getWidth() / 2, (b2body.getPosition().y - getHeight() / 2) + 19 / FunGame.PPM);
@@ -540,7 +536,6 @@ public class Player2 extends Sprite {
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.CHECK_POINT_BIT |
                 FunGame.JASMINE_BIT |
@@ -574,44 +569,6 @@ public class Player2 extends Sprite {
         }
     }
 
-    private void timeToRedefinePlayer() {
-
-        Hud.chances(4);
-
-        float postion = b2body.getPosition().x;
-        float postionY = b2body.getPosition().y;
-
-        world.destroyBody(b2body);
-
-        bdef = new BodyDef();
-        bdef.position.set(postion / FunGame.PPM, postionY / FunGame.PPM);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
-
-        fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        //Rectangle shape = new Rectangle();
-        //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
-
-        shape.setAsBox(7 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
-        //fdef.isSensor = false;
-
-        fdef.filter.categoryBits = FunGame.PLAYER_BIT;
-        fdef.filter.maskBits = FunGame.DEFAULT_BIT |
-                FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
-                FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT |
-                FunGame.GROUND_BIT |
-                FunGame.ENEMY_HEAD_BIT;
-
-        fdef.shape = shape;
-
-        b2body.createFixture(fdef).setUserData(this);
-
-        timeToRedefinePlayer = false;
-    }
 
     public boolean isDead(){
         return playerDead;
@@ -633,6 +590,10 @@ public class Player2 extends Sprite {
 
     public boolean isRight(){
         return runningRight;
+    }
+
+    public void touch() {
+        FunGame.manager.get("sounds/checkPoint.wav", Sound.class).play();
     }
 
 }

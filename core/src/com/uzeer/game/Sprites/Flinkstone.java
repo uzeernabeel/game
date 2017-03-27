@@ -161,7 +161,6 @@ public class Flinkstone extends Enemy {
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT|
                 FunGame.GROUND_BIT |
                 FunGame.BULLET_BIT |
                 FunGame.BULLET_BIT2 |

@@ -75,7 +75,6 @@ public class PlayScreen implements Screen {
     //Sprites
     public Player player;
     public Player2 player2;
-    private Jasmine jasmine;
     private BulletFinal bulletFinal;
     private BulletFinal2 bulletFinal2;
 
@@ -84,8 +83,6 @@ public class PlayScreen implements Screen {
     private Music music;
     private static final float TIMER = 0.5f;
     private float shootTimer;
-    private int startingPoint;
-    private int endPoint;
     FileHandle file;
     private float time;
 
@@ -199,6 +196,8 @@ public class PlayScreen implements Screen {
                     player2.b2body.applyLinearImpulse(new Vector2(-0.125f, 0), player2.b2body.getWorldCenter(), true);
                 if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
                     player2.b2body.applyLinearImpulse(new Vector2(0, -2f), player2.b2body.getWorldCenter(), true);
+                if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
+                    Gdx.app.exit();
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && shootTimer >= TIMER) {
                     shootTimer = 0;
                     FunGame.spacePressed = true;
@@ -304,8 +303,16 @@ public class PlayScreen implements Screen {
                 }
         }
 
-        for(Enemy enemy : creator.getEnemies())
+        for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
+            /*if(FunGame.player2Selected) {
+                if (enemy.getX() < player2.getX() + 650 / FunGame.PPM) ;
+                    enemy.b2body.setActive(true);
+            } else {
+                if (enemy.getX() < player.getX() + 650 / FunGame.PPM) ;
+                    enemy.b2body.setActive(true);
+            }*/
+        }
 
         creator.getJasmine().update(dt);
 
@@ -332,64 +339,57 @@ public class PlayScreen implements Screen {
         if(time > 0.3)
             FunGame.spacePressed = false;
 
-        if(controller.isPausePressed())
-            Gdx.app.log("Finally: ", "pause");
-
     }
 
     @Override
     public void render(float delta) {
-        update(delta);
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            update(delta);
 
-        renderer.render(); //map render
-        //b2dr.render(world, gamecam.combined); //box2D renderer
+            Gdx.gl.glClearColor(0, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        game.batch.setProjectionMatrix(gamecam.combined);
+            renderer.render(); //map render
+            //b2dr.render(world, gamecam.combined); //box2D renderer
 
-        game.batch.begin(); // Begin!
+            game.batch.setProjectionMatrix(gamecam.combined);
 
-        if(FunGame.player2Selected) {
-            player2.draw(game.batch);
-            bulletFinal.draw(game.batch);
-        }
-        else {
-            player.draw(game.batch);
-            bulletFinal2.draw(game.batch);
-        }
+            game.batch.begin(); // Begin!
+
+            if (FunGame.player2Selected) {
+                player2.draw(game.batch);
+                bulletFinal.draw(game.batch);
+            } else {
+                player.draw(game.batch);
+                bulletFinal2.draw(game.batch);
+            }
 
        /* for(Enemy enemy : creator.getFlinkstone())
             enemy.draw(game.batch);
 
         for(Enemy enemy : creator.getBadGuys())
             enemy.draw(game.batch); */
-        for (Enemy enemy : creator.getEnemies())
-             enemy.draw(game.batch);
+            for (Enemy enemy : creator.getEnemies())
+                enemy.draw(game.batch);
 
-        creator.getJasmine().draw(game.batch);
+            creator.getJasmine().draw(game.batch);
 
 
+            //jasmine.draw(game.batch);
 
-        //jasmine.draw(game.batch);
+            game.batch.end();
 
-        game.batch.end();
+            game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.stage.draw();
 
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+            if (app.getType() == Application.ApplicationType.Android)
+                controller.draw();
 
-        if(Hud.pausePressed)
-            player2.isDead();
-
-        if(app.getType() == Application.ApplicationType.Android)
-            controller.draw();
-
-        if(gameOver()){
-            music.stop();
-            game.setScreen(new GameOverScreen(game));
-            dispose();
-        }
+            if (gameOver()) {
+                music.stop();
+                game.setScreen(new GameOverScreen(game));
+                dispose();
+            }
 
     }
 
@@ -409,10 +409,11 @@ public class PlayScreen implements Screen {
                 if (file.readString().contains("1"))
                     file.writeString("2", false);
             }
-            if(app.getType() == Application.ApplicationType.Android)
+            if(app.getType() == Application.ApplicationType.Android) {
+                if(FunGame.prefs.contains("1"))
                 FunGame.prefs.putInteger("level", 2);
                 FunGame.prefs.flush();
-
+            }
         }
         if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
@@ -421,9 +422,11 @@ public class PlayScreen implements Screen {
                 if (file.readString().contains("3")) ;
                 file.writeString("4", false);
             }
-            if(app.getType() == Application.ApplicationType.Android)
+            if(app.getType() == Application.ApplicationType.Android) {
+                if(FunGame.prefs.contains("3"))
                 FunGame.prefs.putInteger("level", 4);
                 FunGame.prefs.flush();
+            }
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
@@ -432,9 +435,11 @@ public class PlayScreen implements Screen {
                 if (file.readString().contains("4"))
                     file.writeString("5", false);
             }
-            if(app.getType() == Application.ApplicationType.Android)
-                FunGame.prefs.putInteger("level", 5);
+            if(app.getType() == Application.ApplicationType.Android) {
+                if(FunGame.prefs.contains("5"))
+                FunGame.prefs.putInteger("level", 6);
                 FunGame.prefs.flush();
+            }
         }
 
         FunGame.PlayScreen = false;

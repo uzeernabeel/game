@@ -49,7 +49,6 @@ public class Player extends Sprite {
     private float stateTimer;
     private boolean runningRight;
     protected Fixture fixture;
-    private boolean timeToRedefinePlayer;
     public static boolean playerDead;
     public static boolean spacePressed;
     private BodyDef bdef;
@@ -64,7 +63,6 @@ public class Player extends Sprite {
         runningRight = true;
         FunGame.lives = 3;
 
-        timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
 
@@ -215,7 +213,6 @@ public class Player extends Sprite {
         stateTimer = 0f;
         runningRight = true;
 
-        timeToRedefinePlayer = false;
         playerDead = false;
         spacePressed = false;
 
@@ -400,9 +397,6 @@ public class Player extends Sprite {
         if(b2body.getPosition().y < -1f)
             playerDead = true;
 
-        if(timeToRedefinePlayer)
-            timeToRedefinePlayer();
-
         if(Hud.dead)
             playerDead = true;
     }
@@ -489,7 +483,6 @@ public class Player extends Sprite {
                 FunGame.COIN_BIT |
                 FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.JASMINE_BIT |
                 FunGame.ENEMY_HEAD_BIT;
@@ -545,46 +538,16 @@ public class Player extends Sprite {
         }
     }
 
-    private void timeToRedefinePlayer() {
-        Hud.chances(4);
-        num = 0;
-
-        bdef = new BodyDef();
-        bdef.position.set(checkPointX / FunGame.PPM, 32 / FunGame.PPM);
-        bdef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bdef);
-
-        FixtureDef fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
-        //Rectangle shape = new Rectangle();
-        //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(5 / FunGame.PPM, 17 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
-
-        fdef.filter.categoryBits = FunGame.PLAYER_BIT;
-        fdef.filter.maskBits = FunGame.DEFAULT_BIT |
-                FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
-                FunGame.ENEMY_BIT |
-                FunGame.OBJECT_BIT |
-                FunGame.GROUND_BIT |
-                FunGame.ENEMY_HEAD_BIT;
-
-        fdef.shape = shape;
-
-        // b2body.createFixture(fdef).setUserData("player");
-        b2body.createFixture(fdef).setUserData(this);
-
-        timeToRedefinePlayer = false;
-
-    }
-
     public boolean isDead(){
         return playerDead;
     }
 
     public float getStateTimer(){
         return stateTimer;
+    }
+
+    public void touch() {
+        FunGame.manager.get("sounds/checkPoint.wav", Sound.class).play();
     }
 
 }

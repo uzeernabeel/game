@@ -19,10 +19,10 @@ import com.uzeer.game.FunGame;
  */
 
 public class Controller {
-    Viewport viewport;
-    Stage stage;
-    boolean rightPressed, leftPressed, jumpPressed, bulletPressed, pausePressed;
-    OrthographicCamera cam;
+    private Viewport viewport;
+    private Stage stage;
+    private boolean rightPressed, leftPressed, jumpPressed, bulletPressed;
+    private OrthographicCamera cam;
 
     public Controller(Batch batch){
         cam = new OrthographicCamera();
@@ -45,21 +45,6 @@ public class Controller {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 leftPressed = false;
-            }
-        });
-
-        Image pauseImg = new Image(new Texture("controller/pause.png"));
-        pauseImg.setSize(50, 50);
-        pauseImg.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                pausePressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                pausePressed = false;
             }
         });
 
@@ -108,10 +93,6 @@ public class Controller {
             }
         });
 
-        table.top().right();
-        table.add(pauseImg).size(pauseImg.getWidth(), pauseImg.getHeight()).padRight(15).padTop(15);
-        table.row();
-
         table.left().bottom();
         table.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table.padLeft(15);
@@ -153,10 +134,6 @@ public class Controller {
 
     public boolean isBulletPressed() {
         return bulletPressed;
-    }
-
-    public boolean isPausePressed(){
-        return pausePressed;
     }
 
     public void resize(int width, int height){
