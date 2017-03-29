@@ -44,6 +44,7 @@ public class LevelSelectScreen implements Screen {
     private Texture texture2;
 
     private String string;
+    private float time;
 
     public LevelSelectScreen(Game game){
     this.game = game;
@@ -180,8 +181,14 @@ public class LevelSelectScreen implements Screen {
 
     }
 
+    public void update(float dt){
+        time += dt;
+
+    }
+
     @Override
     public void render(float delta) {
+        update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();

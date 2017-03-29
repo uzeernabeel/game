@@ -278,7 +278,7 @@ public class SecondStage implements Screen {
                     levelComplete();
                 }
             if(FunGame.secondScreenStages == 3)
-                if (player2.b2body.getPosition().y > 21.2 && player2.b2body.getPosition().x <= 4.19 && player2.b2body.getPosition().x >= 4.24) {
+                if (player2.b2body.getPosition().y > 21.2 && player2.b2body.getPosition().x >= 4.19 && player2.b2body.getPosition().x <= 4.24) {
                     levelComplete();
                 }
         } else {
@@ -294,7 +294,7 @@ public class SecondStage implements Screen {
                     levelComplete();
                 }
             if(FunGame.secondScreenStages == 3)
-                if (player.b2body.getPosition().y > 21.2 && player.b2body.getPosition().x <= 4.19 && player.b2body.getPosition().x >= 4.24) {
+                if (player.b2body.getPosition().y > 21.2 && player.b2body.getPosition().x >= 4.19 && player.b2body.getPosition().x <= 4.24) {
                     levelComplete();
                 }
         }
@@ -302,10 +302,10 @@ public class SecondStage implements Screen {
         for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
             /*if(FunGame.player2Selected) {
-                if (enemy.getY() < player2.getY() + 550 / FunGame.PPM) ;
+                if (enemy.getY() < player2.getY() + (540 / FunGame.PPM) || enemy.getX() < player2.getX() - (540 / FunGame.PPM))
                 enemy.b2body.setActive(true);
             } else {
-                if (enemy.getY() < player.getY() + 550 / FunGame.PPM) ;
+                if (enemy.getY() < player.getY() + (540 / FunGame.PPM) || enemy.getX() < player.getX() - (540 / FunGame.PPM))
                 enemy.b2body.setActive(true);
             }*/
         }
@@ -418,14 +418,13 @@ public class SecondStage implements Screen {
 
     @Override
     public void dispose() {
+        map.dispose();
+        //renderer.dispose();
+        //world.dispose();
+        //b2dr.dispose();
+        hud.dispose();
         atlas.dispose();
         atlas2.dispose();
-        //texture.dispose();
-        map.dispose();
-        renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
-        hud.dispose();
     }
 
     public boolean gameOver(){
@@ -447,34 +446,39 @@ public class SecondStage implements Screen {
                 FunGame.prefs.flush();
             }
             game.setScreen(new FinishGame(game));
+            dispose();
         }
         if(FunGame.secondScreenStages == 2) {
             FunGame.playScreenStages = 3;
             if(app.getType() == Application.ApplicationType.Desktop) {
                 FileHandle file = Gdx.files.local("saveData.txt");
-                if (file.readString().contains("4"))
+                if (!(file.readString().contains("6")))
                     file.writeString("5", false);
             }
             if(app.getType() == Application.ApplicationType.Android) {
-                if(FunGame.prefs.contains("4"))
-                FunGame.prefs.putInteger("level", 5);
-                FunGame.prefs.flush();
+                if(!(FunGame.prefs.getInteger("level") == 6)) {
+                    FunGame.prefs.putInteger("level", 5);
+                    FunGame.prefs.flush();
+                }
             }
             game.setScreen(new Level_complition(game));
+            dispose();
         }
         if(FunGame.secondScreenStages == 1) {
             FunGame.playScreenStages = 2;
             if(app.getType() == Application.ApplicationType.Desktop) {
                 FileHandle file = Gdx.files.local("saveData.txt");
-                if (file.readString().contains("2"))
+                if (!(file.readString().contains("6")))
                     file.writeString("3", false);
             }
             if(app.getType() == Application.ApplicationType.Android) {
-                FunGame.prefs.putInteger("level", 3);
-                if(FunGame.prefs.contains("2"))
-                FunGame.prefs.flush();
+                if(!(FunGame.prefs.getInteger("level") == 6)) {
+                    FunGame.prefs.putInteger("level", 3);
+                    FunGame.prefs.flush();
+                }
             }
             game.setScreen(new Level_complition(game));
+            dispose();
         }
 
         FunGame.PlayScreen = true;

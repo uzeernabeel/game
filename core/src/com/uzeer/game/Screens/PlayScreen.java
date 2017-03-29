@@ -34,7 +34,6 @@ import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Sprites.BulletFinal;
 import com.uzeer.game.Sprites.BulletFinal2;
 import com.uzeer.game.Sprites.Enemy;
-import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 import com.uzeer.game.Sprites.Jasmine;
 import com.uzeer.game.Sprites.Player;
@@ -53,7 +52,6 @@ public class PlayScreen implements Screen {
     //Take in Texutres
     private TextureAtlas atlas;
     private TextureAtlas atlas2;
-    private TextureAtlas atlas3;
     private Texture texture;
 
     //game camera
@@ -266,6 +264,7 @@ public class PlayScreen implements Screen {
         time += dt;
 
         world.step(1 / 60f, 6, 2);
+        //world.step(1 / 45f, 6, 2);
 
         if(FunGame.player2Selected){  //Stage selecting (if) statements and deciding when to complete.
             player2.update(dt);
@@ -306,10 +305,10 @@ public class PlayScreen implements Screen {
         for(Enemy enemy : creator.getEnemies()) {
             enemy.update(dt);
             /*if(FunGame.player2Selected) {
-                if (enemy.getX() < player2.getX() + 650 / FunGame.PPM) ;
+                if (enemy.getX() < player2.getX() + (440 / FunGame.PPM) || enemy.getX() < player2.getX() - (440 / FunGame.PPM))
                     enemy.b2body.setActive(true);
             } else {
-                if (enemy.getX() < player.getX() + 650 / FunGame.PPM) ;
+                if (enemy.getX() < player.getX() + (440 / FunGame.PPM) || enemy.getX() < player.getX() - (440 / FunGame.PPM))
                     enemy.b2body.setActive(true);
             }*/
         }
@@ -406,46 +405,49 @@ public class PlayScreen implements Screen {
                 FunGame.secondScreenStages = 1;
             if(app.getType() == Application.ApplicationType.Desktop) {
                 file = Gdx.files.local("saveData.txt");
-                if (file.readString().contains("1"))
+                if (!(file.readString().contains("6")))
                     file.writeString("2", false);
             }
             if(app.getType() == Application.ApplicationType.Android) {
-                if(FunGame.prefs.contains("1"))
-                FunGame.prefs.putInteger("level", 2);
-                FunGame.prefs.flush();
+                if(!(FunGame.prefs.getInteger("level") == 6)) {
+                    FunGame.prefs.putInteger("level", 2);
+                    FunGame.prefs.flush();
+                }
             }
         }
         if(FunGame.playScreenStages == 2) {
             FunGame.secondScreenStages = 2;
             if(app.getType() == Application.ApplicationType.Desktop) {
                 file = Gdx.files.local("saveData.txt");
-                if (file.readString().contains("3")) ;
+                if (!(file.readString().contains("6")))
                 file.writeString("4", false);
             }
             if(app.getType() == Application.ApplicationType.Android) {
-                if(FunGame.prefs.contains("3"))
-                FunGame.prefs.putInteger("level", 4);
-                FunGame.prefs.flush();
+                if(!(FunGame.prefs.getInteger("level") == 6)) {
+                    FunGame.prefs.putInteger("level", 4);
+                    FunGame.prefs.flush();
+                }
             }
         }
         if(FunGame.playScreenStages == 3) {
             FunGame.secondScreenStages = 3;
             if(app.getType() == Application.ApplicationType.Desktop) {
                 file = Gdx.files.local("saveData.txt");
-                if (file.readString().contains("4"))
+                if (!(file.readString().contains("6")))
                     file.writeString("5", false);
             }
             if(app.getType() == Application.ApplicationType.Android) {
-                if(FunGame.prefs.contains("5"))
-                FunGame.prefs.putInteger("level", 6);
-                FunGame.prefs.flush();
+                if(!(FunGame.prefs.getInteger("level") == 6)) {
+                    FunGame.prefs.putInteger("level", 6);
+                    FunGame.prefs.flush();
+                }
             }
         }
 
         FunGame.PlayScreen = false;
         FunGame.SecondScreen = true;
         game.setScreen(new Level_complition(game));
-        //dispose();
+        dispose();
     }
 
     public PlayScreen getScreen(){
@@ -484,14 +486,13 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        map.dispose();
+        //renderer.dispose();
+        //world.dispose();
+        //b2dr.dispose();
+        hud.dispose();
         atlas.dispose();
         atlas2.dispose();
-        //texture.dispose();
-        map.dispose();
-        renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
-        hud.dispose();
     }
 
 

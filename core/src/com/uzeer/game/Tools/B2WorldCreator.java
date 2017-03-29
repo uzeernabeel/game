@@ -17,7 +17,6 @@ import com.uzeer.game.Sprites.BadGuy;
 import com.uzeer.game.Sprites.CheckPoints;
 import com.uzeer.game.Sprites.Coin;
 import com.uzeer.game.Sprites.Enemy;
-import com.uzeer.game.Sprites.Fire;
 import com.uzeer.game.Sprites.Flinkstone;
 import com.uzeer.game.Sprites.Jasmine;
 import com.uzeer.game.Sprites.Player;
@@ -40,7 +39,7 @@ public class B2WorldCreator {
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
-        Body body;
+        Body body = null;
 
         //This is for Ground Layer # 2
         //for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
@@ -50,13 +49,13 @@ public class B2WorldCreator {
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX() + rect.getWidth() / 2) / FunGame.PPM, (rect.getY() + rect.getHeight() / 2) / FunGame.PPM);
 
+            //if(bdef.position.x < screen.player2.getX() + 1)
             body = world.createBody(bdef);
 
             shape.setAsBox(rect.getWidth() / 2 / FunGame.PPM, rect.getHeight() / 2 / FunGame.PPM);
             fdef.shape = shape;
             fdef.filter.categoryBits = FunGame.GROUND_BIT;
             fdef.filter.maskBits = FunGame.COIN_BIT |
-                    FunGame.FIRE_BIT |
                     FunGame.ENEMY_BIT |
                     FunGame.BULLET_BIT |
                     FunGame.BULLET_BIT2 |
@@ -121,7 +120,6 @@ public class B2WorldCreator {
             fdef.shape = shape;
             fdef.filter.categoryBits = FunGame.GROUND_BIT;
             fdef.filter.maskBits = FunGame.COIN_BIT |
-                    FunGame.FIRE_BIT |
                     FunGame.ENEMY_BIT |
                     FunGame.BULLET_BIT |
                     FunGame.BULLET_BIT2 |

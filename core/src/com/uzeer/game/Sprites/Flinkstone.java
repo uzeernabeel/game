@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -134,10 +135,11 @@ public class Flinkstone extends Enemy {
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 10 / FunGame.PPM);
            // setRegion(walkAnimation.getKeyFrame(stateTime, true));
             setRegion(getFrame(stateTime));
         }
+
     }
 
     @Override
@@ -150,16 +152,15 @@ public class Flinkstone extends Enemy {
         b2body.setGravityScale(10);
 
         fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
+        //PolygonShape shape = new PolygonShape();
         //Rectangle shape = new Rectangle();
-        //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(9 / FunGame.PPM, 14/ FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(10 / FunGame.PPM);
+        //shape.setAsBox(9 / FunGame.PPM, 14/ FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.ENEMY_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.BULLET_BIT |
@@ -182,6 +183,7 @@ public class Flinkstone extends Enemy {
         fdef.shape = head;
         fdef.restitution = 0.7f;
         fdef.filter.categoryBits = FunGame.ENEMY_HEAD_BIT;
+        fdef.filter.maskBits = FunGame.BULLET_BIT | FunGame.PLAYER_BIT | FunGame.BULLET_BIT2;
         b2body.createFixture(fdef).setUserData(this);
 
     }

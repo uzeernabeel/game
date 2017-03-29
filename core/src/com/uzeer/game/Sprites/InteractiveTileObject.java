@@ -63,13 +63,6 @@ public abstract class InteractiveTileObject {
         if (value.equals("Coins"))
             fdef.isSensor = true;
 
-        else if(value.equals("Fire")) {
-            fdef.restitution = 0.8f;
-        }
-
-        else if(value.equals("Checkpoints"))
-            fdef.isSensor = true;
-
         fixture = body.createFixture(fdef);
     }
 
@@ -92,13 +85,6 @@ public abstract class InteractiveTileObject {
         fdef.shape = shape;
 
         if (value.equals("Coins"))
-            fdef.isSensor = true;
-
-        else if(value.equals("Fire")) {
-            fdef.restitution = 0.8f;
-        }
-
-        else if(value.equals("Checkpoints"))
             fdef.isSensor = true;
 
         fixture = body.createFixture(fdef);

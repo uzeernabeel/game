@@ -41,7 +41,7 @@ public abstract class Enemy extends Sprite {
         velocity = new Vector2(1f, 0f);
         velocity2 = new Vector2(1.5f, 0f);
         NegVelocity2 = new Vector2(-1.5f, 0f);
-       //b2body.setActive(false);
+        //b2body.setActive(false);
     }
 
 
@@ -58,4 +58,7 @@ public abstract class Enemy extends Sprite {
     }
 
 
+    public void impulse() {
+        b2body.applyLinearImpulse(new Vector2(0, 3f), b2body.getWorldCenter(), true);
+    }
 }

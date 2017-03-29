@@ -51,6 +51,7 @@ public class Player extends Sprite {
     protected Fixture fixture;
     public static boolean playerDead;
     public static boolean spacePressed;
+    public boolean bulletMusic;
     private BodyDef bdef;
     float time;
 
@@ -65,6 +66,7 @@ public class Player extends Sprite {
 
         playerDead = false;
         spacePressed = false;
+        bulletMusic = false;
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
@@ -473,15 +475,11 @@ public class Player extends Sprite {
 
         FixtureDef fdef = new FixtureDef();
         PolygonShape shape = new PolygonShape();
-        //Rectangle shape = new Rectangle();
-        //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
         shape.setAsBox(8 / FunGame.PPM, 14 / FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.JASMINE_BIT |
@@ -489,26 +487,8 @@ public class Player extends Sprite {
 
         fdef.shape = shape;
 
-       // b2body.createFixture(fdef).setUserData("player");
         b2body.createFixture(fdef).setUserData(this);
 
-
-
-
-       // b2body.createFixture(fdef).setUserData(this);
-
-       /* PolygonShape body = new PolygonShape();
-        body.set(new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM), );
-        fdef.shape = body;
-
-        b2body.createFixture(fdef).setUserData("body");
-
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / FunGame.PPM, 7 / FunGame.PPM), new Vector2(2 / FunGame.PPM, 7 / FunGame.PPM));
-        fdef.shape = head;
-        fdef.isSensor = true;
-
-        b2body.createFixture(fdef).setUserData("head");  */
     }
 
     public boolean IsPlayerOnGround(){

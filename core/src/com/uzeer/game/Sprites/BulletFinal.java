@@ -97,8 +97,8 @@ public class BulletFinal extends Sprite {
 
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
+                FunGame.ENEMY_HEAD_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.PLAYER_BIT;
 

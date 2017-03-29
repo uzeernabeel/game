@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="150" tilewidth="22" tileheight="22" nextobjectid="213">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="38" height="150" tilewidth="22" tileheight="22" nextobjectid="215">
  <tileset firstgid="1" name="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67" tilewidth="22" tileheight="22" spacing="2" margin="25" tilecount="2255" columns="55">
   <image source="687474703a2f2f692e696d6775722e636f6d2f6856694b67416e2e706e67.png" width="1366" height="1007"/>
   <tile id="216">
@@ -183,7 +183,6 @@
  </objectgroup>
  <objectgroup name="badguy">
   <object id="171" x="132" y="2486" width="22" height="22"/>
-  <object id="172" x="242" y="2486" width="22" height="22"/>
   <object id="173" x="66" y="2156" width="22" height="22"/>
   <object id="177" x="528" y="1254" width="22" height="22"/>
   <object id="178" x="264" y="1254" width="22" height="22"/>
@@ -200,8 +199,8 @@
   <object id="203" x="264" y="2178" width="22" height="22"/>
   <object id="204" x="660" y="1958" width="22" height="22"/>
   <object id="205" x="352" y="1716" width="22" height="22"/>
-  <object id="206" x="308" y="1364" width="22" height="22"/>
-  <object id="207" x="484" y="1364" width="22" height="22"/>
+  <object id="213" x="396" y="1364" width="22" height="22"/>
+  <object id="214" x="396" y="1452" width="22" height="22"/>
  </objectgroup>
  <objectgroup name="jasmine">
   <object id="196" x="110" y="990" width="22" height="22"/>

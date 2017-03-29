@@ -81,6 +81,7 @@ public class Player2 extends Sprite {
         runningRight = true;
         FunGame.lives = 3;
         time = 0;
+        time2 = 0;
 
         texture = new Texture("player2.png");
 
@@ -445,6 +446,7 @@ public class Player2 extends Sprite {
 
         if(Hud.dead)
             playerDead = true;
+
     }
 
 
@@ -504,8 +506,9 @@ public class Player2 extends Sprite {
             return State.FALLING;
         else if(b2body.getLinearVelocity().x != 0)
             return State.RUNNING;
-        else if(FunGame.spacePressed)
+        else if(FunGame.spacePressed) {
             return State.THROWING;
+        }
         else if(b2body.getLinearVelocity().x == 0 && time > 6)
             return State.STANDING2;
         else if(b2body.getLinearVelocity().x == 0 && time < 6)
@@ -518,6 +521,7 @@ public class Player2 extends Sprite {
     public void definePlayer() {
         bdef = new BodyDef();
         bdef.position.set(32 / FunGame.PPM, 32 / FunGame.PPM);
+        //bdef.position.set(32f, 0.5f);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -534,7 +538,6 @@ public class Player2 extends Sprite {
         fdef.filter.categoryBits = FunGame.PLAYER_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.CHECK_POINT_BIT |

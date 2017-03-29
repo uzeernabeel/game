@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -139,13 +140,12 @@ public class parrot extends Enemy {
         PolygonShape shape = new PolygonShape();
         //Rectangle shape = new Rectangle();
         //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
+        //shape.setRadius(8 / FunGame.PPM);
         shape.setAsBox(10 / FunGame.PPM, 10/ FunGame.PPM, new Vector2(10 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.ENEMY_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.BULLET_BIT |
@@ -166,8 +166,9 @@ public class parrot extends Enemy {
         head.set(vertice);
 
         fdef.shape = head;
-        fdef.restitution = 1.5f;
+        fdef.restitution = 0.7f;
         fdef.filter.categoryBits = FunGame.ENEMY_HEAD_BIT;
+        fdef.filter.maskBits = FunGame.BULLET_BIT | FunGame.PLAYER_BIT | FunGame.BULLET_BIT2;
         b2body.createFixture(fdef).setUserData(this);
 
     }

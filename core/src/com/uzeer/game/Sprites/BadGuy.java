@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
@@ -17,55 +18,69 @@ import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
+import static com.uzeer.game.Sprites.Jasmine.State.RUNNING;
+import static com.uzeer.game.Sprites.Jasmine.State.STANDING;
+
 /**
  * Created by Uzeer on 2/3/2017.
  */
 
 public class BadGuy extends Enemy{
+    public enum State {STANDING, RUNNING}
     private float stateTime;
     private Animation walkAnimation;
+    private Animation standAnimation;
     private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
     private boolean runningRight;
     TextureRegion region;
 
+    public State currentState;
+    public State previousState;
+
     private Texture badGuyTexture;
 
     FixtureDef fdef;
+    private float time;
 
     public BadGuy(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         runningRight = true;
+        time = 0;
+        currentState = State.STANDING;
+        previousState = State.STANDING;
         badGuyTexture = new Texture("enemy.png");
         frames = new Array<TextureRegion>();
         for(int i = 1; i < 7; i++){
             if(i == 1)
-                frames.add(new TextureRegion(badGuyTexture, 5, 138, 57, 50));
+                frames.add(new TextureRegion(badGuyTexture, 5, 134, 60, 58));
             else if(i == 2)
-                frames.add(new TextureRegion(badGuyTexture, 63, 138, 57, 50));
+                frames.add(new TextureRegion(badGuyTexture, 67, 134, 56, 60));
             else if(i == 3)
-                frames.add(new TextureRegion(badGuyTexture, 120, 138, 58, 50));
+                frames.add(new TextureRegion(badGuyTexture, 123, 134, 60, 60));
             else if(i == 4)
-                frames.add(new TextureRegion(badGuyTexture, 186, 131, 58, 50));
+                frames.add(new TextureRegion(badGuyTexture, 246, 134, 61, 60));
             else if(i == 5)
-                frames.add(new TextureRegion(badGuyTexture, 246, 138, 61, 50));
-            else if(i == 6)
-                frames.add(new TextureRegion(badGuyTexture, 310, 135, 58, 50));
+                frames.add(new TextureRegion(badGuyTexture, 314, 134, 58, 60));
         }
-        walkAnimation = new Animation(0.3f, frames);
+        walkAnimation = new Animation(0.2f, frames);
         frames.clear();
 
-        region = walkAnimation.getKeyFrame(stateTime, true);
+        for(int i = 3; i < 5; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(badGuyTexture, 1, 288, 60, 60));
+            else if(i == 2)
+                frames.add(new TextureRegion(badGuyTexture, 64, 138, 60, 50));
+            else if(i == 3)
+                frames.add(new TextureRegion(badGuyTexture, 2, 353, 60, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(badGuyTexture, 63, 353, 60, 61));
+        }
+        standAnimation = new Animation(0.3f, frames);
+        frames.clear();
 
-        if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = false;
-        }
-        else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
+        //region = walkAnimation.getKeyFrame(stateTime, true);
 
         stateTime = 0;
         setBounds(getX(), getY(), 52 / FunGame.PPM, 39 / FunGame.PPM);
@@ -77,35 +92,40 @@ public class BadGuy extends Enemy{
     public BadGuy(SecondStage screen, float x, float y) {
         super(screen, x, y);
         runningRight = true;
+        time = 0;
+        currentState = State.STANDING;
+        previousState = State.STANDING;
         badGuyTexture = new Texture("enemy.png");
         frames = new Array<TextureRegion>();
-        for(int i = 1; i < 6; i++){
+        for(int i = 1; i < 7; i++){
             if(i == 1)
-                frames.add(new TextureRegion(badGuyTexture, 5, 138, 57, 50));
+                frames.add(new TextureRegion(badGuyTexture, 5, 134, 60, 58));
             else if(i == 2)
-                frames.add(new TextureRegion(badGuyTexture, 68, 138, 55, 50));
+                frames.add(new TextureRegion(badGuyTexture, 67, 134, 56, 60));
             else if(i == 3)
-                frames.add(new TextureRegion(badGuyTexture, 123, 138, 56, 50));
+                frames.add(new TextureRegion(badGuyTexture, 123, 134, 60, 60));
             else if(i == 4)
-                frames.add(new TextureRegion(badGuyTexture, 190, 138, 55, 50));
+                frames.add(new TextureRegion(badGuyTexture, 246, 134, 61, 60));
             else if(i == 5)
-                frames.add(new TextureRegion(badGuyTexture, 314, 138, 58, 50));
+                frames.add(new TextureRegion(badGuyTexture, 314, 134, 58, 60));
         }
-        //else if(i == 5)
-            //frames.add(new TextureRegion(badGuyTexture, 246, 138, 61, 50));
         walkAnimation = new Animation(0.3f, frames);
         frames.clear();
 
-        region = walkAnimation.getKeyFrame(stateTime, true);
+        for(int i = 3; i < 5; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(badGuyTexture, 1, 288, 60, 60));
+            else if(i == 2)
+                frames.add(new TextureRegion(badGuyTexture, 64, 138, 60, 50));
+            else if(i == 3)
+                frames.add(new TextureRegion(badGuyTexture, 2, 353, 60, 61));
+            else if(i == 4)
+                frames.add(new TextureRegion(badGuyTexture, 63, 353, 60, 61));
+        }
+        standAnimation = new Animation(0.2f, frames);
+        frames.clear();
 
-        if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = false;
-        }
-        else if ((b2body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
-            region.flip(true, false);
-            runningRight = true;
-        }
+        //region = walkAnimation.getKeyFrame(stateTime, true);
 
         stateTime = 0;
         setBounds(getX(), getY(), 52 / FunGame.PPM, 39 / FunGame.PPM);
@@ -117,11 +137,13 @@ public class BadGuy extends Enemy{
 
     public void update(float dt){
         stateTime += dt;
+        time += dt;
         if(setToDestroy && !destroyed){
             world.destroyBody(b2body);
             destroyed = true;
             setBounds(getX(), getY(), 42 / FunGame.PPM, 50 / FunGame.PPM);
             setRegion(new TextureRegion(badGuyTexture, 5, 424, 45, 62));
+            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 14 / FunGame.PPM);
             //setRegion(new TextureRegion(screen.getAtlas().findRegion("enemy"), 113, 52, 49, 51));
             stateTime = 0;
             fdef.filter.maskBits = FunGame.DESTROYED_BIT;
@@ -129,10 +151,29 @@ public class BadGuy extends Enemy{
         }
         else if(!destroyed) {
             b2body.setLinearVelocity(velocity);
-            setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 15 / FunGame.PPM);
+            if(currentState == State.RUNNING)
+                setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 6 / FunGame.PPM);
+            else
+                setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 10 / FunGame.PPM);
             // setRegion(walkAnimation.getKeyFrame(stateTime, true));
             setRegion(getFrame(stateTime));
         }
+
+        if(time > 5)
+            velocity.x = 0;
+
+        if(time > 10)
+            if(runningRight)
+            velocity.x = 1f;
+            else
+            velocity.x = -1f;
+
+        if(time > 15)
+            time = 0;
+
+        if(b2body.getLinearVelocity().x == 0 && time > 3)
+            velocity.x = -velocity.x;
+
     }
 
     @Override
@@ -145,16 +186,15 @@ public class BadGuy extends Enemy{
         b2body.setGravityScale(10);
 
         fdef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
+        //PolygonShape shape = new PolygonShape();
         //Rectangle shape = new Rectangle();
-        //CircleShape shape = new CircleShape();
-        //shape.setRadius(7 / FunGame.PPM);
-        shape.setAsBox(9 / FunGame.PPM, 14/ FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
+        CircleShape shape = new CircleShape();
+        shape.setRadius(10 / FunGame.PPM);
+        //shape.setAsBox(10 / FunGame.PPM, 14/ FunGame.PPM, new Vector2(0 / FunGame.PPM, 10 / FunGame.PPM), 0);
 
         fdef.filter.categoryBits = FunGame.ENEMY_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.BULLET_BIT |
@@ -177,6 +217,7 @@ public class BadGuy extends Enemy{
         fdef.shape = head;
         fdef.restitution = 0.7f;
         fdef.filter.categoryBits = FunGame.ENEMY_HEAD_BIT;
+        fdef.filter.maskBits = FunGame.BULLET_BIT | FunGame.PLAYER_BIT | FunGame.BULLET_BIT2;
         b2body.createFixture(fdef).setUserData(this);
 
     }
@@ -188,8 +229,19 @@ public class BadGuy extends Enemy{
 
 
     public TextureRegion getFrame(float dt) {
+        currentState = getState();
         TextureRegion region;
-        region = walkAnimation.getKeyFrame(stateTime, true);
+        switch (currentState) {
+            case RUNNING:
+                region = walkAnimation.getKeyFrame(stateTime, true);
+                break;
+            case STANDING:
+                region = standAnimation.getKeyFrame(stateTime, true);
+                break;
+            default:
+                region = standAnimation.getKeyFrame(stateTime, true);
+                break;
+        }
 
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
@@ -201,6 +253,13 @@ public class BadGuy extends Enemy{
         }
 
         return region;
+    }
+
+    private State getState() {
+        if(velocity.x == 0 || b2body.getLinearVelocity().x == 0)
+            return State.STANDING;
+        else
+            return State.RUNNING;
     }
 
     @Override

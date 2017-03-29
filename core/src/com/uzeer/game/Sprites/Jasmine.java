@@ -19,13 +19,19 @@ import com.uzeer.game.Scenes.Hud;
 import com.uzeer.game.Screens.PlayScreen;
 import com.uzeer.game.Screens.SecondStage;
 
+import static com.uzeer.game.Sprites.Jasmine.State.RUNNING;
+import static com.uzeer.game.Sprites.Jasmine.State.STANDING;
+
 /**
  * Created by Uzeer on 3/12/2017.
  */
 
 public class Jasmine extends Sprite {
+
+    public enum State {STANDING, RUNNING}
     private float stateTime;
     private Animation walkAnimation;
+    private Animation standAnimation;
     private Array<TextureRegion> frames;
     private boolean runningRight;
     PlayScreen screen;
@@ -36,12 +42,19 @@ public class Jasmine extends Sprite {
     FixtureDef fdef;
     float x;
     float y;
+    private float time;
+    public Jasmine.State currentState;
+    public Jasmine.State previousState;
+
 
     public Jasmine(PlayScreen screen, float x, float y) {
         this.screen = screen;
         this.world = screen.getWorld();
         this.x = x;
         this.y = y;
+        currentState = State.STANDING;
+        previousState = State.STANDING;
+        stateTime = 0f;
         runningRight = true;
         velocity = new Vector2(.75f, 0);
         frames = new Array<TextureRegion>();
@@ -78,7 +91,22 @@ public class Jasmine extends Sprite {
                 frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 382, 1, 62, 165));
                 */
         }
-        walkAnimation = new Animation(0.2f, frames);
+        walkAnimation = new Animation(0.1f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 6; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 446, 1, 64, 165));
+            else if(i == 2)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 195, 1, 62, 165));
+            else if(i == 3)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 260, 1, 61, 165));
+            else if(i == 4)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 321, 1, 61, 165));
+            else if(i == 5)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 382, 1, 62, 165));
+        }
+        standAnimation = new Animation(0.2f, frames);
         frames.clear();
 
         TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
@@ -92,7 +120,6 @@ public class Jasmine extends Sprite {
             runningRight = true;
         }*/
 
-        stateTime = 0;
         setBounds(getX(), getY(), 30 / FunGame.PPM, 45 / FunGame.PPM);
 
         defineJasmine();
@@ -103,6 +130,9 @@ public class Jasmine extends Sprite {
         this.world = screen.getWorld();
         this.x = x;
         this.y = y;
+        currentState = State.STANDING;
+        previousState = State.STANDING;
+        stateTime = 0f;
         runningRight = true;
         velocity = new Vector2(.75f, 0);
         frames = new Array<TextureRegion>();
@@ -129,12 +159,26 @@ public class Jasmine extends Sprite {
             else if (i == 10)
                 frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 1059, 1, 66, 165));
         }
-        walkAnimation = new Animation(0.2f, frames);
+        walkAnimation = new Animation(0.1f, frames);
+        frames.clear();
+
+        for(int i = 1; i < 6; i++){
+            if(i == 1)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 446, 1, 64, 165));
+            else if(i == 2)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 195, 1, 62, 165));
+            else if(i == 3)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 260, 1, 61, 165));
+            else if(i == 4)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 321, 1, 61, 165));
+            else if(i == 5)
+                frames.add(new TextureRegion(screen.getAtlas2().findRegion("jasmine"), 382, 1, 62, 165));
+        }
+        standAnimation = new Animation(0.2f, frames);
         frames.clear();
 
         TextureRegion region = walkAnimation.getKeyFrame(stateTime, true);
 
-        stateTime = 0;
         setBounds(getX(), getY(), 30 / FunGame.PPM, 48 / FunGame.PPM);
 
         defineJasmine();
@@ -143,12 +187,26 @@ public class Jasmine extends Sprite {
 
     public void update(float dt){
         stateTime += dt;
+        time += dt;
         b2body.setLinearVelocity(velocity);
         if(FunGame.PlayScreen)
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 17 / FunGame.PPM);
         if(FunGame.SecondScreen)
             setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2 + 18 / FunGame.PPM);
+
         setRegion(getFrame(stateTime));
+
+        if(time > 5)
+            velocity.x = 0;
+
+        if(time > 7)
+            if(runningRight)
+            velocity.x = 0.75f;
+            else
+            velocity.x = -0.75f;
+
+        if(time > 15)
+            time = 0;
     }
 
     protected void defineJasmine() {
@@ -170,7 +228,6 @@ public class Jasmine extends Sprite {
         fdef.filter.categoryBits = FunGame.JASMINE_BIT;
         fdef.filter.maskBits = FunGame.DEFAULT_BIT |
                 FunGame.COIN_BIT |
-                FunGame.FIRE_BIT |
                 FunGame.ENEMY_BIT |
                 FunGame.GROUND_BIT |
                 FunGame.PLAYER_BIT;
@@ -185,9 +242,19 @@ public class Jasmine extends Sprite {
 
 
     public TextureRegion getFrame(float dt) {
+        currentState = getState();
         TextureRegion region;
-        region = walkAnimation.getKeyFrame(stateTime, true);
-
+        switch (currentState) {
+            case RUNNING:
+                region = walkAnimation.getKeyFrame(stateTime, true);
+                break;
+            case STANDING:
+                region = standAnimation.getKeyFrame(stateTime, true);
+                break;
+            default:
+                region = standAnimation.getKeyFrame(stateTime, true);
+                break;
+        }
         if ((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
@@ -198,6 +265,13 @@ public class Jasmine extends Sprite {
         }
 
         return region;
+    }
+
+    private State getState() {
+        if(velocity.x == 0)
+            return STANDING;
+        else
+            return RUNNING;
     }
 
     public void dispose(){
