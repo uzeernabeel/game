@@ -3,6 +3,8 @@ package com.uzeer.game.Screens;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -46,7 +48,7 @@ import java.util.ArrayList;
 
 import static com.badlogic.gdx.Gdx.app;
 
-public class PlayScreen implements Screen {
+public class PlayScreen extends InputAdapter implements Screen {
     private FunGame game;
 
     //Take in Texutres
@@ -94,6 +96,7 @@ public class PlayScreen implements Screen {
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(FunGame.V_WIDTH / FunGame.PPM, FunGame.V_HEIGHT / FunGame.PPM, gamecam);
         hud = new Hud(game.batch);
+        Gdx.input.setInputProcessor(this);
 
         mapLoader = new TmxMapLoader();
 
@@ -496,4 +499,18 @@ public class PlayScreen implements Screen {
     }
 
 
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode == Input.Keys.SPACE){
+            spacePressed();
+        }
+        return  true;
+    }
+
+    private void spacePressed() {
+        if(FunGame.player2Selected)
+            FunGame.manager.get("sounds/alaPower.mp3", Sound.class).play();
+        else
+            FunGame.manager.get("sounds/subPower.mp3", Sound.class).play();
+    }
 }

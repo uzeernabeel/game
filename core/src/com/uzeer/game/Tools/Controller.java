@@ -1,5 +1,6 @@
 package com.uzeer.game.Tools;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,6 +29,7 @@ public class Controller {
         cam = new OrthographicCamera();
         viewport = new FitViewport(FunGame.V_WIDTH2, FunGame.V_HEIGHT2, cam);
         stage = new Stage(viewport, batch);
+        if(Gdx.app.getType() == Application.ApplicationType.Android)
         Gdx.input.setInputProcessor(stage);
 
         Table table = new Table();
